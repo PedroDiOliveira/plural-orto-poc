@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plural Orto · Atendimento — Ana Costa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:       #F4EEE2;
+  --paper-2:     #EDE5D2;
+  --paper-3:     #E3D9C0;
+  --cream:       #FBF6EE;
+  --ink:         #17140F;
+  --ink-2:       #3A352C;
+  --ink-3:       #6B6456;
+  --ink-4:       #9B937F;
+  --line:        #D9CFB8;
+  --line-2:      #E5DCC6;
+  --accent:      #C15F3C;
+  --accent-ink:  #8A3E25;
+  --accent-soft: #EDD6C3;
+  --gold:        #B08A4A;
+  --gold-soft:   #E8D9B2;
+  --red:         #B03030;
+  --red-soft:    #F5DDD8;
+  --green:       #6E7F4C;
+
+  --shadow-sm: 0 1px 2px rgba(26,20,14,0.04), 0 2px 6px rgba(26,20,14,0.04);
+  --shadow-md: 0 2px 4px rgba(26,20,14,0.04), 0 12px 30px -12px rgba(26,20,14,0.12);
+
+  --radius-sm: 10px;
+  --radius:    16px;
+
+  --font-sans:  "Inter", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+
+  --header-h: 56px;
+  --nav-h:    48px;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(at 18% 12%, rgba(193,95,60,0.06) 0, transparent 40%),
+    radial-gradient(at 88% 85%, rgba(176,138,74,0.05) 0, transparent 45%);
+  background-attachment: fixed;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500; margin-bottom: 10px; display: block;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(244,238,226,0.82);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid rgba(217,207,184,0.7);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em;
+}
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, #1F1A13 0%, #2E2820 100%);
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); flex-shrink: 0;
+}
+.brand-mark::after {
+  content: ""; position: absolute; inset: auto auto 5px 5px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #E37A54, #B84C2B);
+  box-shadow: 0 0 10px rgba(193,95,60,0.6);
+}
+.header-right { display: flex; align-items: center; gap: 18px; }
+.bell-wrap {
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; cursor: pointer; position: relative; transition: background 150ms;
+}
+.bell-wrap:hover { background: var(--paper-2); }
+.bell-wrap svg { width: 17px; height: 17px; }
+.bell-pip {
+  position: absolute; top: 7px; right: 8px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); border: 1.5px solid var(--paper);
+}
+.user-chip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 5px 12px 5px 6px;
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: 999px; cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: box-shadow 150ms, border-color 150ms;
+}
+.user-chip:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #E37A54, #B84C2B);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10.5px; font-weight: 600; color: var(--cream); flex-shrink: 0;
+}
+.user-info { line-height: 1.2; }
+.user-name   { font-size: 13px; font-weight: 500; }
+.user-clinic { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-4); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99;
+  height: var(--nav-h);
+  background: rgba(244,238,226,0.75);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(217,207,184,0.6);
+  display: flex; align-items: center; padding: 0 32px; gap: 2px;
+}
+.nav-tab {
+  padding: 0 16px; height: var(--nav-h);
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 400; color: var(--ink-3);
+  border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap;
+}
+.nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
+.nav-tab:hover { color: var(--ink-2); }
+.nav-tab:hover svg { opacity: 0.9; }
+.nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.nav-tab.active svg { opacity: 1; }
+
+/* ── MAIN ── */
+.main { margin-top: calc(var(--header-h) + var(--nav-h)); padding: 28px 32px 48px; }
+
+/* ── CARD ── */
+.card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm);
+}
+.divider { height: 1px; background: var(--line-2); margin: 14px -16px; }
+.card-footer { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-2); }
+.footer-link {
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+}
+.footer-link:hover { opacity: 0.75; }
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+  color: var(--ink-4); margin-bottom: 20px;
+}
+.breadcrumb a { color: var(--accent-ink); }
+.breadcrumb a:hover { opacity: 0.75; }
+.bc-sep { color: var(--line); }
+.bc-current { color: var(--ink-2); font-weight: 500; }
+.bc-status {
+  padding: 2px 8px; border-radius: 999px; font-size: 9px;
+  background: rgba(193,95,60,0.10); color: var(--accent-ink);
+  border: 1px solid rgba(193,95,60,0.25); font-weight: 500;
+}
+
+/* ── LAYOUT ── */
+.aten-grid { display: grid; grid-template-columns: 1fr 300px; gap: 14px; align-items: start; }
+.aten-workspace { display: flex; flex-direction: column; gap: 14px; }
+.aten-sidebar { display: flex; flex-direction: column; gap: 14px; position: sticky; top: calc(var(--header-h) + var(--nav-h) + 28px); }
+
+/* ── PATIENT HEADER ── */
+.patient-hd { display: flex; align-items: flex-start; gap: 14px; }
+.patient-avatar-lg {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent-soft); border: 1.5px solid #E1C6AE;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--accent-ink);
+}
+.patient-name-lg {
+  font-family: var(--font-serif); font-size: 20px; font-weight: 500;
+  letter-spacing: -0.02em; line-height: 1.1; font-variation-settings: "opsz" 72;
+}
+.patient-meta-lg { font-size: 12.5px; color: var(--ink-3); margin-top: 4px; }
+.patient-contact {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4);
+  margin-top: 6px; letter-spacing: 0.04em;
+}
+.patient-contact svg { width: 12px; height: 12px; }
+.patient-alert {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 12px; border-radius: var(--radius-sm);
+  background: var(--red-soft); border: 1px solid rgba(176,48,48,0.18);
+  font-size: 12.5px; color: var(--red); margin-top: 12px; font-weight: 500;
+}
+.patient-alert svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ── PROCEDURE CARD ── */
+.proc-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.proc-name {
+  font-family: var(--font-serif); font-size: 18px; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.2; font-variation-settings: "opsz" 72;
+}
+.proc-badge {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.07em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 999px; font-weight: 500;
+  white-space: nowrap; flex-shrink: 0;
+  background: rgba(193,95,60,0.10); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.22);
+}
+.proc-meta { display: flex; gap: 20px; margin-bottom: 14px; }
+.proc-meta-item { font-size: 12px; color: var(--ink-3); }
+.proc-meta-item strong { color: var(--ink-2); font-weight: 500; }
+
+.notes-label {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-4); font-weight: 500; margin-bottom: 6px;
+}
+.notes-area {
+  width: 100%; background: var(--paper-2); border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm); padding: 10px 12px;
+  font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3);
+  letter-spacing: 0.02em; min-height: 72px; line-height: 1.6; resize: vertical;
+  outline: none; transition: border-color 150ms;
+}
+.notes-area:focus { border-color: var(--line); }
+
+.materials-section { margin-top: 14px; }
+.material-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--line-2);
+  font-size: 12.5px; color: var(--ink-2); cursor: default;
+}
+.material-item:last-child { border-bottom: none; }
+.mcheck {
+  width: 15px; height: 15px; border-radius: 4px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.mcheck.checked { background: rgba(110,127,76,0.15); border: 1.5px solid var(--green); }
+.mcheck.unchecked { background: var(--paper-2); border: 1.5px solid var(--line); }
+.mcheck.checked svg { width: 8px; height: 8px; }
+
+/* ── ODONTOGRAM ── */
+.odontogram { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.odontogram-arch { display: flex; gap: 3px; align-items: flex-end; }
+.odontogram-mid { display: flex; align-items: center; gap: 6px; width: 100%; margin: 6px 0; }
+.odontogram-mid-line { flex: 1; height: 1px; background: var(--line-2); }
+.odontogram-mid-label {
+  font-family: var(--font-mono); font-size: 9px; color: var(--ink-4);
+  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+}
+.tooth-col { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.tooth {
+  width: 24px; height: 26px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid; flex-shrink: 0;
+}
+.tooth-num { font-family: var(--font-mono); font-size: 8px; color: var(--ink-4); line-height: 1; }
+.tooth.ok      { background: var(--paper-2); border-color: var(--line); }
+.tooth.done    { background: rgba(110,127,76,0.12); border-color: rgba(110,127,76,0.35); }
+.tooth.active  { background: var(--accent-soft); border-color: var(--accent); }
+.tooth.missing { background: var(--paper-3); border-color: var(--line); opacity: 0.4; }
+.odonto-legend { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+.odonto-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--ink-4); }
+.odonto-swatch { width: 10px; height: 10px; border-radius: 3px; border: 1px solid; }
+.odonto-swatch.done    { background: rgba(110,127,76,0.12); border-color: rgba(110,127,76,0.35); }
+.odonto-swatch.active  { background: var(--accent-soft); border-color: var(--accent); }
+.odonto-swatch.ok      { background: var(--paper-2); border-color: var(--line); }
+.odonto-swatch.missing { background: var(--paper-3); border-color: var(--line); opacity: 0.5; }
+
+/* ── TREATMENT PLAN ── */
+.treatment-step {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--line-2);
+  font-size: 13px; color: var(--ink-2);
+}
+.treatment-step:last-child { border-bottom: none; }
+.treatment-step.done-step { color: var(--ink-4); }
+.treatment-step.current-step { color: var(--ink); font-weight: 500; }
+.step-icon {
+  width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 9px; font-weight: 600;
+}
+.step-icon.done    { background: rgba(110,127,76,0.15); color: var(--green); }
+.step-icon.current { background: var(--accent-soft); color: var(--accent-ink); }
+.step-icon.todo    { background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-4); }
+.step-num { font-family: var(--font-mono); font-size: 9px; color: var(--ink-4); margin-left: auto; flex-shrink: 0; }
+
+.plan-progress-wrap { margin-bottom: 14px; }
+.plan-progress-bar { height: 4px; background: var(--line-2); border-radius: 2px; }
+.plan-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 43%; }
+.plan-progress-label {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-4);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px;
+}
+
+/* ── SESSION TIMER ── */
+.timer-display {
+  font-family: var(--font-mono); font-size: 40px; font-weight: 400;
+  letter-spacing: 0.04em; color: var(--ink); text-align: center;
+  padding: 14px 0 4px;
+}
+.timer-label {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); text-align: center; margin-bottom: 16px;
+}
+.session-divider { height: 1px; background: var(--line-2); margin: 12px 0; }
+.session-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.session-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); }
+.session-value { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.pay-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 500;
+  font-family: var(--font-mono); letter-spacing: 0.05em;
+  background: rgba(110,127,76,0.12); color: var(--green); border: 1px solid rgba(110,127,76,0.25);
+}
+.pay-badge svg { width: 10px; height: 10px; }
+.end-session-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 9px 16px; border-radius: var(--radius-sm);
+  border: 1px solid rgba(176,48,48,0.3); background: rgba(176,48,48,0.05);
+  color: var(--red); font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
+  cursor: pointer; width: 100%; margin-top: 14px; transition: background 150ms;
+}
+.end-session-btn:hover { background: rgba(176,48,48,0.10); }
+
+/* ── QUICK ACTIONS ── */
+.quick-action {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--line-2);
+  font-size: 12.5px; color: var(--ink-2); cursor: pointer;
+  transition: color 150ms;
+}
+.quick-action:last-child { border-bottom: none; }
+.quick-action:hover { color: var(--ink); }
+.qa-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: var(--paper-2); border: 1px solid var(--line-2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: background 150ms;
+}
+.quick-action:hover .qa-icon { background: var(--paper-3); }
+.qa-icon svg { width: 13px; height: 13px; }
+
+/* ── HISTORY ── */
+.history-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--line-2);
+}
+.history-item:last-of-type { border-bottom: none; }
+.history-date { font-family: var(--font-mono); font-size: 10px; color: var(--ink-4); width: 42px; flex-shrink: 0; text-align: right; }
+.history-proc { font-size: 12.5px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    Plural Orto
+  </div>
+  <div class="header-right">
+    <div class="bell-wrap">
+      <svg viewBox="0 0 17 17" fill="none">
+        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z" stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 11.5a1.5 1.5 0 003 0" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="bell-pip"></div>
+    </div>
+    <div class="user-chip">
+      <div class="avatar">DM</div>
+      <div class="user-info">
+        <div class="user-name">Dr. Marcelo</div>
+        <div class="user-clinic">Clinica Central</div>
+      </div>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;flex-shrink:0;">
+        <path d="M1 1l4 4 4-4" stroke="#9B937F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-tab" href="prototipo1.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="1" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    Dashboard
+  </a>
+  <a class="nav-tab active" href="consultorio.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 13h5M7 10v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Consultorio Virtual
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1.5" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 6h11" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="4.5" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="7" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="9.5" cy="9.5" r="0.8" fill="currentColor"/>
+    </svg>
+    Agenda
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 13.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Pacientes
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+    Comunicacao
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.05 3.05l1.06 1.06M9.89 9.89l1.06 1.06M10.95 3.05L9.89 4.11M4.11 9.89l-1.06 1.06" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Configuracoes
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="consultorio.html">← Meu dia</a>
+    <span class="bc-sep">·</span>
+    <span class="bc-current">Ana Costa</span>
+    <span class="bc-sep">·</span>
+    <span>08:30</span>
+    <span class="bc-status">Em atendimento</span>
+  </div>
+
+  <div class="aten-grid">
+
+    <!-- ══ WORKSPACE PRINCIPAL ══ -->
+    <div class="aten-workspace">
+
+      <!-- Paciente -->
+      <div class="card">
+        <span class="eyebrow">Paciente em atendimento</span>
+        <div class="patient-hd">
+          <div class="patient-avatar-lg">AC</div>
+          <div style="flex:1;">
+            <div class="patient-name-lg">Ana Costa</div>
+            <div class="patient-meta-lg">28 anos · F · Paciente desde nov. 2024</div>
+            <div class="patient-contact">
+              <svg viewBox="0 0 12 12" fill="none">
+                <path d="M10.5 8.5c0 .276-.06.548-.178.797a1.94 1.94 0 01-.49.664C9.5 10.3 9.1 10.5 8.667 10.5c-.56 0-1.16-.18-1.8-.547A14.6 14.6 0 014.5 7.5a14.6 14.6 0 01-2.453-2.367C1.68 4.493 1.5 3.893 1.5 3.333c0-.42.193-.827.52-1.153A1.94 1.94 0 013.5 1.5c.273 0 .547.06.793.18.253.12.48.3.653.553l2.007 2.834c.173.247.293.48.36.7.067.213.087.413.053.593-.033.18-.113.347-.233.487L6.5 7c.16.32.42.64.78.953.36.313.693.547 1.007.7l.153-.633c.14-.12.307-.2.487-.233.18-.033.38-.013.593.053.22.067.453.187.7.36l2.834 2.007c.253.173.433.4.547.647Z" stroke="currentColor" stroke-width="1"/>
+              </svg>
+              (61) 99123-4567
+            </div>
+          </div>
+        </div>
+        <div class="patient-alert">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M7 1.5L1 13h12L7 1.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M7 5.5v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="7" cy="10.2" r="0.7" fill="currentColor"/>
+          </svg>
+          Alergia a Dipirona (Metamizol) — evitar analgésicos dessa classe
+        </div>
+      </div>
+
+      <!-- Procedimento + Evolução + Materiais -->
+      <div class="card">
+        <span class="eyebrow">Procedimento de hoje</span>
+        <div class="proc-header">
+          <div class="proc-name">Manutenção mensal<br><em style="font-family:var(--font-serif);font-style:italic;color:var(--accent-ink);font-size:15px;">aparelho fixo metálico</em></div>
+          <span class="proc-badge">Em andamento</span>
+        </div>
+        <div class="proc-meta">
+          <div class="proc-meta-item"><strong>Iniciou</strong> 08:30</div>
+          <div class="proc-meta-item"><strong>Duração est.</strong> ~30 min</div>
+          <div class="proc-meta-item"><strong>Sessão</strong> 3ª de 7</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="notes-label">Evolução da consulta</div>
+        <textarea class="notes-area" placeholder="Descreva os procedimentos realizados, observações clínicas e intercorrências..."></textarea>
+
+        <div class="materials-section">
+          <div class="notes-label" style="margin-top:12px;">Materiais utilizados</div>
+          <div class="material-item">
+            <div class="mcheck checked">
+              <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3.5" stroke="#6E7F4C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Fio de aço 0.019"×0.025" (arco superior)
+          </div>
+          <div class="material-item">
+            <div class="mcheck checked">
+              <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3.5" stroke="#6E7F4C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Elástico power chain — vermelho (12-22)
+          </div>
+          <div class="material-item">
+            <div class="mcheck unchecked"></div>
+            Bracket de reposição superior (caso necessário)
+          </div>
+          <div class="material-item">
+            <div class="mcheck unchecked"></div>
+            Cera ortodntica para proteção
+          </div>
+        </div>
+      </div>
+
+      <!-- Odontograma -->
+      <div class="card">
+        <span class="eyebrow">Odontograma</span>
+        <div class="odontogram">
+
+          <div class="odontogram-arch">
+            <div class="tooth-col"><div class="tooth missing"></div><div class="tooth-num">18</div></div>
+            <div class="tooth-col"><div class="tooth ok"></div><div class="tooth-num">17</div></div>
+            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">16</div></div>
+            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">15</div></div>
+            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">14</div></div>
+            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">13</div></div>
+            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">12</div></div>
+            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">11</div></div>
+            <div style="width:10px;flex-shrink:0;"></div>
+            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">21</div></div>
+            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">22</div></div>
+            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">23</div></div>
+            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">24</div></div>
+            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">25</div></div>
+            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">26</div></div>
+            <div class="tooth-col"><div class="tooth ok"></div><div class="tooth-num">27</div></div>
+            <div class="tooth-col"><div class="tooth missing"></div><div class="tooth-num">28</div></div>
+          </div>
+
+          <div class="odontogram-mid">
+            <div class="odontogram-mid-line"></div>
+            <div class="odontogram-mid-label">Superior · Inferior</div>
+            <div class="odontogram-mid-line"></div>
+          </div>
+
+          <div class="odontogram-arch">
+            <div class="tooth-col"><div class="tooth-num">48</div><div class="tooth ok"></div></div>
+            <div class="tooth-col"><div class="tooth-num">47</div><div class="tooth ok"></div></div>
+            <div class="tooth-col"><div class="tooth-num">46</div><div class="tooth done"></div></div>
+            <div class="tooth-col"><div class="tooth-num">45</div><div class="tooth done"></div></div>
+            <div class="tooth-col"><div class="tooth-num">44</div><div class="tooth done"></div></div>
+            <div class="tooth-col"><div class="tooth-num">43</div><div class="tooth active"></div></div>
+            <div class="tooth-col"><div class="tooth-num">42</div><div class="tooth active"></div></div>
+            <div class="tooth-col"><div class="tooth-num">41</div><div class="tooth active"></div></div>
+            <div style="width:10px;flex-shrink:0;"></div>
+            <div class="tooth-col"><div class="tooth-num">31</div><div class="tooth active"></div></div>
+            <div class="tooth-col"><div class="tooth-num">32</div><div class="tooth active"></div></div>
+            <div class="tooth-col"><div class="tooth-num">33</div><div class="tooth active"></div></div>
+            <div class="tooth-col"><div class="tooth-num">34</div><div class="tooth done"></div></div>
+            <div class="tooth-col"><div class="tooth-num">35</div><div class="tooth done"></div></div>
+            <div class="tooth-col"><div class="tooth-num">36</div><div class="tooth done"></div></div>
+            <div class="tooth-col"><div class="tooth-num">37</div><div class="tooth ok"></div></div>
+            <div class="tooth-col"><div class="tooth-num">38</div><div class="tooth ok"></div></div>
+          </div>
+
+        </div>
+        <div class="odonto-legend">
+          <div class="odonto-legend-item"><div class="odonto-swatch active"></div>Em tratamento</div>
+          <div class="odonto-legend-item"><div class="odonto-swatch done"></div>Bracket instalado</div>
+          <div class="odonto-legend-item"><div class="odonto-swatch ok"></div>Saudável</div>
+          <div class="odonto-legend-item"><div class="odonto-swatch missing"></div>Ausente</div>
+        </div>
+      </div>
+
+      <!-- Plano de tratamento -->
+      <div class="card">
+        <span class="eyebrow">Plano de tratamento · Ortodontia completa</span>
+        <div class="plan-progress-wrap">
+          <div class="plan-progress-label">
+            <span>Progresso geral</span>
+            <span>3 de 7 etapas</span>
+          </div>
+          <div class="plan-progress-bar"><div class="plan-progress-fill"></div></div>
+        </div>
+        <div class="treatment-step done-step">
+          <div class="step-icon done">✓</div>
+          Avaliação inicial e moldagem
+          <span class="step-num">nov 24</span>
+        </div>
+        <div class="treatment-step done-step">
+          <div class="step-icon done">✓</div>
+          Instalação do aparelho
+          <span class="step-num">dez 24</span>
+        </div>
+        <div class="treatment-step current-step">
+          <div class="step-icon current">●</div>
+          Manutenção mensal — 3ª sessão
+          <span class="step-num">hoje</span>
+        </div>
+        <div class="treatment-step">
+          <div class="step-icon todo"></div>
+          Manutenção mensal — 4ª sessão
+          <span class="step-num">mai 25</span>
+        </div>
+        <div class="treatment-step">
+          <div class="step-icon todo"></div>
+          Manutenção mensal — 5ª sessão
+          <span class="step-num">jun 25</span>
+        </div>
+        <div class="treatment-step">
+          <div class="step-icon todo"></div>
+          Remoção do aparelho
+        </div>
+        <div class="treatment-step">
+          <div class="step-icon todo"></div>
+          Contenção e acompanhamento
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ SIDEBAR ══ -->
+    <div class="aten-sidebar">
+
+      <!-- Session timer -->
+      <div class="card" style="text-align:center;">
+        <span class="eyebrow" style="text-align:left;">Sessão atual</span>
+        <div class="timer-display" id="session-timer">18:23</div>
+        <div class="timer-label">● Em andamento</div>
+        <div class="session-divider"></div>
+        <div class="session-row">
+          <span class="session-label">Procedimento</span>
+          <span class="session-value">Manut. mensal</span>
+        </div>
+        <div class="session-row">
+          <span class="session-label">Valor</span>
+          <span class="session-value">R$ 320,00</span>
+        </div>
+        <div class="session-row">
+          <span class="session-label">Pagamento</span>
+          <div class="pay-badge">
+            <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2L8 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Pago · PIX
+          </div>
+        </div>
+        <div class="session-divider"></div>
+        <div class="session-row">
+          <span class="session-label">Próxima consulta</span>
+          <span class="session-value" style="color:var(--accent-ink);">22 mai 2025</span>
+        </div>
+        <button class="end-session-btn">Encerrar consulta</button>
+      </div>
+
+      <!-- Ações rápidas -->
+      <div class="card">
+        <span class="eyebrow">Ações rápidas</span>
+        <div class="quick-action">
+          <div class="qa-icon">
+            <svg viewBox="0 0 13 13" fill="none">
+              <rect x="1" y="2" width="11" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/>
+              <path d="M1 5.5h11" stroke="currentColor" stroke-width="1.1"/>
+              <path d="M4 1v2M9 1v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          Agendar próximo retorno
+        </div>
+        <div class="quick-action">
+          <div class="qa-icon">
+            <svg viewBox="0 0 13 13" fill="none">
+              <path d="M11.5 6.5c0 2.761-2.239 5-5 5-.92 0-1.782-.248-2.52-.68L1.5 12l1.22-2.48A4.96 4.96 0 011.5 6.5c0-2.761 2.239-5 5-5s5 2.239 5 5z" fill="#25D366" stroke="#25D366" stroke-width="0.5" stroke-linejoin="round"/>
+              <path d="M5 5.5c.45.9 1.35 2.25 3.15 2.7-.09-.45-.18-.9-.09-1.35l.99-.45c-.45-.45-1.35-.45-1.35-.45s.45-1.35-.45-1.8c-.54.27-.81.72-.45 1.35z" fill="white"/>
+            </svg>
+          </div>
+          Enviar mensagem via WhatsApp
+        </div>
+        <div class="quick-action">
+          <div class="qa-icon">
+            <svg viewBox="0 0 13 13" fill="none">
+              <path d="M2 2C2 1.448 2.448 1 3 1H7.5l3 3v7.5c0 .552-.448 1-1 1H3c-.552 0-1-.448-1-1V2z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M7.5 1v3h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 7h5M4 9h3.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          Emitir receita ou atestado
+        </div>
+        <div class="quick-action">
+          <div class="qa-icon">
+            <svg viewBox="0 0 13 13" fill="none">
+              <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.1"/>
+              <circle cx="6.5" cy="6.5" r="2" stroke="currentColor" stroke-width="1.1"/>
+              <path d="M6.5 1.5v2M6.5 9v2M1.5 6.5h2M9 6.5h2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+          </div>
+          Solicitar Rx ou exame de imagem
+        </div>
+        <div class="quick-action">
+          <div class="qa-icon">
+            <svg viewBox="0 0 13 13" fill="none">
+              <rect x="1.5" y="2.5" width="10" height="8" rx="1.2" stroke="currentColor" stroke-width="1.1"/>
+              <path d="M4.5 7.5l1.5-1.5 1.5 1.5 2-2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="3.5" cy="4.5" r="0.6" fill="currentColor"/>
+            </svg>
+          </div>
+          Adicionar foto ao prontuário
+        </div>
+      </div>
+
+      <!-- Histórico -->
+      <div class="card">
+        <span class="eyebrow">Histórico de visitas</span>
+        <div class="history-item">
+          <div class="history-date">08 abr</div>
+          <div class="history-proc">Manutenção mensal — 2ª sessão</div>
+        </div>
+        <div class="history-item">
+          <div class="history-date">11 mar</div>
+          <div class="history-proc">Manutenção mensal — 1ª sessão</div>
+        </div>
+        <div class="history-item">
+          <div class="history-date">18 fev</div>
+          <div class="history-proc">1ª manutenção pós-instalação</div>
+        </div>
+        <div class="history-item">
+          <div class="history-date">12 dez</div>
+          <div class="history-proc">Instalação do aparelho</div>
+        </div>
+        <div class="history-item">
+          <div class="history-date">05 nov</div>
+          <div class="history-proc">Avaliação inicial e moldagem</div>
+        </div>
+        <div class="card-footer">
+          <a class="footer-link" href="#">Ver prontuário completo →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+(function() {
+  var start = 18 * 60 + 23;
+  var el = document.getElementById('session-timer');
+  setInterval(function() {
+    start++;
+    var m = Math.floor(start / 60).toString().padStart(2, '0');
+    var s = (start % 60).toString().padStart(2, '0');
+    el.textContent = m + ':' + s;
+  }, 1000);
+})();
+</script>
+
+</body>
+</html>

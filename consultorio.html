@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plural Orto · Consultório Virtual</title>
+<title>Plural Orto · Meu Dia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -25,7 +25,6 @@
   --accent:      #C15F3C;
   --accent-ink:  #8A3E25;
   --accent-soft: #EDD6C3;
-  --accent-50:   #F7E7D8;
   --gold:        #B08A4A;
   --gold-soft:   #E8D9B2;
   --red:         #B03030;
@@ -34,11 +33,9 @@
 
   --shadow-sm: 0 1px 2px rgba(26,20,14,0.04), 0 2px 6px rgba(26,20,14,0.04);
   --shadow-md: 0 2px 4px rgba(26,20,14,0.04), 0 12px 30px -12px rgba(26,20,14,0.12);
-  --shadow-lg: 0 4px 8px rgba(26,20,14,0.05), 0 30px 60px -20px rgba(26,20,14,0.18);
 
   --radius-sm: 10px;
   --radius:    16px;
-  --radius-lg: 22px;
 
   --font-sans:  "Inter", system-ui, sans-serif;
   --font-serif: "Fraunces", Georgia, serif;
@@ -55,7 +52,6 @@ html, body {
   font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
   background-image:
     radial-gradient(at 18% 12%, rgba(193,95,60,0.06) 0, transparent 40%),
     radial-gradient(at 88% 85%, rgba(176,138,74,0.05) 0, transparent 45%);
@@ -63,39 +59,13 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
-/* ── TIPO ── */
-h1, h2, h3 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin: 0;
-}
-h2 { font-size: 28px; line-height: 1.1; font-variation-settings: "opsz" 72; }
-h3 { font-size: 17px; line-height: 1.25; font-weight: 500; }
-em { font-style: italic; color: var(--accent-ink); }
-
-.label-mono {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  font-weight: 500;
-}
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-4);
-  font-weight: 500;
-  margin-bottom: 10px;
-  display: block;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500; margin-bottom: 10px; display: block;
 }
-.eyebrow.accent { color: var(--accent-ink); }
 
 /* ── HEADER ── */
 .header {
@@ -110,14 +80,13 @@ em { font-style: italic; color: var(--accent-ink); }
 }
 .brand {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em; color: var(--ink);
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em;
 }
 .brand-mark {
   width: 26px; height: 26px; border-radius: 7px;
   background: linear-gradient(135deg, #1F1A13 0%, #2E2820 100%);
   position: relative; overflow: hidden;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-  flex-shrink: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); flex-shrink: 0;
 }
 .brand-mark::after {
   content: ""; position: absolute; inset: auto auto 5px 5px;
@@ -126,7 +95,6 @@ em { font-style: italic; color: var(--accent-ink); }
   box-shadow: 0 0 10px rgba(193,95,60,0.6);
 }
 .header-right { display: flex; align-items: center; gap: 18px; }
-
 .bell-wrap {
   width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
   border-radius: 9px; cursor: pointer; position: relative; transition: background 150ms;
@@ -138,7 +106,6 @@ em { font-style: italic; color: var(--accent-ink); }
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent); border: 1.5px solid var(--paper);
 }
-
 .user-chip {
   display: flex; align-items: center; gap: 10px;
   padding: 5px 12px 5px 6px;
@@ -151,333 +118,181 @@ em { font-style: italic; color: var(--accent-ink); }
   width: 28px; height: 28px; border-radius: 50%;
   background: linear-gradient(135deg, #E37A54, #B84C2B);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10.5px; font-weight: 600; color: var(--cream);
-  flex-shrink: 0;
+  font-size: 10.5px; font-weight: 600; color: var(--cream); flex-shrink: 0;
 }
 .user-info { line-height: 1.2; }
-.user-name   { font-size: 13px; font-weight: 500; color: var(--ink); }
+.user-name   { font-size: 13px; font-weight: 500; }
 .user-clinic { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-4); }
 
-/* ── NAV TABS ── */
+/* ── NAV ── */
 .nav {
   position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99;
   height: var(--nav-h);
   background: rgba(244,238,226,0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(217,207,184,0.6);
-  display: flex; align-items: center;
-  padding: 0 32px; gap: 2px;
+  display: flex; align-items: center; padding: 0 32px; gap: 2px;
 }
 .nav-tab {
   padding: 0 16px; height: var(--nav-h);
   display: flex; align-items: center; gap: 7px;
-  font-size: 13px; font-weight: 400;
-  color: var(--ink-3);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 150ms;
-  white-space: nowrap;
+  font-size: 13px; font-weight: 400; color: var(--ink-3);
+  border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap;
 }
 .nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
 .nav-tab:hover { color: var(--ink-2); }
 .nav-tab:hover svg { opacity: 0.9; }
-.nav-tab.active {
-  color: var(--ink);
-  font-weight: 500;
-  border-bottom-color: var(--accent);
-}
+.nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
 .nav-tab.active svg { opacity: 1; }
 
 /* ── MAIN ── */
-.main {
-  margin-top: calc(var(--header-h) + var(--nav-h));
-  padding: 28px 32px 48px;
-}
-
-/* ── PAGE TITLE ── */
-.page-header { margin-bottom: 22px; }
-.page-title {
-  font-family: var(--font-serif);
-  font-size: 32px; font-weight: 400;
-  letter-spacing: -0.02em; color: var(--ink);
-  font-variation-settings: "opsz" 72;
-}
-.page-sub {
-  font-family: var(--font-mono); font-size: 10.5px;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--ink-4); margin-top: 5px;
-}
+.main { margin-top: calc(var(--header-h) + var(--nav-h)); padding: 28px 32px 48px; }
 
 /* ── CARD ── */
 .card {
-  background: var(--cream);
-  border: 1px solid var(--line-2);
-  border-radius: var(--radius);
-  padding: 16px;
-  box-shadow: var(--shadow-sm);
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm);
 }
-.divider { height: 1px; background: var(--line-2); margin: 0 -16px 14px; }
-
-.section-title {
-  font-family: var(--font-serif);
-  font-size: 17px; font-weight: 500; color: var(--ink);
-  margin-bottom: 14px; letter-spacing: -0.01em;
-}
-
-.card-footer {
-  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-2);
-}
+.card-footer { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-2); }
 .footer-link {
   font-family: var(--font-mono); font-size: 10.5px;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--accent-ink); font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
 }
 .footer-link:hover { opacity: 0.75; }
 
-/* ── AGENDA ITEMS (reutilizado na fila do dia) ── */
-.agenda-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 0; border-bottom: 1px solid var(--line-2);
-}
-.agenda-item:last-of-type { border-bottom: none; }
-.agenda-item.is-active {
-  margin: 0 -16px; padding: 8px 16px;
-  background: rgba(193,95,60,0.05); border-bottom-color: transparent;
-}
-.agenda-dot {
-  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-  background: var(--line);
-}
-.agenda-dot.on   { background: var(--accent); box-shadow: 0 0 0 3px rgba(193,95,60,0.18); }
-.agenda-dot.wait { background: var(--gold); opacity: 0.7; }
-.agenda-dot.done { background: var(--green); opacity: 0.6; }
-.agenda-time {
-  font-family: var(--font-mono); font-size: 10px;
-  letter-spacing: 0.08em; color: var(--ink-4);
-  width: 30px; flex-shrink: 0;
-}
-.agenda-item.is-active .agenda-time { color: var(--accent-ink); font-weight: 500; }
-.agenda-body { flex: 1; min-width: 0; }
-.agenda-name { font-size: 12.5px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.agenda-proc { font-size: 11px; color: var(--ink-4); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.agenda-item.past .agenda-name { color: var(--ink-4); font-weight: 400; }
-.agenda-item.past .agenda-time { opacity: 0.5; }
-
-/* ── CONSULTÓRIO GRID ── */
-.cons-grid {
-  display: grid;
-  grid-template-columns: 220px 1fr 300px;
-  gap: 14px;
-  align-items: start;
-}
-
-/* ── COL 1: FILA DO DIA ── */
-.queue-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 10px;
-}
-.queue-count {
-  font-family: var(--font-mono); font-size: 10px;
-  letter-spacing: 0.06em; color: var(--ink-4);
-  background: var(--paper-2); border: 1px solid var(--line-2);
-  padding: 2px 8px; border-radius: 999px;
-}
-.queue-progress {
-  height: 3px; background: var(--line-2); border-radius: 2px; margin-bottom: 14px;
-}
-.queue-progress-fill {
-  height: 100%; background: var(--accent); border-radius: 2px; width: 20%;
-}
-
-/* ── COL 2: WORKSPACE ── */
-.cons-workspace { display: flex; flex-direction: column; gap: 14px; }
-
-/* Patient header */
-.patient-hd {
-  display: flex; align-items: flex-start; gap: 14px;
-}
-.patient-avatar-lg {
-  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
-  background: var(--accent-soft); border: 1.5px solid #E1C6AE;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
-  color: var(--accent-ink);
-}
-.patient-info-main { flex: 1; }
-.patient-name-lg {
-  font-family: var(--font-serif); font-size: 20px; font-weight: 500;
-  letter-spacing: -0.02em; color: var(--ink); line-height: 1.1;
-  font-variation-settings: "opsz" 72;
-}
-.patient-meta-lg {
-  font-size: 12.5px; color: var(--ink-3); margin-top: 4px;
-}
-.patient-contact {
-  display: flex; align-items: center; gap: 6px;
-  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4);
-  margin-top: 6px; letter-spacing: 0.04em;
-}
-.patient-contact svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-.patient-alert {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 12px; border-radius: var(--radius-sm);
-  background: var(--red-soft); border: 1px solid rgba(176,48,48,0.18);
-  font-size: 12.5px; color: var(--red); margin-top: 12px;
-  font-weight: 500;
-}
-.patient-alert svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-/* Procedure card */
-.proc-header {
-  display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
-}
-.proc-name {
-  font-family: var(--font-serif); font-size: 18px; font-weight: 500;
-  letter-spacing: -0.01em; color: var(--ink); line-height: 1.2;
-  font-variation-settings: "opsz" 72;
-}
-.proc-badge {
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.07em;
-  text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
-  font-weight: 500; white-space: nowrap; flex-shrink: 0;
-  background: rgba(193,95,60,0.10); color: var(--accent-ink);
-  border: 1px solid rgba(193,95,60,0.22);
-}
-.proc-meta {
-  display: flex; gap: 16px; margin-top: 10px;
-}
-.proc-meta-item { font-size: 12px; color: var(--ink-3); }
-.proc-meta-item strong { color: var(--ink-2); font-weight: 500; }
-.proc-notes {
-  margin-top: 12px;
-  background: var(--paper-2); border: 1px solid var(--line-2);
-  border-radius: var(--radius-sm); padding: 10px 12px;
-  font-family: var(--font-mono); font-size: 11px; color: var(--ink-4);
-  letter-spacing: 0.03em; min-height: 52px;
-}
-
-/* Odontogram */
-.odontogram { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.odontogram-arch { display: flex; gap: 3px; align-items: flex-end; }
-.odontogram-mid { display: flex; align-items: center; gap: 6px; width: 100%; margin: 6px 0; }
-.odontogram-mid-line { flex: 1; height: 1px; background: var(--line-2); }
-.odontogram-mid-label {
-  font-family: var(--font-mono); font-size: 9px; color: var(--ink-4);
-  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
-}
-.tooth-col { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.tooth {
-  width: 24px; height: 26px; border-radius: 5px;
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid; flex-shrink: 0;
-}
-.tooth-num {
-  font-family: var(--font-mono); font-size: 8px; color: var(--ink-4);
-  line-height: 1;
-}
-.tooth.ok      { background: var(--paper-2); border-color: var(--line); }
-.tooth.done    { background: rgba(110,127,76,0.12); border-color: rgba(110,127,76,0.35); }
-.tooth.active  { background: var(--accent-soft); border-color: var(--accent); }
-.tooth.pending { background: var(--gold-soft); border-color: var(--gold); }
-.tooth.missing { background: var(--paper-3); border-color: var(--line); opacity: 0.4; }
-
-.odonto-legend {
-  display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap;
-}
-.odonto-legend-item {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; color: var(--ink-4);
-}
-.odonto-legend-swatch {
-  width: 10px; height: 10px; border-radius: 3px; border: 1px solid;
-}
-.odonto-legend-swatch.done    { background: rgba(110,127,76,0.12); border-color: rgba(110,127,76,0.35); }
-.odonto-legend-swatch.active  { background: var(--accent-soft); border-color: var(--accent); }
-.odonto-legend-swatch.ok      { background: var(--paper-2); border-color: var(--line); }
-.odonto-legend-swatch.missing { background: var(--paper-3); border-color: var(--line); opacity: 0.5; }
-
-/* Treatment plan */
-.treatment-step {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 0; border-bottom: 1px solid var(--line-2);
-  font-size: 13px; color: var(--ink-2);
-}
-.treatment-step:last-child { border-bottom: none; }
-.treatment-step.done-step { color: var(--ink-4); }
-.treatment-step.current-step { color: var(--ink); font-weight: 500; }
-.step-icon {
-  width: 18px; height: 18px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 9px; font-weight: 600;
-}
-.step-icon.done    { background: rgba(110,127,76,0.15); color: var(--green); }
-.step-icon.current { background: var(--accent-soft); color: var(--accent-ink); }
-.step-icon.todo    { background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-4); }
-.step-num {
-  font-family: var(--font-mono); font-size: 9px;
-  color: var(--ink-4); margin-left: auto; flex-shrink: 0;
-}
-
-/* ── COL 3: CONTEXTO ── */
-.cons-sidebar { display: flex; flex-direction: column; gap: 14px; }
-
-/* Session card */
-.session-value {
-  font-family: var(--font-serif); font-size: 22px; font-weight: 400;
-  letter-spacing: -0.02em; color: var(--ink); margin: 4px 0 8px;
-  font-variation-settings: "opsz" 72;
-}
-.session-proc { font-size: 12.5px; color: var(--ink-3); margin-bottom: 10px; }
-.pay-badge {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 500;
-  font-family: var(--font-mono); letter-spacing: 0.05em;
-  background: rgba(110,127,76,0.12); color: var(--green);
-  border: 1px solid rgba(110,127,76,0.25);
-}
-.pay-badge svg { width: 11px; height: 11px; }
-.next-appt {
-  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-2);
+/* ── DAY BANNER ── */
+.day-banner {
   display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 28px; margin-bottom: 18px;
 }
-.next-appt-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); }
-.next-appt-val { font-size: 12.5px; color: var(--accent-ink); font-weight: 500; }
+.day-greeting {
+  font-family: var(--font-serif); font-size: 24px; font-weight: 500;
+  letter-spacing: -0.02em; font-variation-settings: "opsz" 72;
+}
+.day-date {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-4); margin-top: 5px;
+}
+.day-kpis { display: flex; align-items: center; }
+.day-kpi { text-align: center; padding: 0 24px; }
+.day-kpi + .day-kpi { border-left: 1px solid var(--line-2); }
+.day-kpi-val {
+  font-family: var(--font-serif); font-size: 28px; font-weight: 400;
+  line-height: 1; letter-spacing: -0.02em; font-variation-settings: "opsz" 72;
+}
+.day-kpi-label {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-4); margin-top: 5px;
+}
 
-/* History */
-.history-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 0; border-bottom: 1px solid var(--line-2);
-}
-.history-item:last-of-type { border-bottom: none; }
-.history-date {
-  font-family: var(--font-mono); font-size: 10px;
-  color: var(--ink-4); width: 42px; flex-shrink: 0; line-height: 1.3;
-  text-align: right;
-}
-.history-proc { font-size: 12.5px; color: var(--ink-2); }
+/* ── DAY GRID ── */
+.day-grid { display: grid; grid-template-columns: 1fr 300px; gap: 14px; align-items: start; }
 
-/* Comm quick */
-.wa-btn {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 14px; border-radius: var(--radius-sm);
-  border: 1px solid rgba(37,211,102,0.35);
-  background: rgba(37,211,102,0.06);
-  font-size: 12.5px; font-weight: 500; color: #1a7a3c;
-  cursor: pointer; transition: background 150ms;
-  width: 100%;
+/* ── PATIENT CARDS ── */
+.patient-card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 10px;
+  transition: border-color 150ms, box-shadow 150ms;
 }
-.wa-btn:hover { background: rgba(37,211,102,0.10); }
-.wa-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.patient-card:last-child { margin-bottom: 0; }
+.patient-card:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.patient-card.is-current {
+  border-left: 3px solid var(--accent);
+  background: rgba(193,95,60,0.02);
+  box-shadow: var(--shadow-md);
+}
+.pc-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+}
+.pc-time {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  color: var(--ink-3); font-weight: 500;
+}
+.status-badge {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 999px; font-weight: 500;
+}
+.status-badge.on   { background: rgba(193,95,60,0.10); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.25); }
+.status-badge.conf { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.25); }
+.status-badge.wait { background: rgba(176,138,74,0.10); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.status-badge.done { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line); }
+.pc-main { display: flex; gap: 12px; align-items: flex-start; }
+.pc-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  border: 1.5px solid rgba(0,0,0,0.06);
+}
+.pc-body { flex: 1; min-width: 0; }
+.pc-name { font-size: 14.5px; font-weight: 500; color: var(--ink); }
+.pc-age { font-weight: 400; color: var(--ink-3); font-size: 13px; }
+.pc-proc { font-size: 12px; color: var(--ink-3); margin-top: 3px; line-height: 1.4; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.alert-tag {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+  display: inline-flex; align-items: center;
+}
+.alert-tag.medical { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.18); }
+.alert-tag.payment { background: var(--gold-soft); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.alert-tag.exam    { background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line-2); }
+.alert-tag.new-pt  { background: rgba(110,127,76,0.08); color: var(--green); border: 1px solid rgba(110,127,76,0.2); }
+.pc-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-2);
+}
+.pc-progress-wrap { flex: 1; margin-right: 14px; }
+.pc-progress-label {
+  font-family: var(--font-mono); font-size: 9px; color: var(--ink-4);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 5px;
+}
+.pc-progress-bar { height: 3px; background: var(--line-2); border-radius: 2px; }
+.pc-progress-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+.pc-action {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+  white-space: nowrap; display: inline-flex; align-items: center;
+}
+.pc-action:hover { opacity: 0.75; }
+.pc-action.primary {
+  background: var(--accent); color: #FBF6EE;
+  padding: 6px 12px; border-radius: 7px;
+  box-shadow: 0 1px 4px rgba(193,95,60,0.25);
+}
+.pc-action.primary:hover { opacity: 0.9; }
 
-.last-msg {
-  margin-top: 12px; padding: 10px 12px;
-  background: var(--paper-2); border-radius: var(--radius-sm);
-  border: 1px solid var(--line-2);
+/* ── CONTEXT PANEL ── */
+.day-context {
+  display: flex; flex-direction: column; gap: 14px;
+  position: sticky; top: calc(var(--header-h) + var(--nav-h) + 28px);
 }
-.last-msg-from { font-size: 11.5px; font-weight: 500; color: var(--ink-3); margin-bottom: 3px; }
-.last-msg-text { font-size: 12px; color: var(--ink-3); font-style: italic; }
+.next-pt-preview { padding: 10px 12px; background: var(--paper-2); border-radius: var(--radius-sm); margin-bottom: 10px; }
+.next-pt-time { font-family: var(--font-mono); font-size: 9.5px; color: var(--accent-ink); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+.next-pt-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-top: 3px; }
+.next-pt-proc { font-size: 11.5px; color: var(--ink-3); margin-top: 2px; }
+
+.exam-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line-2); }
+.exam-item:last-of-type { border-bottom: none; }
+.exam-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.exam-dot.pending { background: var(--gold); }
+.exam-dot.lab     { background: var(--accent); }
+.exam-body { flex: 1; }
+.exam-name { font-size: 12.5px; font-weight: 500; color: var(--ink-2); }
+.exam-patient { font-family: var(--font-mono); font-size: 10px; color: var(--ink-4); margin-top: 2px; }
+
+.msg-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line-2); }
+.msg-item:last-of-type { border-bottom: none; }
+.msg-avatar-sm {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+}
+.msg-body { flex: 1; min-width: 0; }
+.msg-header { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+.msg-from { font-size: 12px; font-weight: 500; color: var(--ink-2); }
+.msg-time { font-family: var(--font-mono); font-size: 9px; color: var(--ink-4); flex-shrink: 0; }
+.msg-text { font-size: 11.5px; color: var(--ink-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-unread { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -490,9 +305,8 @@ em { font-style: italic; color: var(--accent-ink); }
   </div>
   <div class="header-right">
     <div class="bell-wrap">
-      <svg viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z"
-              stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
+      <svg viewBox="0 0 17 17" fill="none">
+        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z" stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
         <path d="M7 11.5a1.5 1.5 0 003 0" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
       <div class="bell-pip"></div>
@@ -512,9 +326,8 @@ em { font-style: italic; color: var(--accent-ink); }
 
 <!-- NAV -->
 <nav class="nav">
-
   <a class="nav-tab" href="prototipo1.html">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 14 14" fill="none">
       <rect x="1" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
       <rect x="8" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
       <rect x="1" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
@@ -522,17 +335,15 @@ em { font-style: italic; color: var(--accent-ink); }
     </svg>
     Dashboard
   </a>
-
   <a class="nav-tab active" href="consultorio.html">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 14 14" fill="none">
       <rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
       <path d="M4.5 13h5M7 10v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
     </svg>
     Consultorio Virtual
   </a>
-
   <a class="nav-tab" href="#">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 14 14" fill="none">
       <rect x="1.5" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
       <path d="M1.5 6h11" stroke="currentColor" stroke-width="1.2"/>
       <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
@@ -542,24 +353,21 @@ em { font-style: italic; color: var(--accent-ink); }
     </svg>
     Agenda
   </a>
-
   <a class="nav-tab" href="#">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 14 14" fill="none">
       <circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/>
       <path d="M1.5 13.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
     </svg>
     Pacientes
   </a>
-
   <a class="nav-tab" href="#">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 14 14" fill="none">
       <path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
     </svg>
     Comunicacao
   </a>
-
   <a class="nav-tab" href="#">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 14 14" fill="none">
       <path d="M1.5 12.5h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       <rect x="2" y="7.5" width="2.5" height="5" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
       <rect x="5.75" y="4.5" width="2.5" height="8" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
@@ -567,308 +375,254 @@ em { font-style: italic; color: var(--accent-ink); }
     </svg>
     Financeiro
   </a>
-
   <a class="nav-tab" href="#">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2.5 2C2.5 1.448 2.948 1 3.5 1H8l3.5 3.5V12.5c0 .552-.448 1-1 1h-7c-.552 0-1-.448-1-1V2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-      <path d="M8 1v3.5h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M4.5 7.5h5M4.5 10h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-    </svg>
-    Relatorios
-  </a>
-
-  <a class="nav-tab" href="#">
-    <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 14 14" fill="none">
       <circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.2"/>
       <path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.05 3.05l1.06 1.06M9.89 9.89l1.06 1.06M10.95 3.05L9.89 4.11M4.11 9.89l-1.06 1.06" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
     </svg>
     Configuracoes
   </a>
-
 </nav>
 
 <!-- MAIN -->
 <main class="main">
 
-  <div class="page-header">
-    <div class="page-title">Consultório Virtual</div>
-    <div class="page-sub">Segunda-feira · 22 de abril de 2025 · 1 de 5 pacientes atendidos</div>
-  </div>
-
-  <div class="cons-grid">
-
-    <!-- ══ COLUNA 1: FILA DO DIA ══ -->
-    <div class="card">
-      <div class="queue-header">
-        <div class="section-title" style="margin-bottom:0;">Fila do Dia</div>
-        <span class="queue-count">1 / 5</span>
+  <!-- Day Banner -->
+  <div class="day-banner card">
+    <div>
+      <div class="day-greeting">Bom dia, Dr. Marcelo</div>
+      <div class="day-date">Quinta-feira · 24 de abril de 2025 · Clínica Central</div>
+    </div>
+    <div class="day-kpis">
+      <div class="day-kpi">
+        <div class="day-kpi-val">5</div>
+        <div class="day-kpi-label">Consultas</div>
       </div>
-      <div class="divider" style="margin-top:12px;"></div>
-      <div class="queue-progress"><div class="queue-progress-fill"></div></div>
-
-      <div class="agenda-item is-active">
-        <div class="agenda-dot on"></div>
-        <div class="agenda-time">08:30</div>
-        <div class="agenda-body">
-          <div class="agenda-name">Ana Costa</div>
-          <div class="agenda-proc">Manut. mensal</div>
-        </div>
+      <div class="day-kpi">
+        <div class="day-kpi-val" style="color:var(--green);">1</div>
+        <div class="day-kpi-label">Concluída</div>
       </div>
-
-      <div class="agenda-item">
-        <div class="agenda-dot"></div>
-        <div class="agenda-time">09:15</div>
-        <div class="agenda-body">
-          <div class="agenda-name">Bruno Lima</div>
-          <div class="agenda-proc">Consulta inicial</div>
-        </div>
+      <div class="day-kpi">
+        <div class="day-kpi-val">3</div>
+        <div class="day-kpi-label">Aguardando</div>
       </div>
-
-      <div class="agenda-item">
-        <div class="agenda-dot"></div>
-        <div class="agenda-time">10:00</div>
-        <div class="agenda-body">
-          <div class="agenda-name">Carla Dias</div>
-          <div class="agenda-proc">Manut. mensal</div>
-        </div>
-      </div>
-
-      <div class="agenda-item">
-        <div class="agenda-dot wait"></div>
-        <div class="agenda-time">11:00</div>
-        <div class="agenda-body">
-          <div class="agenda-name">Diego Souza</div>
-          <div class="agenda-proc">Documentacao</div>
-        </div>
-      </div>
-
-      <div class="agenda-item">
-        <div class="agenda-dot wait"></div>
-        <div class="agenda-time">14:30</div>
-        <div class="agenda-body">
-          <div class="agenda-name">Elisa Rocha</div>
-          <div class="agenda-proc">Contencao</div>
-        </div>
-      </div>
-
-      <div class="card-footer">
-        <a class="footer-link" href="#">Ver agenda completa →</a>
+      <div class="day-kpi">
+        <div class="day-kpi-val" style="font-size:20px;color:var(--accent);">12 min</div>
+        <div class="day-kpi-label">Próxima em</div>
       </div>
     </div>
+  </div>
 
-    <!-- ══ COLUNA 2: PACIENTE ══ -->
-    <div class="cons-workspace">
+  <div class="day-grid">
 
-      <!-- Card A: Cabeçalho do Paciente -->
-      <div class="card">
-        <span class="eyebrow">Paciente em atendimento</span>
-        <div class="patient-hd">
-          <div class="patient-avatar-lg">AC</div>
-          <div class="patient-info-main">
-            <div class="patient-name-lg">Ana Costa</div>
-            <div class="patient-meta-lg">28 anos · F · Paciente desde nov. 2024</div>
-            <div class="patient-contact">
-              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.5 8.5c0 .276-.06.548-.178.797a1.94 1.94 0 01-.49.664C9.5 10.3 9.1 10.5 8.667 10.5c-.56 0-1.16-.18-1.8-.547A14.6 14.6 0 014.5 7.5a14.6 14.6 0 01-2.453-2.367C1.68 4.493 1.5 3.893 1.5 3.333c0-.42.193-.827.52-1.153A1.94 1.94 0 013.5 1.5c.273 0 .547.06.793.18.253.12.48.3.653.553l2.007 2.834c.173.247.293.48.36.7.067.213.087.413.053.593-.033.18-.113.347-.233.487L6.5 7c.16.32.42.64.78.953.36.313.693.547 1.007.7l.153-.633c.14-.12.307-.2.487-.233.18-.033.38-.013.593.053.22.067.453.187.7.36l2.834 2.007c.253.173.433.4.547.647Z" stroke="currentColor" stroke-width="1"/>
-              </svg>
-              (61) 99123-4567
+    <!-- ══ FILA DE PACIENTES ══ -->
+    <div>
+
+      <!-- 1: Ana Costa — Em atendimento -->
+      <div class="patient-card is-current">
+        <div class="pc-top">
+          <span class="pc-time">08:30</span>
+          <span class="status-badge on">Em atendimento</span>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background:var(--accent-soft);color:var(--accent-ink);">AC</div>
+          <div class="pc-body">
+            <div class="pc-name">Ana Costa <span class="pc-age">· 28a · F</span></div>
+            <div class="pc-proc">Manutenção mensal — aparelho fixo metálico · Ortodontia</div>
+            <div class="pc-tags">
+              <span class="alert-tag medical">⚠ Alergia: Dipirona</span>
             </div>
           </div>
         </div>
-        <div class="patient-alert">
-          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 1.5L1 13h12L7 1.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-            <path d="M7 5.5v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            <circle cx="7" cy="10.2" r="0.7" fill="currentColor"/>
-          </svg>
-          Alergia a Dipirona (Metamizol) — evitar analgésicos dessa classe
+        <div class="pc-bottom">
+          <div class="pc-progress-wrap">
+            <div class="pc-progress-label">Plano ortodôntico · Etapa 3 de 7</div>
+            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:43%;"></div></div>
+          </div>
+          <a class="pc-action primary" href="atendimento.html">Em curso →</a>
         </div>
       </div>
 
-      <!-- Card B: Procedimento de Hoje -->
-      <div class="card">
-        <span class="eyebrow">Procedimento de hoje</span>
-        <div class="proc-header">
-          <div class="proc-name">Manutenção mensal<br><em style="font-size:15px;">aparelho fixo metálico</em></div>
-          <span class="proc-badge">Em andamento</span>
+      <!-- 2: Bruno Lima — Confirmado -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">09:15</span>
+          <span class="status-badge conf">Confirmado</span>
         </div>
-        <div class="proc-meta">
-          <div class="proc-meta-item"><strong>Duração est.</strong> ~30 min</div>
-          <div class="proc-meta-item"><strong>Sessão</strong> 3ª de 18</div>
-          <div class="proc-meta-item"><strong>Início</strong> 08:30</div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background:rgba(110,127,76,0.1);color:var(--green);">BL</div>
+          <div class="pc-body">
+            <div class="pc-name">Bruno Lima <span class="pc-age">· 34a · M</span></div>
+            <div class="pc-proc">Restauração classe II — resina composta · Dentística</div>
+            <div class="pc-tags">
+              <span class="alert-tag payment">$ Débito: R$ 180,00</span>
+            </div>
+          </div>
         </div>
-        <div class="proc-notes">Anotações da consulta...</div>
-      </div>
-
-      <!-- Card C: Odontograma -->
-      <div class="card">
-        <span class="eyebrow">Odontograma</span>
-        <div class="odontogram">
-
-          <!-- Arco superior -->
-          <div class="odontogram-arch">
-            <!-- Superior direito: 18→11 -->
-            <div class="tooth-col"><div class="tooth missing"></div><div class="tooth-num">18</div></div>
-            <div class="tooth-col"><div class="tooth ok"></div><div class="tooth-num">17</div></div>
-            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">16</div></div>
-            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">15</div></div>
-            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">14</div></div>
-            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">13</div></div>
-            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">12</div></div>
-            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">11</div></div>
-            <div style="width:10px;flex-shrink:0;"></div>
-            <!-- Superior esquerdo: 21→28 -->
-            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">21</div></div>
-            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">22</div></div>
-            <div class="tooth-col"><div class="tooth active"></div><div class="tooth-num">23</div></div>
-            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">24</div></div>
-            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">25</div></div>
-            <div class="tooth-col"><div class="tooth done"></div><div class="tooth-num">26</div></div>
-            <div class="tooth-col"><div class="tooth ok"></div><div class="tooth-num">27</div></div>
-            <div class="tooth-col"><div class="tooth missing"></div><div class="tooth-num">28</div></div>
+        <div class="pc-bottom">
+          <div class="pc-progress-wrap">
+            <div class="pc-progress-label">Sessão única · sem plano ativo</div>
+            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:0%;"></div></div>
           </div>
-
-          <div class="odontogram-mid">
-            <div class="odontogram-mid-line"></div>
-            <div class="odontogram-mid-label">Superior · Inferior</div>
-            <div class="odontogram-mid-line"></div>
-          </div>
-
-          <!-- Arco inferior -->
-          <div class="odontogram-arch">
-            <!-- Inferior direito: 48→41 -->
-            <div class="tooth-col"><div class="tooth-num">48</div><div class="tooth ok"></div></div>
-            <div class="tooth-col"><div class="tooth-num">47</div><div class="tooth ok"></div></div>
-            <div class="tooth-col"><div class="tooth-num">46</div><div class="tooth done"></div></div>
-            <div class="tooth-col"><div class="tooth-num">45</div><div class="tooth done"></div></div>
-            <div class="tooth-col"><div class="tooth-num">44</div><div class="tooth done"></div></div>
-            <div class="tooth-col"><div class="tooth-num">43</div><div class="tooth active"></div></div>
-            <div class="tooth-col"><div class="tooth-num">42</div><div class="tooth active"></div></div>
-            <div class="tooth-col"><div class="tooth-num">41</div><div class="tooth active"></div></div>
-            <div style="width:10px;flex-shrink:0;"></div>
-            <!-- Inferior esquerdo: 31→38 -->
-            <div class="tooth-col"><div class="tooth-num">31</div><div class="tooth active"></div></div>
-            <div class="tooth-col"><div class="tooth-num">32</div><div class="tooth active"></div></div>
-            <div class="tooth-col"><div class="tooth-num">33</div><div class="tooth active"></div></div>
-            <div class="tooth-col"><div class="tooth-num">34</div><div class="tooth done"></div></div>
-            <div class="tooth-col"><div class="tooth-num">35</div><div class="tooth done"></div></div>
-            <div class="tooth-col"><div class="tooth-num">36</div><div class="tooth done"></div></div>
-            <div class="tooth-col"><div class="tooth-num">37</div><div class="tooth ok"></div></div>
-            <div class="tooth-col"><div class="tooth-num">38</div><div class="tooth ok"></div></div>
-          </div>
-
-        </div>
-        <div class="odonto-legend">
-          <div class="odonto-legend-item"><div class="odonto-legend-swatch active"></div>Em tratamento</div>
-          <div class="odonto-legend-item"><div class="odonto-legend-swatch done"></div>Concluído</div>
-          <div class="odonto-legend-item"><div class="odonto-legend-swatch ok"></div>Saudável</div>
-          <div class="odonto-legend-item"><div class="odonto-legend-swatch missing"></div>Ausente</div>
+          <a class="pc-action" href="atendimento.html">Ver paciente →</a>
         </div>
       </div>
 
-      <!-- Card D: Plano de Tratamento -->
-      <div class="card">
-        <span class="eyebrow">Plano de tratamento · Ortodontia completa</span>
-        <div class="treatment-step done-step">
-          <div class="step-icon done">✓</div>
-          Avaliação inicial e moldagem
-          <span class="step-num">nov 24</span>
+      <!-- 3: Carla Dias — Confirmada, múltiplos alertas médicos -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">10:00</span>
+          <span class="status-badge conf">Confirmada</span>
         </div>
-        <div class="treatment-step done-step">
-          <div class="step-icon done">✓</div>
-          Instalação do aparelho
-          <span class="step-num">dez 24</span>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background:rgba(176,48,48,0.08);color:var(--red);">CD</div>
+          <div class="pc-body">
+            <div class="pc-name">Carla Dias <span class="pc-age">· 42a · F</span></div>
+            <div class="pc-proc">Extração do siso inferior esquerdo (38) · Cirurgia oral</div>
+            <div class="pc-tags">
+              <span class="alert-tag medical">⚠ AAS (anticoagulante)</span>
+              <span class="alert-tag medical">⚠ Hipertensa controlada</span>
+            </div>
+          </div>
         </div>
-        <div class="treatment-step current-step">
-          <div class="step-icon current">●</div>
-          Manutenção mensal — 3ª sessão
-          <span class="step-num">hoje</span>
+        <div class="pc-bottom">
+          <div class="pc-progress-wrap">
+            <div class="pc-progress-label">Cirurgia única · solicitar PA antes</div>
+            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:0%;"></div></div>
+          </div>
+          <a class="pc-action" href="#">Ver paciente →</a>
         </div>
-        <div class="treatment-step">
-          <div class="step-icon todo"></div>
-          Manutenção mensal — 4ª sessão
-          <span class="step-num">mai 25</span>
+      </div>
+
+      <!-- 4: Diego Souza — Aguardando, primeira consulta -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">11:00</span>
+          <span class="status-badge wait">Aguardando conf.</span>
         </div>
-        <div class="treatment-step">
-          <div class="step-icon todo"></div>
-          Manutenção mensal — 5ª sessão
-          <span class="step-num">jun 25</span>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background:var(--gold-soft);color:#7A5E2B;">DS</div>
+          <div class="pc-body">
+            <div class="pc-name">Diego Souza <span class="pc-age">· 19a · M</span></div>
+            <div class="pc-proc">1ª consulta — avaliação ortodôntica completa</div>
+            <div class="pc-tags">
+              <span class="alert-tag new-pt">Primeira consulta</span>
+              <span class="alert-tag exam">🔬 Rx panorâmico pendente</span>
+            </div>
+          </div>
         </div>
-        <div class="treatment-step">
-          <div class="step-icon todo"></div>
-          Remoção do aparelho
+        <div class="pc-bottom">
+          <div class="pc-progress-wrap">
+            <div class="pc-progress-label">Avaliação inicial · aguardar Rx</div>
+            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:0%;"></div></div>
+          </div>
+          <a class="pc-action" href="#">Ver paciente →</a>
         </div>
-        <div class="treatment-step">
-          <div class="step-icon todo"></div>
-          Contenção e acompanhamento
+      </div>
+
+      <!-- 5: Elisa Rocha — Tarde, prótese -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">14:30</span>
+          <span class="status-badge conf">Confirmada</span>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background:var(--paper-2);color:var(--ink-3);">ER</div>
+          <div class="pc-body">
+            <div class="pc-name">Elisa Rocha <span class="pc-age">· 55a · F</span></div>
+            <div class="pc-proc">Prótese parcial removível — entrega e ajuste final</div>
+            <div class="pc-tags">
+              <span class="alert-tag exam">🔬 Peça aguardada do laboratório</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-progress-wrap">
+            <div class="pc-progress-label">Plano protético · Etapa 3 de 4</div>
+            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:75%;background:var(--gold);"></div></div>
+          </div>
+          <a class="pc-action" href="#">Ver paciente →</a>
         </div>
       </div>
 
     </div>
 
-    <!-- ══ COLUNA 3: CONTEXTO ══ -->
-    <div class="cons-sidebar">
+    <!-- ══ PAINEL DE CONTEXTO ══ -->
+    <div class="day-context">
 
-      <!-- Card A: Sessão de Hoje -->
+      <!-- Próximo paciente -->
       <div class="card">
-        <span class="eyebrow">Sessão de hoje</span>
-        <div class="session-value">R$ 320</div>
-        <div class="session-proc">Manutenção mensal · aparelho fixo</div>
-        <div class="pay-badge">
-          <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 5.5l2.5 2.5L9 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Pago via PIX
+        <span class="eyebrow">Próximo paciente</span>
+        <div class="next-pt-preview">
+          <div class="next-pt-time">09:15 · em 12 minutos</div>
+          <div class="next-pt-name">Bruno Lima</div>
+          <div class="next-pt-proc">Restauração classe II — resina composta</div>
         </div>
-        <div class="next-appt">
-          <div class="next-appt-label">Próxima consulta</div>
-          <div class="next-appt-val">22 mai 2025</div>
-        </div>
+        <span class="alert-tag payment" style="display:inline-flex;">$ Débito de R$ 180 pendente</span>
         <div class="card-footer">
-          <a class="footer-link" href="#">Ver financeiro →</a>
+          <a class="footer-link" href="atendimento.html">Ver prontuário →</a>
         </div>
       </div>
 
-      <!-- Card B: Histórico -->
+      <!-- Exames e laudos -->
       <div class="card">
-        <span class="eyebrow">Histórico recente</span>
-        <div class="history-item">
-          <div class="history-date">08 abr</div>
-          <div class="history-proc">Manutenção mensal — 2ª sessão</div>
+        <span class="eyebrow">Exames e Laudos</span>
+        <div class="exam-item">
+          <div class="exam-dot pending"></div>
+          <div class="exam-body">
+            <div class="exam-name">Rx Panorâmico</div>
+            <div class="exam-patient">Diego Souza · aguardando desde 18 abr</div>
+          </div>
         </div>
-        <div class="history-item">
-          <div class="history-date">11 mar</div>
-          <div class="history-proc">Manutenção mensal — 1ª sessão</div>
-        </div>
-        <div class="history-item">
-          <div class="history-date">18 fev</div>
-          <div class="history-proc">1ª manutenção pós-instalação</div>
-        </div>
-        <div class="history-item">
-          <div class="history-date">12 dez</div>
-          <div class="history-proc">Instalação do aparelho</div>
+        <div class="exam-item">
+          <div class="exam-dot lab"></div>
+          <div class="exam-body">
+            <div class="exam-name">Moldagem protética</div>
+            <div class="exam-patient">Elisa Rocha · retorno previsto 27 abr</div>
+          </div>
         </div>
         <div class="card-footer">
-          <a class="footer-link" href="#">Ver prontuário completo →</a>
+          <a class="footer-link" href="#">Ver todos →</a>
         </div>
       </div>
 
-      <!-- Card C: Comunicação -->
+      <!-- Mensagens -->
       <div class="card">
-        <span class="eyebrow">Comunicação</span>
-        <button class="wa-btn">
-          <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 7.5c0 3.038-2.462 5.5-5.5 5.5-1.012 0-1.96-.27-2.77-.738L1.5 13.5l1.25-3.18A5.46 5.46 0 012 7.5c0-3.038 2.462-5.5 5.5-5.5S13 4.462 13 7.5z" fill="#25D366" stroke="#25D366" stroke-width="0.5" stroke-linejoin="round"/>
-            <path d="M5.5 6.5c.5 1 1.5 2.5 3.5 3-.1-.5-.2-1-.1-1.5L10 7.5c-.5-.5-1.5-.5-1.5-.5s.5-1.5-.5-2c-.6.3-.9.8-.5 1.5z" fill="white"/>
-          </svg>
-          Enviar lembrete por WhatsApp
-        </button>
-        <div class="last-msg">
-          <div class="last-msg-from">Ana Costa · hoje 07:52</div>
-          <div class="last-msg-text">"Oi! Estou a caminho, chego em 10 minutos."</div>
+        <span class="eyebrow">Mensagens</span>
+        <div class="msg-item">
+          <div class="msg-avatar-sm" style="background:var(--accent-soft);color:var(--accent-ink);">AC</div>
+          <div class="msg-body">
+            <div class="msg-header">
+              <span class="msg-from">Ana Costa</span>
+              <span class="msg-time">07:52</span>
+            </div>
+            <div class="msg-text">"Estou a caminho, chego em 10 min."</div>
+          </div>
+          <div class="msg-unread"></div>
+        </div>
+        <div class="msg-item">
+          <div class="msg-avatar-sm" style="background:rgba(110,127,76,0.1);color:var(--green);">BL</div>
+          <div class="msg-body">
+            <div class="msg-header">
+              <span class="msg-from">Bruno Lima</span>
+              <span class="msg-time">ontem</span>
+            </div>
+            <div class="msg-text">"Confirmo minha consulta de amanhã."</div>
+          </div>
+        </div>
+        <div class="msg-item">
+          <div class="msg-avatar-sm" style="background:rgba(176,48,48,0.08);color:var(--red);">CD</div>
+          <div class="msg-body">
+            <div class="msg-header">
+              <span class="msg-from">Carla Dias</span>
+              <span class="msg-time">ontem</span>
+            </div>
+            <div class="msg-text">"Posso tomar meu remédio normalmente?"</div>
+          </div>
+          <div class="msg-unread"></div>
         </div>
         <div class="card-footer">
-          <a class="footer-link" href="#">Ver conversa completa →</a>
+          <a class="footer-link" href="#">Ver todas →</a>
         </div>
       </div>
 
