@@ -493,49 +493,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         </div>
       </div>
 
-      <!-- Procedimento + Evolução + Materiais -->
-      <div class="card">
-        <span class="eyebrow">Procedimento de hoje</span>
-        <div class="proc-header">
-          <div class="proc-name">Manutenção mensal<br><em style="font-family:var(--font-serif);font-style:italic;color:var(--accent-ink);font-size:15px;">aparelho fixo metálico</em></div>
-          <span class="proc-badge">Em andamento</span>
-        </div>
-        <div class="proc-meta">
-          <div class="proc-meta-item"><strong>Iniciou</strong> 08:30</div>
-          <div class="proc-meta-item"><strong>Duração est.</strong> ~30 min</div>
-          <div class="proc-meta-item"><strong>Sessão</strong> 3ª de 7</div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="notes-label">Evolução da consulta</div>
-        <textarea class="notes-area" placeholder="Descreva os procedimentos realizados, observações clínicas e intercorrências..."></textarea>
-
-        <div class="materials-section">
-          <div class="notes-label" style="margin-top:12px;">Materiais utilizados</div>
-          <div class="material-item">
-            <div class="mcheck checked">
-              <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3.5" stroke="#6E7F4C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            Fio de aço 0.019"×0.025" (arco superior)
-          </div>
-          <div class="material-item">
-            <div class="mcheck checked">
-              <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3.5" stroke="#6E7F4C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            Elástico power chain — vermelho (12-22)
-          </div>
-          <div class="material-item">
-            <div class="mcheck unchecked"></div>
-            Bracket de reposição superior (caso necessário)
-          </div>
-          <div class="material-item">
-            <div class="mcheck unchecked"></div>
-            Cera ortodntica para proteção
-          </div>
-        </div>
-      </div>
-
       <!-- Odontograma -->
       <div class="card">
         <span class="eyebrow">Odontograma</span>
@@ -641,6 +598,51 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         </div>
       </div>
 
+      <!-- Procedimento + Evolução + Materiais -->
+      <div class="card">
+        <span class="eyebrow">Procedimento de hoje</span>
+        <div class="proc-header">
+          <div class="proc-name">Manutenção mensal<br><em style="font-family:var(--font-serif);font-style:italic;color:var(--accent-ink);font-size:15px;">aparelho fixo metálico</em></div>
+          <span class="proc-badge">Em andamento</span>
+        </div>
+        <div class="proc-meta">
+          <div class="proc-meta-item"><strong>Iniciou</strong> 08:30</div>
+          <div class="proc-meta-item"><strong>Duração est.</strong> ~30 min</div>
+          <div class="proc-meta-item"><strong>Sessão</strong> 3ª de 7</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="notes-label">Materiais utilizados</div>
+        <div class="materials-section">
+          <div class="material-item">
+            <div class="mcheck checked">
+              <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3.5" stroke="#6E7F4C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Fio de aço 0.019"×0.025" (arco superior)
+          </div>
+          <div class="material-item">
+            <div class="mcheck checked">
+              <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3.5" stroke="#6E7F4C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Elástico power chain — vermelho (12-22)
+          </div>
+          <div class="material-item">
+            <div class="mcheck unchecked"></div>
+            Bracket de reposição superior (caso necessário)
+          </div>
+          <div class="material-item">
+            <div class="mcheck unchecked"></div>
+            Cera ortodôntica para proteção
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="notes-label">Evolução da consulta</div>
+        <textarea class="notes-area" placeholder="Descreva os procedimentos realizados, observações clínicas e intercorrências..."></textarea>
+      </div>
+
     </div>
 
     <!-- ══ SIDEBAR ══ -->
@@ -654,7 +656,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="session-divider"></div>
         <div class="session-row">
           <span class="session-label">Procedimento</span>
-          <span class="session-value">Manut. mensal</span>
+          <span class="session-value">Manutenção mensal</span>
         </div>
         <div class="session-row">
           <span class="session-label">Valor</span>
@@ -729,33 +731,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         </div>
       </div>
 
-      <!-- Histórico -->
-      <div class="card">
-        <span class="eyebrow">Histórico de visitas</span>
-        <div class="history-item">
-          <div class="history-date">08 abr</div>
-          <div class="history-proc">Manutenção mensal — 2ª sessão</div>
-        </div>
-        <div class="history-item">
-          <div class="history-date">11 mar</div>
-          <div class="history-proc">Manutenção mensal — 1ª sessão</div>
-        </div>
-        <div class="history-item">
-          <div class="history-date">18 fev</div>
-          <div class="history-proc">1ª manutenção pós-instalação</div>
-        </div>
-        <div class="history-item">
-          <div class="history-date">12 dez</div>
-          <div class="history-proc">Instalação do aparelho</div>
-        </div>
-        <div class="history-item">
-          <div class="history-date">05 nov</div>
-          <div class="history-proc">Avaliação inicial e moldagem</div>
-        </div>
-        <div class="card-footer">
-          <a class="footer-link" href="#">Ver prontuário completo →</a>
-        </div>
-      </div>
 
     </div>
 

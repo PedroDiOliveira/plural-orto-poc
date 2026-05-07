@@ -293,6 +293,72 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .msg-time { font-family: var(--font-mono); font-size: 9px; color: var(--ink-4); flex-shrink: 0; }
 .msg-text { font-size: 11.5px; color: var(--ink-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .msg-unread { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+
+/* ── MOMENTO ATUAL ── */
+.moment-bar {
+  display: flex; align-items: stretch;
+  margin-bottom: 18px; overflow: hidden;
+  padding: 0;
+}
+.moment-section { flex: 1; padding: 22px 28px; }
+.moment-section.center {
+  border-left: 1px solid var(--line-2); border-right: 1px solid var(--line-2);
+  display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
+}
+.moment-section.right { text-align: right; }
+.moment-label {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; font-weight: 500; margin-bottom: 6px;
+}
+.moment-label.active { color: var(--accent-ink); }
+.moment-label.next   { color: var(--ink-3); }
+.moment-patient-name {
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.02em; line-height: 1.1;
+}
+.moment-proc-detail { font-size: 12px; color: var(--ink-3); margin-top: 4px; line-height: 1.4; }
+.moment-timer {
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--accent);
+  font-weight: 500; margin-top: 8px; letter-spacing: 0.04em;
+}
+.moment-countdown {
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--green);
+  font-weight: 500; margin-top: 8px; letter-spacing: 0.04em;
+}
+.day-stats { display: flex; gap: 0; }
+.day-stat { text-align: center; padding: 0 20px; }
+.day-stat + .day-stat { border-left: 1px solid var(--line-2); }
+.day-stat-label {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px;
+}
+.day-stat-val {
+  font-family: var(--font-serif); font-size: 24px; font-weight: 400;
+  line-height: 1; letter-spacing: -0.02em;
+}
+
+/* ── ARRIVED / IS-NEXT ── */
+.status-badge.arrived {
+  background: rgba(110,127,76,0.15); color: var(--green);
+  border: 1px solid rgba(110,127,76,0.35); font-weight: 600;
+}
+.patient-card.is-next {
+  border-left: 3px solid var(--green);
+  background: rgba(110,127,76,0.015);
+}
+
+/* ── AVISOS CLÍNICOS ── */
+.aviso-item {
+  display: flex; gap: 10px; padding: 9px 0;
+  border-bottom: 1px solid var(--line-2); align-items: flex-start;
+}
+.aviso-item:last-of-type { border-bottom: none; }
+.aviso-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.aviso-dot.medical { background: var(--red); }
+.aviso-dot.exam    { background: var(--gold); }
+.aviso-patient {
+  font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); margin-bottom: 2px;
+}
+.aviso-text { font-size: 12.5px; color: var(--ink-2); font-weight: 500; line-height: 1.3; }
 </style>
 </head>
 <body>
@@ -387,29 +453,35 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 <!-- MAIN -->
 <main class="main">
 
-  <!-- Day Banner -->
-  <div class="day-banner card">
-    <div>
-      <div class="day-greeting">Bom dia, Dr. Marcelo</div>
-      <div class="day-date">Quinta-feira · 24 de abril de 2025 · Clínica Central</div>
+  <!-- Momento Atual -->
+  <div class="moment-bar card">
+    <div class="moment-section left">
+      <div class="moment-label active">Em atendimento</div>
+      <div class="moment-patient-name">Ana Costa</div>
+      <div class="moment-proc-detail">Manutenção mensal · aparelho fixo metálico</div>
+      <div class="moment-timer">● 18 min em andamento</div>
     </div>
-    <div class="day-kpis">
-      <div class="day-kpi">
-        <div class="day-kpi-label">Consultas</div>
-        <div class="day-kpi-val">5</div>
+    <div class="moment-section center">
+      <div class="day-stats">
+        <div class="day-stat">
+          <div class="day-stat-label">Consultas</div>
+          <div class="day-stat-val">5</div>
+        </div>
+        <div class="day-stat">
+          <div class="day-stat-label">Concluída</div>
+          <div class="day-stat-val" style="color:var(--green);">1</div>
+        </div>
+        <div class="day-stat">
+          <div class="day-stat-label">Aguardando</div>
+          <div class="day-stat-val">3</div>
+        </div>
       </div>
-      <div class="day-kpi">
-        <div class="day-kpi-label">Concluída</div>
-        <div class="day-kpi-val" style="color:var(--green);">1</div>
-      </div>
-      <div class="day-kpi">
-        <div class="day-kpi-label">Aguardando</div>
-        <div class="day-kpi-val">3</div>
-      </div>
-      <div class="day-kpi">
-        <div class="day-kpi-label">Próxima em</div>
-        <div class="day-kpi-val" style="font-size:20px;color:var(--accent);">12 min</div>
-      </div>
+    </div>
+    <div class="moment-section right">
+      <div class="moment-label next">Próximo · 09:15</div>
+      <div class="moment-patient-name">Bruno Lima</div>
+      <div class="moment-proc-detail">Restauração classe II — resina composta</div>
+      <div class="moment-countdown">● Chegou · aguardando na recepção</div>
     </div>
   </div>
 
@@ -443,11 +515,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         </div>
       </div>
 
-      <!-- 2: Bruno Lima — Confirmado -->
-      <div class="patient-card">
+      <!-- 2: Bruno Lima — Chegou -->
+      <div class="patient-card is-next">
         <div class="pc-top">
           <span class="pc-time">09:15</span>
-          <span class="status-badge conf">Confirmado</span>
+          <span class="status-badge arrived">Chegou</span>
         </div>
         <div class="pc-main">
           <div class="pc-avatar" style="background:rgba(110,127,76,0.1);color:var(--green);">BL</div>
@@ -547,79 +619,50 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     <!-- ══ PAINEL DE CONTEXTO ══ -->
     <div class="day-context">
 
-      <!-- Próximo paciente -->
+      <!-- Próximo a ser chamado -->
       <div class="card">
-        <span class="eyebrow">Próximo paciente</span>
+        <span class="eyebrow">Próximo a ser chamado</span>
         <div class="next-pt-preview">
-          <div class="next-pt-time">09:15 · em 12 minutos</div>
-          <div class="next-pt-name">Bruno Lima</div>
+          <div class="next-pt-time">09:15 · na recepção</div>
+          <div class="next-pt-name">Bruno Lima <span style="font-size:12px;color:var(--ink-3);font-family:var(--font-sans);font-weight:400;">· 34a · M</span></div>
           <div class="next-pt-proc">Restauração classe II — resina composta</div>
         </div>
-        <span class="alert-tag payment" style="display:inline-flex;">$ Débito de R$ 180 pendente</span>
+        <span class="alert-tag payment" style="display:inline-flex;margin-top:4px;">$ Débito de R$ 180 pendente</span>
         <div class="card-footer">
           <a class="footer-link" href="atendimento.html">Ver prontuário →</a>
         </div>
       </div>
 
-      <!-- Exames e laudos -->
+      <!-- Avisos clínicos do dia -->
       <div class="card">
-        <span class="eyebrow">Exames e Laudos</span>
-        <div class="exam-item">
-          <div class="exam-dot pending"></div>
-          <div class="exam-body">
-            <div class="exam-name">Rx Panorâmico</div>
-            <div class="exam-patient">Diego Souza · aguardando desde 18 abr</div>
+        <span class="eyebrow">Avisos clínicos do dia</span>
+        <div class="aviso-item">
+          <div class="aviso-dot medical"></div>
+          <div>
+            <div class="aviso-patient">Ana Costa · 08:30</div>
+            <div class="aviso-text">Alergia: Dipirona (Metamizol)</div>
           </div>
         </div>
-        <div class="exam-item">
-          <div class="exam-dot lab"></div>
-          <div class="exam-body">
-            <div class="exam-name">Moldagem protética</div>
-            <div class="exam-patient">Elisa Rocha · retorno previsto 27 abr</div>
+        <div class="aviso-item">
+          <div class="aviso-dot medical"></div>
+          <div>
+            <div class="aviso-patient">Carla Dias · 10:00</div>
+            <div class="aviso-text">AAS (anticoagulante) · Hipertensa controlada</div>
           </div>
         </div>
-        <div class="card-footer">
-          <a class="footer-link" href="#">Ver todos →</a>
-        </div>
-      </div>
-
-      <!-- Mensagens -->
-      <div class="card">
-        <span class="eyebrow">Mensagens</span>
-        <div class="msg-item">
-          <div class="msg-avatar-sm" style="background:var(--accent-soft);color:var(--accent-ink);">AC</div>
-          <div class="msg-body">
-            <div class="msg-header">
-              <span class="msg-from">Ana Costa</span>
-              <span class="msg-time">07:52</span>
-            </div>
-            <div class="msg-text">"Estou a caminho, chego em 10 min."</div>
-          </div>
-          <div class="msg-unread"></div>
-        </div>
-        <div class="msg-item">
-          <div class="msg-avatar-sm" style="background:rgba(110,127,76,0.1);color:var(--green);">BL</div>
-          <div class="msg-body">
-            <div class="msg-header">
-              <span class="msg-from">Bruno Lima</span>
-              <span class="msg-time">ontem</span>
-            </div>
-            <div class="msg-text">"Confirmo minha consulta de amanhã."</div>
+        <div class="aviso-item">
+          <div class="aviso-dot exam"></div>
+          <div>
+            <div class="aviso-patient">Diego Souza · 11:00</div>
+            <div class="aviso-text">Rx panorâmico pendente antes da consulta</div>
           </div>
         </div>
-        <div class="msg-item">
-          <div class="msg-avatar-sm" style="background:rgba(176,48,48,0.08);color:var(--red);">CD</div>
-          <div class="msg-body">
-            <div class="msg-header">
-              <span class="msg-from">Carla Dias</span>
-              <span class="msg-time">ontem</span>
-            </div>
-            <div class="msg-text">"Posso tomar meu remédio normalmente?"</div>
+        <div class="aviso-item">
+          <div class="aviso-dot exam"></div>
+          <div>
+            <div class="aviso-patient">Elisa Rocha · 14:30</div>
+            <div class="aviso-text">Peça protética aguardada do laboratório</div>
           </div>
-          <div class="msg-unread"></div>
-        </div>
-        <div class="card-footer">
-          <a class="footer-link" href="#">Ver todas →</a>
         </div>
       </div>
 
