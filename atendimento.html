@@ -6,7 +6,7 @@
 <title>Plural Orto · Atendimento — Ana Costa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,7 +38,7 @@
   --radius:    16px;
 
   --font-sans:  "Inter", system-ui, sans-serif;
-  --font-serif: "Fraunces", Georgia, serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
   --font-mono:  "JetBrains Mono", ui-monospace, monospace;
 
   --header-h: 56px;
@@ -192,7 +192,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .patient-name-lg {
   font-family: var(--font-serif); font-size: 20px; font-weight: 500;
-  letter-spacing: -0.02em; line-height: 1.1; font-variation-settings: "opsz" 72;
+  letter-spacing: -0.02em; line-height: 1.1;
 }
 .patient-meta-lg { font-size: 12.5px; color: var(--ink-3); margin-top: 4px; }
 .patient-contact {
@@ -204,8 +204,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .patient-alert {
   display: flex; align-items: center; gap: 8px;
   padding: 9px 12px; border-radius: var(--radius-sm);
-  background: var(--red-soft); border: 1px solid rgba(176,48,48,0.18);
-  font-size: 12.5px; color: var(--red); margin-top: 12px; font-weight: 500;
+  background: var(--red-soft); border: 1px solid rgba(176,48,48,0.3);
+  border-left: 3px solid var(--red);
+  font-size: 12.5px; color: var(--red); margin-top: 12px; font-weight: 600;
 }
 .patient-alert svg { width: 14px; height: 14px; flex-shrink: 0; }
 
@@ -213,7 +214,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .proc-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 .proc-name {
   font-family: var(--font-serif); font-size: 18px; font-weight: 500;
-  letter-spacing: -0.01em; line-height: 1.2; font-variation-settings: "opsz" 72;
+  letter-spacing: -0.01em; line-height: 1.2;
 }
 .proc-badge {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.07em;
@@ -364,7 +365,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 8px 0; border-bottom: 1px solid var(--line-2);
 }
 .history-item:last-of-type { border-bottom: none; }
-.history-date { font-family: var(--font-mono); font-size: 10px; color: var(--ink-4); width: 42px; flex-shrink: 0; text-align: right; }
+.history-date { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); width: 42px; flex-shrink: 0; text-align: right; }
 .history-proc { font-size: 12.5px; color: var(--ink-2); }
 </style>
 </head>

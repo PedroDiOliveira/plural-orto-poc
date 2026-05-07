@@ -62,7 +62,7 @@ Três famílias com papéis distintos — não misturar:
 
 | Família | Variável | Uso |
 |---|---|---|
-| Fraunces (serif) | `--font-serif` | Títulos, valores KPI, nomes, valores financeiros |
+| DM Serif Display (serif) | `--font-serif` | Títulos, valores KPI, nomes, valores financeiros |
 | Inter (sans) | `--font-sans` | Corpo, descrições, texto corrido |
 | JetBrains Mono | `--font-mono` | Labels, timestamps, badges, tags, eyebrows |
 

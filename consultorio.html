@@ -6,7 +6,7 @@
 <title>Plural Orto · Meu Dia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,7 +38,7 @@
   --radius:    16px;
 
   --font-sans:  "Inter", system-ui, sans-serif;
-  --font-serif: "Fraunces", Georgia, serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
   --font-mono:  "JetBrains Mono", ui-monospace, monospace;
 
   --header-h: 56px;
@@ -167,7 +167,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .day-greeting {
   font-family: var(--font-serif); font-size: 24px; font-weight: 500;
-  letter-spacing: -0.02em; font-variation-settings: "opsz" 72;
+  letter-spacing: -0.02em;
 }
 .day-date {
   font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em;
@@ -178,11 +178,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .day-kpi + .day-kpi { border-left: 1px solid var(--line-2); }
 .day-kpi-val {
   font-family: var(--font-serif); font-size: 28px; font-weight: 400;
-  line-height: 1; letter-spacing: -0.02em; font-variation-settings: "opsz" 72;
+  line-height: 1; letter-spacing: -0.02em;
 }
 .day-kpi-label {
-  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--ink-4); margin-top: 5px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px;
 }
 
 /* ── DAY GRID ── */
@@ -226,14 +226,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .pc-body { flex: 1; min-width: 0; }
 .pc-name { font-size: 14.5px; font-weight: 500; color: var(--ink); }
 .pc-age { font-weight: 400; color: var(--ink-3); font-size: 13px; }
-.pc-proc { font-size: 12px; color: var(--ink-3); margin-top: 3px; line-height: 1.4; }
+.pc-proc { font-size: 12.5px; color: var(--ink-2); margin-top: 3px; line-height: 1.4; }
 .pc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .alert-tag {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em;
   text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
   display: inline-flex; align-items: center;
 }
-.alert-tag.medical { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.18); }
+.alert-tag.medical { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.35); font-weight: 600; }
 .alert-tag.payment { background: var(--gold-soft); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
 .alert-tag.exam    { background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line-2); }
 .alert-tag.new-pt  { background: rgba(110,127,76,0.08); color: var(--green); border: 1px solid rgba(110,127,76,0.2); }
@@ -395,20 +395,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     </div>
     <div class="day-kpis">
       <div class="day-kpi">
-        <div class="day-kpi-val">5</div>
         <div class="day-kpi-label">Consultas</div>
+        <div class="day-kpi-val">5</div>
       </div>
       <div class="day-kpi">
-        <div class="day-kpi-val" style="color:var(--green);">1</div>
         <div class="day-kpi-label">Concluída</div>
+        <div class="day-kpi-val" style="color:var(--green);">1</div>
       </div>
       <div class="day-kpi">
-        <div class="day-kpi-val">3</div>
         <div class="day-kpi-label">Aguardando</div>
+        <div class="day-kpi-val">3</div>
       </div>
       <div class="day-kpi">
-        <div class="day-kpi-val" style="font-size:20px;color:var(--accent);">12 min</div>
         <div class="day-kpi-label">Próxima em</div>
+        <div class="day-kpi-val" style="font-size:20px;color:var(--accent);">12 min</div>
       </div>
     </div>
   </div>
@@ -462,7 +462,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="pc-bottom">
           <div class="pc-progress-wrap">
             <div class="pc-progress-label">Sessão única · sem plano ativo</div>
-            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:0%;"></div></div>
           </div>
           <a class="pc-action" href="atendimento.html">Ver paciente →</a>
         </div>
@@ -488,7 +487,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="pc-bottom">
           <div class="pc-progress-wrap">
             <div class="pc-progress-label">Cirurgia única · solicitar PA antes</div>
-            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:0%;"></div></div>
           </div>
           <a class="pc-action" href="#">Ver paciente →</a>
         </div>
@@ -514,7 +512,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="pc-bottom">
           <div class="pc-progress-wrap">
             <div class="pc-progress-label">Avaliação inicial · aguardar Rx</div>
-            <div class="pc-progress-bar"><div class="pc-progress-fill" style="width:0%;"></div></div>
           </div>
           <a class="pc-action" href="#">Ver paciente →</a>
         </div>
