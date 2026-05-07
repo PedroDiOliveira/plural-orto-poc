@@ -62,8 +62,8 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--ink-4); font-weight: 500; margin-bottom: 10px; display: block;
 }
 
@@ -122,7 +122,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .user-info { line-height: 1.2; }
 .user-name   { font-size: 13px; font-weight: 500; }
-.user-clinic { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-4); }
+.user-clinic { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4); }
 
 /* ── NAV ── */
 .nav {
@@ -140,7 +140,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap;
 }
 .nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
-.nav-tab:hover { color: var(--ink-2); }
+.nav-tab:hover { color: var(--ink); }
 .nav-tab:hover svg { opacity: 0.9; }
 .nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
 .nav-tab.active svg { opacity: 1; }
@@ -156,23 +156,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .divider { height: 1px; background: var(--line-2); margin: 14px -16px; }
 .card-footer { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-2); }
 .footer-link {
-  font-family: var(--font-mono); font-size: 10.5px;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
 }
 .footer-link:hover { opacity: 0.75; }
 
 /* ── BREADCRUMB ── */
 .breadcrumb {
   display: flex; align-items: center; gap: 8px;
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
   color: var(--ink-4); margin-bottom: 20px;
 }
 .breadcrumb a { color: var(--accent-ink); }
 .breadcrumb a:hover { opacity: 0.75; }
 .bc-sep { color: var(--line); }
-.bc-current { color: var(--ink-2); font-weight: 500; }
+.bc-current { color: var(--ink); font-weight: 500; }
 .bc-status {
-  padding: 2px 8px; border-radius: 999px; font-size: 9px;
+  padding: 2px 8px; border-radius: 999px; font-size: 11px;
   background: rgba(193,95,60,0.10); color: var(--accent-ink);
   border: 1px solid rgba(193,95,60,0.25); font-weight: 500;
 }
@@ -188,16 +188,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
   background: var(--accent-soft); border: 1.5px solid #E1C6AE;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--accent-ink);
+  font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--accent-ink);
 }
 .patient-name-lg {
   font-family: var(--font-serif); font-size: 20px; font-weight: 500;
   letter-spacing: -0.02em; line-height: 1.1;
 }
-.patient-meta-lg { font-size: 12.5px; color: var(--ink-3); margin-top: 4px; }
+.patient-meta-lg { font-size: 13px; color: var(--ink-3); margin-top: 4px; }
 .patient-contact {
   display: flex; align-items: center; gap: 6px;
-  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4);
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-4);
   margin-top: 6px; letter-spacing: 0.04em;
 }
 .patient-contact svg { width: 12px; height: 12px; }
@@ -206,35 +206,35 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 9px 12px; border-radius: var(--radius-sm);
   background: var(--red-soft); border: 1px solid rgba(176,48,48,0.3);
   border-left: 3px solid var(--red);
-  font-size: 12.5px; color: var(--red); margin-top: 12px; font-weight: 600;
+  font-size: 13px; color: var(--red); margin-top: 12px; font-weight: 600;
 }
 .patient-alert svg { width: 14px; height: 14px; flex-shrink: 0; }
 
 /* ── PROCEDURE CARD ── */
 .proc-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 .proc-name {
-  font-family: var(--font-serif); font-size: 18px; font-weight: 500;
+  font-family: var(--font-serif); font-size: 17px; font-weight: 500;
   letter-spacing: -0.01em; line-height: 1.2;
 }
 .proc-badge {
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.07em;
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
   text-transform: uppercase; padding: 3px 10px; border-radius: 999px; font-weight: 500;
   white-space: nowrap; flex-shrink: 0;
   background: rgba(193,95,60,0.10); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.22);
 }
 .proc-meta { display: flex; gap: 20px; margin-bottom: 14px; }
-.proc-meta-item { font-size: 12px; color: var(--ink-3); }
-.proc-meta-item strong { color: var(--ink-2); font-weight: 500; }
+.proc-meta-item { font-size: 13px; color: var(--ink-3); }
+.proc-meta-item strong { color: var(--ink); font-weight: 500; }
 
 .notes-label {
-  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--ink-4); font-weight: 500; margin-bottom: 6px;
 }
 .notes-area {
   width: 100%; background: var(--paper-2); border: 1px solid var(--line-2);
   border-radius: var(--radius-sm); padding: 10px 12px;
-  font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3);
-  letter-spacing: 0.02em; min-height: 72px; line-height: 1.6; resize: vertical;
+  font-family: var(--font-sans); font-size: 13px; color: var(--ink-3);
+  letter-spacing: 0; min-height: 72px; line-height: 1.6; resize: vertical;
   outline: none; transition: border-color 150ms;
 }
 .notes-area:focus { border-color: var(--line); }
@@ -243,7 +243,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .material-item {
   display: flex; align-items: center; gap: 8px;
   padding: 6px 0; border-bottom: 1px solid var(--line-2);
-  font-size: 12.5px; color: var(--ink-2); cursor: default;
+  font-size: 13px; color: var(--ink); cursor: default;
 }
 .material-item:last-child { border-bottom: none; }
 .mcheck {
@@ -260,8 +260,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .odontogram-mid { display: flex; align-items: center; gap: 6px; width: 100%; margin: 6px 0; }
 .odontogram-mid-line { flex: 1; height: 1px; background: var(--line-2); }
 .odontogram-mid-label {
-  font-family: var(--font-mono); font-size: 9px; color: var(--ink-4);
-  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
 }
 .tooth-col { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .tooth {
@@ -286,7 +286,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .treatment-step {
   display: flex; align-items: center; gap: 10px;
   padding: 8px 0; border-bottom: 1px solid var(--line-2);
-  font-size: 13px; color: var(--ink-2);
+  font-size: 13px; color: var(--ink);
 }
 .treatment-step:last-child { border-bottom: none; }
 .treatment-step.done-step { color: var(--ink-4); }
@@ -299,15 +299,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .step-icon.done    { background: rgba(110,127,76,0.15); color: var(--green); }
 .step-icon.current { background: var(--accent-soft); color: var(--accent-ink); }
 .step-icon.todo    { background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-4); }
-.step-num { font-family: var(--font-mono); font-size: 9px; color: var(--ink-4); margin-left: auto; flex-shrink: 0; }
+.step-num { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); margin-left: auto; flex-shrink: 0; }
 
 .plan-progress-wrap { margin-bottom: 14px; }
 .plan-progress-bar { height: 4px; background: var(--line-2); border-radius: 2px; }
 .plan-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 43%; }
 .plan-progress-label {
   display: flex; justify-content: space-between;
-  font-family: var(--font-mono); font-size: 9.5px; color: var(--ink-4);
-  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px;
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px;
 }
 
 /* ── SESSION TIMER ── */
@@ -317,17 +317,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 14px 0 4px;
 }
 .timer-label {
-  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em;
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--accent); text-align: center; margin-bottom: 16px;
 }
 .session-divider { height: 1px; background: var(--line-2); margin: 12px 0; }
 .session-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.session-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-4); }
-.session-value { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.session-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-4); }
+.session-value { font-size: 13px; font-weight: 500; color: var(--ink); }
 .pay-badge {
   display: inline-flex; align-items: center; gap: 5px;
-  padding: 3px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 500;
-  font-family: var(--font-mono); letter-spacing: 0.05em;
+  padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 500;
+  font-family: var(--font-sans); letter-spacing: 0;
   background: rgba(110,127,76,0.12); color: var(--green); border: 1px solid rgba(110,127,76,0.25);
 }
 .pay-badge svg { width: 10px; height: 10px; }
@@ -335,8 +335,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 9px 16px; border-radius: var(--radius-sm);
   border: 1px solid rgba(176,48,48,0.3); background: rgba(176,48,48,0.05);
-  color: var(--red); font-family: var(--font-mono); font-size: 10.5px;
-  letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
+  color: var(--red); font-family: var(--font-sans); font-size: 13px;
+  letter-spacing: 0.02em; text-transform: uppercase; font-weight: 500;
   cursor: pointer; width: 100%; margin-top: 14px; transition: background 150ms;
 }
 .end-session-btn:hover { background: rgba(176,48,48,0.10); }
@@ -345,7 +345,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .quick-action {
   display: flex; align-items: center; gap: 10px;
   padding: 9px 0; border-bottom: 1px solid var(--line-2);
-  font-size: 12.5px; color: var(--ink-2); cursor: pointer;
+  font-size: 13px; color: var(--ink); cursor: pointer;
   transition: color 150ms;
 }
 .quick-action:last-child { border-bottom: none; }
@@ -365,8 +365,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 8px 0; border-bottom: 1px solid var(--line-2);
 }
 .history-item:last-of-type { border-bottom: none; }
-.history-date { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); width: 42px; flex-shrink: 0; text-align: right; }
-.history-proc { font-size: 12.5px; color: var(--ink-2); }
+.history-date { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); width: 42px; flex-shrink: 0; text-align: right; }
+.history-proc { font-size: 13px; color: var(--ink); }
 </style>
 </head>
 <body>

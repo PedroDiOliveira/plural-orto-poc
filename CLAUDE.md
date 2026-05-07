@@ -26,11 +26,10 @@ Bloco `:root` idêntico em todas as páginas. Nunca inventar valores fora desses
 --paper-3:     #E3D9C0   /* fundo mais escuro */
 --cream:       #FBF6EE   /* superfície de cards */
 
-/* Texto — escala de hierarquia */
---ink:         #17140F   /* primário */
---ink-2:       #3A352C   /* secundário */
---ink-3:       #6B6456   /* terciário */
---ink-4:       #9B937F   /* metadados, labels */
+/* Texto — 3 níveis (ink-2 não é usado como nível de hierarquia) */
+--ink:         #17140F   /* primário: nomes, valores, headings */
+--ink-3:       #6B6456   /* secundário: descrições, meta, labels */
+--ink-4:       #9B937F   /* metadados: timestamps, labels fracos */
 
 /* Divisores */
 --line:        #D9CFB8
@@ -58,13 +57,29 @@ Bloco `:root` idêntico em todas as páginas. Nunca inventar valores fora desses
 | Neutro / Sem estado | `--paper-2` / `--ink-4` |
 
 ### Tipografia
-Três famílias com papéis distintos — não misturar:
+Três famílias com papéis **estritos** — não misturar:
 
-| Família | Variável | Uso |
+| Família | Variável | Usar SOMENTE para |
 |---|---|---|
-| DM Serif Display (serif) | `--font-serif` | Títulos, valores KPI, nomes, valores financeiros |
-| Inter (sans) | `--font-sans` | Corpo, descrições, texto corrido |
-| JetBrains Mono | `--font-mono` | Labels, timestamps, badges, tags, eyebrows |
+| DM Serif Display | `--font-serif` | Valores display/hero: KPI numbers, nomes de pacientes em destaque, títulos de página |
+| Inter | `--font-sans` | Tudo que for UI: labels, eyebrows, badges, nav, breadcrumbs, botões, textarea, avatares |
+| JetBrains Mono | `--font-mono` | Dados literais tabulares: horários (08:30), valores monetários (R$ 320), timer da sessão, numeração de dentes |
+
+**Escala de tamanhos (6 passos):**
+- `11px` — metadata: badges, labels, eyebrows (substitui toda a faixa 9px–10.5px)
+- `13px` — secondary: body de apoio, descriptions (substitui 11.5px–13.5px)
+- `15px` — primary: corpo base
+- `17px` — subtitle: títulos de seção
+- `20px` — display-md: nomes de pacientes em destaque
+- `28px+` — display-lg: valores KPI, page titles, timer de sessão
+
+**Exceções permitidas:** `tooth-num` em 9px (odontograma muito compacto); `timer-display` em 40px (stopwatch da sessão).
+
+**Letter-spacing:**
+- `-0.02em` — DM Serif Display (display type)
+- `0` — Inter corpo
+- `0.04–0.06em` — Inter uppercase labels
+- `0.04em` — JetBrains Mono dados
 
 ### Sombras e raios
 ```css
@@ -94,20 +109,34 @@ Variação KPI: `::before` de 2px no topo com a cor do estado.
 
 ### Eyebrow (label de seção)
 ```css
-font-family: var(--font-mono);
-font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+font-family: var(--font-sans);
+font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
 color: var(--ink-4); font-weight: 500;
+```
+
+### Section title (título dentro de card)
+```css
+font-family: var(--font-serif);
+font-size: 17px; font-weight: 500; color: var(--ink);
+letter-spacing: -0.02em;
 ```
 
 ### Status Badge (pill)
 ```css
-border-radius: 999px; font-family: var(--font-mono);
-font-size: 9-10px; text-transform: uppercase; font-weight: 500;
+border-radius: 999px; font-family: var(--font-sans);
+font-size: 11px; text-transform: uppercase; font-weight: 500;
 ```
 Variantes: `.on` (accent), `.conf` (green), `.wait` (gold), `.done` (paper-2 / ink-4).
 
+### Alert tag (pill de alerta clínico/administrativo)
+```css
+font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
+text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+```
+Variantes: `.medical` (red-soft + borda red, font-weight 600), `.payment` (gold-soft), `.exam` (paper-2), `.new-pt` (green-soft).
+
 ### Avatar
-Círculo com iniciais. A cor do fundo comunica contexto:
+Círculo com iniciais em Inter. A cor do fundo comunica contexto:
 - Doutor: gradiente accent (`#E37A54 → #B84C2B`)
 - Paciente ativo: `accent-soft`
 - Paciente com alerta médico: `red-soft`
@@ -116,10 +145,17 @@ Círculo com iniciais. A cor do fundo comunica contexto:
 ### Dot indicator
 `7px` circle, `border-radius: 50%`. Mesmo sistema de cores dos badges.
 
+### Breadcrumb
+```css
+font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+color: var(--ink-4);
+```
+Link ativo em `accent-ink`; página atual em `ink` com `font-weight: 500`.
+
 ### Footer link
 ```css
-font-family: var(--font-mono); font-size: 10.5px;
-letter-spacing: 0.1em; text-transform: uppercase;
+font-family: var(--font-sans); font-size: 11px;
+letter-spacing: 0.06em; text-transform: uppercase;
 color: var(--accent-ink); font-weight: 500;
 ```
 Sempre com texto no padrão "Ver todos →".
