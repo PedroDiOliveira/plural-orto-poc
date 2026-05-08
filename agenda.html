@@ -479,6 +479,147 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .break-label    { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); letter-spacing: 0.04em; text-transform: uppercase; }
 .break-duration { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); }
+
+/* ── OVERLAY SECTION HEADERS (Atenção / Demais) ── */
+.overlay-section-header {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 22px 0 12px;
+}
+.overlay-section-header:first-of-type { margin-top: 4px; }
+.overlay-section-label {
+  font-family: var(--font-serif); font-size: 17px;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.overlay-section-header.routine .overlay-section-label { color: var(--ink-3); }
+.overlay-section-count {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-4); padding: 2px 8px;
+  background: var(--paper-2); border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.overlay-section-hint {
+  font-family: var(--font-sans); font-size: 11px;
+  color: var(--ink-4); margin-left: auto;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+
+/* ── COMPACT LIST (linhas densas) ── */
+.compact-list {
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--cream);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 10px;
+}
+.compact-row {
+  background: var(--cream);
+  border-bottom: 1px solid var(--line-2);
+  cursor: pointer; transition: background 150ms;
+}
+.compact-row:last-child { border-bottom: none; }
+.compact-row:hover { background: rgba(193,95,60,0.025); }
+.compact-row.expanded { background: rgba(193,95,60,0.035); }
+.compact-row.is-past { opacity: 0.6; }
+
+.compact-row-main {
+  display: grid;
+  grid-template-columns: 8px 48px 26px auto 1fr auto auto auto;
+  gap: 12px; align-items: center;
+  padding: 10px 16px;
+}
+.compact-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.compact-dot.current { background: var(--accent); box-shadow: 0 0 0 2px rgba(193,95,60,0.2); }
+.compact-dot.arrived { background: var(--green); }
+.compact-dot.conf    { background: var(--green); opacity: 0.5; }
+.compact-dot.unconf  { background: var(--gold); }
+.compact-time {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--ink-3); letter-spacing: 0.02em;
+  text-align: left;
+}
+.compact-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 10px; font-weight: 600;
+  flex-shrink: 0;
+}
+.compact-name {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500;
+  color: var(--ink); white-space: nowrap;
+}
+.compact-proc {
+  font-family: var(--font-sans); font-size: 12px; color: var(--ink-3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  min-width: 0;
+}
+.compact-flag {
+  font-family: var(--font-sans); font-size: 9px; letter-spacing: 0.06em;
+  text-transform: uppercase; font-weight: 600;
+  color: var(--green); padding: 2px 7px;
+  background: rgba(110,127,76,0.10);
+  border-radius: 999px;
+  border: 1px solid rgba(110,127,76,0.20);
+}
+.compact-status {
+  font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.04em;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+  white-space: nowrap;
+}
+.compact-status.conf    { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.20); }
+.compact-status.done    { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line); }
+.compact-chevron {
+  font-family: var(--font-sans); font-size: 14px; color: var(--ink-4);
+  transition: transform 200ms ease;
+  display: inline-block; line-height: 1;
+}
+.compact-row.expanded .compact-chevron { transform: rotate(90deg); }
+
+.compact-row-detail {
+  max-height: 0; overflow: hidden;
+  transition: max-height 220ms ease;
+}
+.compact-row.expanded .compact-row-detail {
+  max-height: 120px;
+}
+.compact-detail-inner {
+  padding: 0 16px 12px 56px;
+  border-top: 1px solid var(--line-2);
+  padding-top: 10px;
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  font-family: var(--font-sans); font-size: 12px; color: var(--ink-4);
+}
+.compact-detail-stage {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+  padding: 2px 8px; background: var(--paper-2); border-radius: 999px;
+}
+.compact-detail-action {
+  margin-left: auto;
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+  cursor: pointer;
+}
+.compact-detail-action:hover { opacity: 0.75; }
+
+.compact-section-divider {
+  font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-4); font-weight: 500;
+  padding: 7px 16px; background: var(--paper-2);
+  border-bottom: 1px solid var(--line-2);
+}
+.compact-break {
+  padding: 8px 16px; background: var(--paper-2);
+  border-bottom: 1px solid var(--line-2);
+  text-align: center;
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.compact-break .compact-break-time {
+  font-family: var(--font-mono); margin-left: 8px;
+}
 </style>
 </head>
 <body>
@@ -1279,6 +1420,63 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     '</div>';
   }
 
+  function needsAttention(appt) {
+    if (appt.status === 'current') return true;
+    if (appt.status === 'arrived') return true;
+    if (appt.status === 'unconf')  return true;
+    if (appt.tags) {
+      for (var i = 0; i < appt.tags.length; i++) {
+        var type = appt.tags[i].split(':')[0];
+        if (type === 'medical' || type === 'payment' || type === 'remark') return true;
+      }
+    }
+    return false;
+  }
+
+  function buildCompactRow(appt, isPast) {
+    var dotClass = isPast ? 'conf' : (appt.status === 'current' ? 'current' : (appt.status === 'arrived' ? 'arrived' : appt.status));
+
+    var badgeClass, badgeText;
+    if (isPast) { badgeClass = 'done'; badgeText = 'Concluído'; }
+    else if (appt.status === 'arrived') { badgeClass = 'conf'; badgeText = 'Na clínica'; }
+    else if (appt.status === 'unconf')  { badgeClass = 'done'; badgeText = 'Sem conf.'; }
+    else { badgeClass = 'conf'; badgeText = 'Conf.'; }
+
+    var hasNewPt = appt.tags && appt.tags.some(function(t) { return t.indexOf('new-pt:') === 0; });
+    var newPtFlag = hasNewPt ? '<span class="compact-flag">Novo</span>' : '<span></span>';
+
+    var actionHTML = '';
+    if (appt.link) {
+      actionHTML = '<a class="compact-detail-action" href="' + appt.link + '">Ver atendimento →</a>';
+    } else if (appt.action) {
+      actionHTML = '<span class="compact-detail-action">' + appt.action + ' →</span>';
+    }
+
+    var detailParts = [];
+    if (appt.note)  detailParts.push('<span>' + appt.note + '</span>');
+    if (appt.stage) detailParts.push('<span class="compact-detail-stage">' + appt.stage + '</span>');
+
+    var detailHTML = (detailParts.length || actionHTML)
+      ? '<div class="compact-detail-inner">' + detailParts.join('') + actionHTML + '</div>'
+      : '';
+
+    var rowClass = 'compact-row' + (isPast ? ' is-past' : '');
+
+    return '<div class="' + rowClass + '">' +
+      '<div class="compact-row-main">' +
+        '<div class="compact-dot ' + dotClass + '"></div>' +
+        '<span class="compact-time">' + appt.time + '</span>' +
+        '<div class="compact-avatar" style="background:' + appt.avatarBg + ';color:' + appt.avatarFg + '">' + appt.initials + '</div>' +
+        '<span class="compact-name">' + appt.name + '</span>' +
+        '<span class="compact-proc">' + appt.proc + '</span>' +
+        newPtFlag +
+        '<span class="compact-status ' + badgeClass + '">' + badgeText + '</span>' +
+        '<span class="compact-chevron">›</span>' +
+      '</div>' +
+      '<div class="compact-row-detail">' + detailHTML + '</div>' +
+    '</div>';
+  }
+
   function buildDayHTML(data) {
     var isPast = data.status === 'past';
 
@@ -1314,26 +1512,57 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     if (data.simplified) {
       apptHTML = '<div style="text-align:center;padding:28px 0 12px;color:var(--ink-4);font-family:var(--font-sans);font-size:13px;line-height:1.7;">Dados detalhados disponíveis<br>na semana anterior ao dia</div>';
     } else if (data.appointments) {
-      var morningItems = [], afternoonItems = [], breakItem = null, freeItem = null;
+      var attentionAppts = [], routineMorning = [], routineAfternoon = [];
+      var breakItem = null, freeItem = null;
+
       data.appointments.forEach(function(appt) {
         if (appt.time === 'BREAK') { breakItem = appt; return; }
         if (appt.time === 'FREE')  { freeItem  = appt; return; }
-        var h = parseInt(appt.time.split(':')[0], 10);
-        if (h >= 14) afternoonItems.push(appt);
-        else morningItems.push(appt);
+        if (!isPast && needsAttention(appt)) {
+          attentionAppts.push(appt);
+        } else {
+          var h = parseInt(appt.time.split(':')[0], 10);
+          if (h >= 14) routineAfternoon.push(appt);
+          else routineMorning.push(appt);
+        }
       });
 
-      if (morningItems.length) {
-        apptHTML += '<div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">Manhã</span><div class="section-divider-line"></div></div>';
-        morningItems.forEach(function(a) { apptHTML += buildApptCard(a, isPast); });
+      if (attentionAppts.length) {
+        apptHTML += '<div class="overlay-section-header">' +
+          '<span class="overlay-section-label">Precisa de atenção</span>' +
+          '<span class="overlay-section-count">' + attentionAppts.length + '</span>' +
+          '<span class="overlay-section-hint">Ação necessária</span>' +
+        '</div>';
+        attentionAppts.forEach(function(a) { apptHTML += buildApptCard(a, isPast); });
       }
-      if (breakItem) {
+
+      var routineCount = routineMorning.length + routineAfternoon.length;
+      if (routineCount > 0) {
+        var routineLabel = (attentionAppts.length > 0) ? 'Demais consultas' : 'Consultas do dia';
+        var headerClass = 'overlay-section-header' + (attentionAppts.length > 0 ? ' routine' : '');
+        apptHTML += '<div class="' + headerClass + '">' +
+          '<span class="overlay-section-label">' + routineLabel + '</span>' +
+          '<span class="overlay-section-count">' + routineCount + '</span>' +
+          (attentionAppts.length > 0 ? '<span class="overlay-section-hint">Click para detalhes</span>' : '') +
+        '</div>';
+
+        apptHTML += '<div class="compact-list">';
+        if (routineMorning.length) {
+          apptHTML += '<div class="compact-section-divider">Manhã</div>';
+          routineMorning.forEach(function(a) { apptHTML += buildCompactRow(a, isPast); });
+        }
+        if (breakItem) {
+          apptHTML += '<div class="compact-break">Intervalo<span class="compact-break-time">' + breakItem.duration + '</span></div>';
+        }
+        if (routineAfternoon.length) {
+          apptHTML += '<div class="compact-section-divider">Tarde</div>';
+          routineAfternoon.forEach(function(a) { apptHTML += buildCompactRow(a, isPast); });
+        }
+        apptHTML += '</div>';
+      } else if (breakItem) {
         apptHTML += '<div class="break-block"><span class="break-label">Intervalo</span><span class="break-duration">' + breakItem.duration + '</span></div>';
       }
-      if (afternoonItems.length) {
-        apptHTML += '<div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">Tarde</span><div class="section-divider-line"></div></div>';
-        afternoonItems.forEach(function(a) { apptHTML += buildApptCard(a, isPast); });
-      }
+
       if (freeItem) {
         apptHTML += '<div class="overlay-free-slot"><span class="overlay-free-label">' + freeItem.label + '</span><span class="overlay-free-action">+ Encaixar paciente</span></div>';
       }
@@ -1402,6 +1631,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
       document.getElementById('day-overlay').classList.add('visible');
       var backBtn = document.getElementById('overlay-back-btn');
       if (backBtn) backBtn.addEventListener('click', hideDayView);
+
+      document.querySelectorAll('.compact-row').forEach(function(row) {
+        row.addEventListener('click', function(e) {
+          if (e.target.closest('a')) return;
+          this.classList.toggle('expanded');
+        });
+      });
     }, 100);
   }
 
