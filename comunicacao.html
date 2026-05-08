@@ -141,9 +141,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* ── AUTOMATION GRID ── */
 .comm-auto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.auto-card { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 12px; transition: border-color 150ms; }
-.auto-card:hover { border-color: var(--line); }
+.auto-card { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; transition: border-color 180ms, box-shadow 180ms; cursor: default; }
+.auto-card:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
 .auto-card.is-inactive { opacity: 0.55; }
+
+/* compact meta row: status + channels inline */
+.auto-card-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+
+/* always-visible headline metric */
+.auto-headline-metric { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); padding: 6px 10px; background: var(--paper-2); border-radius: 7px; letter-spacing: 0.01em; }
+.auto-headline-metric strong { font-family: var(--font-mono); color: var(--ink-3); font-weight: 500; letter-spacing: 0.04em; }
+
+/* expandable section — hidden by default, shown on hover */
+.auto-card-expand { overflow: hidden; max-height: 0; opacity: 0; display: flex; flex-direction: column; gap: 10px; transition: max-height 300ms ease, opacity 220ms ease; }
+.auto-card:hover .auto-card-expand { max-height: 320px; opacity: 1; }
+.auto-card-expand .auto-preview-text { margin-top: 2px; }
+.auto-card-expand .auto-metrics { border-top: 1px solid var(--line-2); padding-top: 10px; }
 .auto-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 .auto-card-title-group { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
 .auto-icon { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -514,21 +527,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle on" data-auto="1"></button>
         </div>
-        <div class="auto-status-row">
-          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
-        </div>
-        <div class="auto-channels">
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+        <div class="auto-card-meta">
+          <span class="template-status-pill utility">✓ Utility</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
           <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
         </div>
-        <div class="auto-preview-text">"Olá <span class="token">[nome]</span>, lembrando que você tem consulta amanhã às <span class="token">[hora]</span> com <span class="token">[médico]</span>. Confirme com SIM ou avise se precisar remarcar."</div>
-        <div class="auto-metrics">
-          <div class="auto-metric-row"><span class="auto-metric-label">Enviados hoje</span><span class="auto-metric-val accent">34 mensagens</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Taxa de leitura</span><span class="auto-metric-val green">94%</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Confirmações</span><span class="auto-metric-val green">78% confirmaram</span></div>
-        </div>
-        <div class="auto-card-footer">
-          <button class="auto-edit-btn" data-auto-name="Lembrete 24h antes" data-auto-trigger="24h antes da consulta" data-auto-msg="Olá [nome], lembrando que você tem consulta amanhã às [hora] com [médico] na Plural Orto. Confirme com SIM ou avise se precisar remarcar." onclick="openAutoDrawer(this)">Editar →</button>
+        <div class="auto-headline-metric"><strong>34</strong> env hoje · <strong>78%</strong> confirmaram · <strong>94%</strong> leitura</div>
+        <div class="auto-card-expand">
+          <div class="auto-preview-text">"Olá <span class="token">[nome]</span>, lembrando que você tem consulta amanhã às <span class="token">[hora]</span> com <span class="token">[médico]</span>. Confirme com SIM ou avise se precisar remarcar."</div>
+          <div class="auto-metrics">
+            <div class="auto-metric-row"><span class="auto-metric-label">Enviados hoje</span><span class="auto-metric-val accent">34 mensagens</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Taxa de leitura</span><span class="auto-metric-val green">94%</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Confirmações</span><span class="auto-metric-val green">78% confirmaram</span></div>
+          </div>
+          <div class="auto-card-footer">
+            <button class="auto-edit-btn" data-auto-name="Lembrete 24h antes" data-auto-trigger="24h antes da consulta" data-auto-msg="Olá [nome], lembrando que você tem consulta amanhã às [hora] com [médico] na Plural Orto. Confirme com SIM ou avise se precisar remarcar." onclick="openAutoDrawer(this)">Editar →</button>
+          </div>
         </div>
       </div>
 
@@ -546,21 +560,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle on" data-auto="2"></button>
         </div>
-        <div class="auto-status-row">
-          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
-          <span style="font-family:var(--font-sans);font-size:10px;color:var(--ink-4);">· Botões Quick Reply</span>
+        <div class="auto-card-meta">
+          <span class="template-status-pill utility">✓ Utility</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          <span style="font-family:var(--font-sans);font-size:10px;color:var(--ink-4);letter-spacing:0.02em;">Quick Reply</span>
         </div>
-        <div class="auto-channels">
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
-        </div>
-        <div class="auto-preview-text">"Olá <span class="token">[nome]</span>! Você tem consulta na <span class="token">[dia]</span> às <span class="token">[hora]</span>. Responda SIM para confirmar ou NÃO se precisar remarcar."</div>
-        <div class="auto-metrics">
-          <div class="auto-metric-row"><span class="auto-metric-label">Taxa de resposta</span><span class="auto-metric-val green">78%</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Confirmados hoje</span><span class="auto-metric-val accent">12 pacientes</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Bot processa resposta</span><span class="auto-metric-val">automaticamente</span></div>
-        </div>
-        <div class="auto-card-footer">
-          <button class="auto-edit-btn" data-auto-name="Confirmação interativa 48h" data-auto-trigger="48h antes da consulta" data-auto-msg="Olá [nome]! Você tem consulta na [dia] às [hora]. Confirme ou remarque abaixo." data-auto-type="interactive" onclick="openAutoDrawer(this)">Editar →</button>
+        <div class="auto-headline-metric"><strong>12</strong> confirmados hoje · <strong>78%</strong> de resposta</div>
+        <div class="auto-card-expand">
+          <div class="auto-preview-text">"Olá <span class="token">[nome]</span>! Você tem consulta na <span class="token">[dia]</span> às <span class="token">[hora]</span>. Confirme ou remarque abaixo."</div>
+          <div class="auto-metrics">
+            <div class="auto-metric-row"><span class="auto-metric-label">Taxa de resposta</span><span class="auto-metric-val green">78%</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Confirmados hoje</span><span class="auto-metric-val accent">12 pacientes</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Bot processa resposta</span><span class="auto-metric-val">automaticamente</span></div>
+          </div>
+          <div class="auto-card-footer">
+            <button class="auto-edit-btn" data-auto-name="Confirmação interativa 48h" data-auto-trigger="48h antes da consulta" data-auto-msg="Olá [nome]! Você tem consulta na [dia] às [hora]. Confirme ou remarque abaixo." data-auto-type="interactive" onclick="openAutoDrawer(this)">Editar →</button>
+          </div>
         </div>
       </div>
 
@@ -578,21 +593,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle on" data-auto="3"></button>
         </div>
-        <div class="auto-status-row">
-          <span class="template-status-pill marketing">✓ Aprovado · Marketing</span>
-        </div>
-        <div class="auto-channels">
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+        <div class="auto-card-meta">
+          <span class="template-status-pill marketing">✓ Marketing</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
           <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
         </div>
-        <div class="auto-preview-text">"Sentimos sua falta, <span class="token">[nome]</span>! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar."</div>
-        <div class="auto-metrics">
-          <div class="auto-metric-row"><span class="auto-metric-label">Alcançados este mês</span><span class="auto-metric-val accent">15 pacientes</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Reagendaram</span><span class="auto-metric-val green">6 (40%)</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Receita recuperada</span><span class="auto-metric-val green">R$ 840</span></div>
-        </div>
-        <div class="auto-card-footer">
-          <button class="auto-edit-btn" data-auto-name="Reativação de inativos" data-auto-trigger="Sem visita há 90+ dias" data-auto-msg="Sentimos sua falta, [nome]! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar." onclick="openAutoDrawer(this)">Editar →</button>
+        <div class="auto-headline-metric"><strong>6</strong> reagendaram este mês · <strong style="color:var(--green);">R$ 840</strong> recuperados</div>
+        <div class="auto-card-expand">
+          <div class="auto-preview-text">"Sentimos sua falta, <span class="token">[nome]</span>! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar."</div>
+          <div class="auto-metrics">
+            <div class="auto-metric-row"><span class="auto-metric-label">Alcançados este mês</span><span class="auto-metric-val accent">15 pacientes</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Reagendaram</span><span class="auto-metric-val green">6 (40%)</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Receita recuperada</span><span class="auto-metric-val green">R$ 840</span></div>
+          </div>
+          <div class="auto-card-footer">
+            <button class="auto-edit-btn" data-auto-name="Reativação de inativos" data-auto-trigger="Sem visita há 90+ dias" data-auto-msg="Sentimos sua falta, [nome]! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar." onclick="openAutoDrawer(this)">Editar →</button>
+          </div>
         </div>
       </div>
 
@@ -610,20 +626,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle on" data-auto="4"></button>
         </div>
-        <div class="auto-status-row">
-          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
+        <div class="auto-card-meta">
+          <span class="template-status-pill utility">✓ Utility</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
         </div>
-        <div class="auto-channels">
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
-        </div>
-        <div class="auto-preview-text">"Como foi sua consulta hoje com o <span class="token">[médico]</span>? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! <span class="token">[link]</span>"</div>
-        <div class="auto-metrics">
-          <div class="auto-metric-row"><span class="auto-metric-label">NPS médio</span><span class="auto-metric-val green">9,2 / 10</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Taxa de resposta</span><span class="auto-metric-val green">68%</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Avaliações este mês</span><span class="auto-metric-val accent">43 respostas</span></div>
-        </div>
-        <div class="auto-card-footer">
-          <button class="auto-edit-btn" data-auto-name="Pesquisa pós-consulta NPS" data-auto-trigger="2h após encerrar consulta" data-auto-msg="Como foi sua consulta hoje com o [médico]? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! [link]" onclick="openAutoDrawer(this)">Editar →</button>
+        <div class="auto-headline-metric">NPS <strong>9,2</strong> · <strong>43</strong> respostas este mês · <strong>68%</strong> taxa</div>
+        <div class="auto-card-expand">
+          <div class="auto-preview-text">"Como foi sua consulta hoje com o <span class="token">[médico]</span>? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! <span class="token">[link]</span>"</div>
+          <div class="auto-metrics">
+            <div class="auto-metric-row"><span class="auto-metric-label">NPS médio</span><span class="auto-metric-val green">9,2 / 10</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Taxa de resposta</span><span class="auto-metric-val green">68%</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Avaliações este mês</span><span class="auto-metric-val accent">43 respostas</span></div>
+          </div>
+          <div class="auto-card-footer">
+            <button class="auto-edit-btn" data-auto-name="Pesquisa pós-consulta NPS" data-auto-trigger="2h após encerrar consulta" data-auto-msg="Como foi sua consulta hoje com o [médico]? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! [link]" onclick="openAutoDrawer(this)">Editar →</button>
+          </div>
         </div>
       </div>
 
@@ -641,21 +658,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle on" data-auto="5"></button>
         </div>
-        <div class="auto-status-row">
-          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
-        </div>
-        <div class="auto-channels">
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
-        </div>
-        <div class="auto-preview-text">"Olá <span class="token">[nome]</span>, notamos que seu <span class="token">[tratamento]</span> ainda não tem próxima sessão marcada. Quer que a gente agende para você?"</div>
-        <div class="auto-metrics">
-          <div class="auto-metric-row"><span class="auto-metric-label">Atingidos esta semana</span><span class="auto-metric-val accent">7 pacientes</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Agendaram após msg</span><span class="auto-metric-val green">4 (57%)</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Receita ativada</span><span class="auto-metric-val green">R$ 560 esta semana</span></div>
-        </div>
-        <div class="auto-card-footer">
-          <button class="auto-edit-btn" data-auto-name="Sessão em aberto" data-auto-trigger="Tratamento ativo sem próxima sessão há 14+ dias" data-auto-msg="Olá [nome], notamos que seu [tratamento] ainda não tem próxima sessão marcada. Quer que a gente agende para você? Clique aqui." onclick="openAutoDrawer(this)">Editar →</button>
+        <div class="auto-card-meta">
+          <span class="template-status-pill utility">✓ Utility</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
           <span class="auto-diff-badge">⚡ Exclusivo</span>
+        </div>
+        <div class="auto-headline-metric"><strong>4</strong> agendaram esta semana · <strong style="color:var(--green);">R$ 560</strong> ativados</div>
+        <div class="auto-card-expand">
+          <div class="auto-preview-text">"Olá <span class="token">[nome]</span>, notamos que seu <span class="token">[tratamento]</span> ainda não tem próxima sessão marcada. Quer que a gente agende para você?"</div>
+          <div class="auto-metrics">
+            <div class="auto-metric-row"><span class="auto-metric-label">Atingidos esta semana</span><span class="auto-metric-val accent">7 pacientes</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Agendaram após msg</span><span class="auto-metric-val green">4 (57%)</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Receita ativada</span><span class="auto-metric-val green">R$ 560 esta semana</span></div>
+          </div>
+          <div class="auto-card-footer">
+            <button class="auto-edit-btn" data-auto-name="Sessão em aberto" data-auto-trigger="Tratamento ativo sem próxima sessão há 14+ dias" data-auto-msg="Olá [nome], notamos que seu [tratamento] ainda não tem próxima sessão marcada. Quer que a gente agende para você? Clique aqui." onclick="openAutoDrawer(this)">Editar →</button>
+          </div>
         </div>
       </div>
 
@@ -673,19 +691,20 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle" data-auto="6"></button>
         </div>
-        <div class="auto-status-row">
+        <div class="auto-card-meta">
           <span class="template-status-pill draft">Rascunho · Marketing</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
         </div>
-        <div class="auto-channels">
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
-        </div>
-        <div class="auto-preview-text">"Feliz aniversário, <span class="token">[nome]</span>! 🎂 A equipe da Plural Orto deseja um dia muito especial. Como presente: 20% de desconto em clareamento este mês!"</div>
-        <div class="auto-metrics">
-          <div class="auto-metric-row"><span class="auto-metric-label">Aniversários esta semana</span><span class="auto-metric-val">3 pacientes</span></div>
-          <div class="auto-metric-row"><span class="auto-metric-label">Status</span><span class="auto-metric-val" style="color:var(--ink-4);">Inativo — clique no toggle</span></div>
-        </div>
-        <div class="auto-card-footer">
-          <button class="auto-edit-btn" data-auto-name="Aniversário do paciente" data-auto-trigger="No dia do aniversário" data-auto-msg="Feliz aniversário, [nome]! 🎂 A equipe da Plural Orto deseja um dia muito especial. Como presente: 20% de desconto em clareamento este mês!" onclick="openAutoDrawer(this)">Editar →</button>
+        <div class="auto-headline-metric"><strong>3</strong> aniversários esta semana · aguardando aprovação</div>
+        <div class="auto-card-expand">
+          <div class="auto-preview-text">"Feliz aniversário, <span class="token">[nome]</span>! 🎂 A equipe da Plural Orto deseja um dia muito especial. Como presente: 20% de desconto em clareamento este mês!"</div>
+          <div class="auto-metrics">
+            <div class="auto-metric-row"><span class="auto-metric-label">Aniversários esta semana</span><span class="auto-metric-val">3 pacientes</span></div>
+            <div class="auto-metric-row"><span class="auto-metric-label">Status</span><span class="auto-metric-val" style="color:var(--ink-4);">Rascunho — enviar para aprovação</span></div>
+          </div>
+          <div class="auto-card-footer">
+            <button class="auto-edit-btn" data-auto-name="Aniversário do paciente" data-auto-trigger="No dia do aniversário" data-auto-msg="Feliz aniversário, [nome]! 🎂 A equipe da Plural Orto deseja um dia muito especial. Como presente: 20% de desconto em clareamento este mês!" onclick="openAutoDrawer(this)">Editar →</button>
+          </div>
         </div>
       </div>
 
