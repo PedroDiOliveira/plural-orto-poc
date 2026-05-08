@@ -310,6 +310,54 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .segment-option-text { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink); }
 .segment-option-count { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); margin-left: auto; }
 .wizard-preview-note { background: var(--accent-50); border: 1px solid rgba(193,95,60,0.2); border-radius: var(--radius-sm); padding: 10px 14px; font-family: var(--font-sans); font-size: 12px; color: var(--accent-ink); }
+
+/* ── WABA STATUS BAR ── */
+.waba-status-bar { display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: var(--paper-2); border: 1px solid var(--line-2); border-radius: var(--radius-sm); margin-bottom: 20px; font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); flex-wrap: wrap; }
+.waba-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; box-shadow: 0 0 0 2px rgba(110,127,76,0.2); }
+.waba-item { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.waba-item strong { color: var(--ink-3); font-weight: 500; }
+.waba-sep { color: var(--line); user-select: none; }
+.waba-optin-track { height: 3px; border-radius: 2px; background: var(--line-2); width: 44px; overflow: hidden; flex-shrink: 0; display: inline-block; vertical-align: middle; margin: 0 2px; }
+.waba-optin-fill { height: 100%; border-radius: 2px; background: var(--green); }
+
+/* ── TEMPLATE STATUS PILL ── */
+.template-status-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; font-family: var(--font-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.template-status-pill.utility  { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.2); }
+.template-status-pill.marketing { background: var(--gold-soft); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.template-status-pill.draft    { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line-2); }
+.auto-status-row { display: flex; align-items: center; gap: 6px; margin-top: -4px; }
+
+/* ── COMM APPROVAL INFO ── */
+.comm-approval-info { background: var(--accent-50); border: 1px solid var(--accent-soft); border-radius: var(--radius-sm); padding: 10px 14px; font-family: var(--font-sans); font-size: 12px; color: var(--accent-ink); line-height: 1.5; }
+.comm-approval-info code { font-family: var(--font-mono); font-size: 11px; background: var(--accent-soft); padding: 1px 5px; border-radius: 3px; color: var(--accent-ink); }
+
+/* ── COMM CATEGORY BTN ── */
+.comm-category-btn { display: flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line-2); background: var(--cream); font-family: var(--font-sans); font-size: 12px; font-weight: 500; color: var(--ink-3); cursor: pointer; transition: all 120ms; }
+.comm-category-btn.selected { border-color: var(--accent); background: var(--accent-50); color: var(--accent-ink); }
+
+/* ── QUICK REPLY BUTTONS ── */
+.wa-quick-reply-bar { display: none; border-top: 1px solid rgba(0,0,0,0.08); }
+.wa-preview-wrap.has-qr .wa-quick-reply-bar { display: flex; }
+.wa-qr-btn { flex: 1; padding: 8px 6px; background: white; font-family: var(--font-sans); font-size: 12px; color: #0095ED; font-weight: 500; text-align: center; cursor: pointer; border: none; transition: background 120ms; }
+.wa-qr-btn:not(:last-child) { border-right: 1px solid rgba(0,0,0,0.08); }
+.wa-qr-btn:hover { background: #f5f5f5; }
+
+/* ── CAMPAIGN COST BREAKDOWN ── */
+.campaign-cost-breakdown { background: var(--paper-2); border: 1px solid var(--line-2); border-radius: var(--radius-sm); padding: 12px 14px; font-family: var(--font-sans); font-size: 12px; color: var(--ink-3); line-height: 1.6; }
+.campaign-cost-breakdown strong { color: var(--ink); font-weight: 600; }
+.cost-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+.cost-total { font-family: var(--font-mono); font-size: 15px; color: var(--accent-ink); font-weight: 500; letter-spacing: 0.02em; }
+.cost-note { font-size: 11px; color: var(--ink-4); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line-2); }
+
+/* ── INBOX SESSION WINDOW ── */
+.inbox-session-window { font-family: var(--font-sans); font-size: 10px; font-weight: 500; display: flex; align-items: center; gap: 3px; }
+.inbox-session-window.open { color: var(--green); }
+.inbox-session-window.expired { color: var(--ink-4); }
+.inbox-session-window::before { content: '●'; font-size: 6px; }
+
+/* ── OPT-IN WARNING ── */
+.optin-warning { background: var(--gold-soft); border: 1px solid rgba(176,138,74,0.3); border-radius: var(--radius-sm); padding: 9px 14px; font-family: var(--font-sans); font-size: 12px; color: #7A5E2B; line-height: 1.4; display: flex; gap: 7px; align-items: flex-start; }
+.segment-option-optin { font-family: var(--font-mono); font-size: 10px; color: var(--green); margin-left: 6px; font-weight: 500; }
 </style>
 </head>
 <body>
@@ -422,6 +470,26 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     <button class="comm-tab" data-tab="modelos">Modelos</button>
   </div>
 
+  <!-- WABA Status Bar -->
+  <div class="waba-status-bar">
+    <span class="waba-dot"></span>
+    <span class="waba-item"><strong>Conectado</strong></span>
+    <span class="waba-sep">·</span>
+    <span class="waba-item">(55) 11 9 9999-9999</span>
+    <span class="waba-sep">·</span>
+    <span class="waba-item">Qualidade: <strong style="color:var(--green);">Alta</strong></span>
+    <span class="waba-sep">·</span>
+    <span class="waba-item">Tier 2 — até <strong>1.000 conversas/dia</strong></span>
+    <span class="waba-sep">·</span>
+    <span class="waba-item">
+      248 pacientes ·
+      <span class="waba-optin-track"><span class="waba-optin-fill" style="width:75%;"></span></span>
+      <strong style="color:var(--green);">187 com opt-in WA</strong> <span style="color:var(--ink-4);">(75%)</span>
+    </span>
+    <span class="waba-sep">·</span>
+    <span class="waba-item" style="cursor:pointer;color:var(--accent-ink);font-weight:500;">Gerenciar opt-ins →</span>
+  </div>
+
   <!-- ── TAB: AUTOMAÇÕES ── -->
   <div class="comm-tab-panel active" data-tab="automacoes">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
@@ -445,6 +513,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
             </div>
           </div>
           <button class="auto-toggle on" data-auto="1"></button>
+        </div>
+        <div class="auto-status-row">
+          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
         </div>
         <div class="auto-channels">
           <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
@@ -475,6 +546,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle on" data-auto="2"></button>
         </div>
+        <div class="auto-status-row">
+          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
+          <span style="font-family:var(--font-sans);font-size:10px;color:var(--ink-4);">· Botões Quick Reply</span>
+        </div>
         <div class="auto-channels">
           <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
         </div>
@@ -485,7 +560,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="auto-metric-row"><span class="auto-metric-label">Bot processa resposta</span><span class="auto-metric-val">automaticamente</span></div>
         </div>
         <div class="auto-card-footer">
-          <button class="auto-edit-btn" data-auto-name="Confirmação interativa 48h" data-auto-trigger="48h antes da consulta" data-auto-msg="Olá [nome]! Você tem consulta na [dia] às [hora]. Responda SIM para confirmar ou NÃO se precisar remarcar." onclick="openAutoDrawer(this)">Editar →</button>
+          <button class="auto-edit-btn" data-auto-name="Confirmação interativa 48h" data-auto-trigger="48h antes da consulta" data-auto-msg="Olá [nome]! Você tem consulta na [dia] às [hora]. Confirme ou remarque abaixo." data-auto-type="interactive" onclick="openAutoDrawer(this)">Editar →</button>
         </div>
       </div>
 
@@ -502,6 +577,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
             </div>
           </div>
           <button class="auto-toggle on" data-auto="3"></button>
+        </div>
+        <div class="auto-status-row">
+          <span class="template-status-pill marketing">✓ Aprovado · Marketing</span>
         </div>
         <div class="auto-channels">
           <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
@@ -532,6 +610,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
           <button class="auto-toggle on" data-auto="4"></button>
         </div>
+        <div class="auto-status-row">
+          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
+        </div>
         <div class="auto-channels">
           <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
         </div>
@@ -559,6 +640,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
             </div>
           </div>
           <button class="auto-toggle on" data-auto="5"></button>
+        </div>
+        <div class="auto-status-row">
+          <span class="template-status-pill utility">✓ Aprovado · Utility</span>
         </div>
         <div class="auto-channels">
           <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
@@ -588,6 +672,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
             </div>
           </div>
           <button class="auto-toggle" data-auto="6"></button>
+        </div>
+        <div class="auto-status-row">
+          <span class="template-status-pill draft">Rascunho · Marketing</span>
         </div>
         <div class="auto-channels">
           <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
@@ -626,6 +713,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="inbox-meta">
             <div class="inbox-time">08:41</div>
             <div class="inbox-status action">Ação</div>
+            <div class="inbox-session-window open">Janela · 15h</div>
           </div>
         </div>
         <div class="inbox-expanded">
@@ -653,6 +741,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="inbox-meta">
             <div class="inbox-time">09:03</div>
             <div class="inbox-status action">Ação</div>
+            <div class="inbox-session-window expired">Janela expirada</div>
           </div>
         </div>
         <div class="inbox-expanded">
@@ -680,6 +769,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="inbox-meta">
             <div class="inbox-time">09:17</div>
             <div class="inbox-status action">Ação</div>
+            <div class="inbox-session-window open">Janela · 14h</div>
           </div>
         </div>
         <div class="inbox-expanded">
@@ -844,7 +934,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="template-name">Lembrete padrão 24h</div>
         <div class="template-preview">Olá [nome], lembrando que você tem consulta amanhã às [hora] com [médico]. Confirme com SIM ou avise se precisar remarcar. Até amanhã!</div>
         <div class="template-footer">
-          <span class="template-usage">Usado 47×</span>
+          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 47×</span>
           <div class="template-actions">
             <button class="template-btn edit">Editar</button>
             <button class="template-btn use">Usar</button>
@@ -860,7 +950,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="template-name">Confirmação interativa</div>
         <div class="template-preview">Olá [nome]! Você tem consulta na [dia] às [hora]. Responda SIM para confirmar ou NÃO se precisar remarcar. Aguardamos você!</div>
         <div class="template-footer">
-          <span class="template-usage">Usado 38×</span>
+          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 38×</span>
           <div class="template-actions">
             <button class="template-btn edit">Editar</button>
             <button class="template-btn use">Usar</button>
@@ -879,7 +969,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="template-name">Boas-vindas paciente novo</div>
         <div class="template-preview">Bem-vindo à Plural Orto, [nome]! É um prazer ter você conosco. Sua primeira consulta está marcada para [data] às [hora]. Qualquer dúvida, estamos aqui!</div>
         <div class="template-footer">
-          <span class="template-usage">Usado 23×</span>
+          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 23×</span>
           <div class="template-actions">
             <button class="template-btn edit">Editar</button>
             <button class="template-btn use">Usar</button>
@@ -895,7 +985,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="template-name">Pesquisa de satisfação</div>
         <div class="template-preview">Como foi sua consulta hoje com o [médico]? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! Clique aqui para avaliar: [link]</div>
         <div class="template-footer">
-          <span class="template-usage">Usado 41×</span>
+          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 41×</span>
           <div class="template-actions">
             <button class="template-btn edit">Editar</button>
             <button class="template-btn use">Usar</button>
@@ -911,7 +1001,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="template-name">Reativação gentil</div>
         <div class="template-preview">Sentimos sua falta, [nome]! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar online.</div>
         <div class="template-footer">
-          <span class="template-usage">Usado 15×</span>
+          <span class="template-usage"><span class="template-status-pill marketing" style="margin-right:6px;">✓ Aprovado</span>Usado 15×</span>
           <div class="template-actions">
             <button class="template-btn edit">Editar</button>
             <button class="template-btn use">Usar</button>
@@ -930,7 +1020,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <div class="template-name">Promoção genérica</div>
         <div class="template-preview">Olá [nome]! Temos uma novidade especial para você: [oferta]. Aproveite até [data]. Clique aqui para saber mais e agendar: [link]</div>
         <div class="template-footer">
-          <span class="template-usage">Usado 8×</span>
+          <span class="template-usage"><span class="template-status-pill marketing" style="margin-right:6px;">✓ Aprovado</span>Usado 8×</span>
           <div class="template-actions">
             <button class="template-btn edit">Editar</button>
             <button class="template-btn use">Usar</button>
@@ -953,6 +1043,24 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     </button>
   </div>
   <div class="comm-drawer-body">
+    <div class="comm-drawer-section">
+      <div class="comm-drawer-label">Categoria do template</div>
+      <div class="comm-channel-row">
+        <button class="comm-category-btn selected" id="cat-utility">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Utility
+        </button>
+        <button class="comm-category-btn" id="cat-marketing">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5l1.5 3 3.3.48-2.4 2.34.57 3.3L7 9.14l-2.97 1.48.57-3.3L2.2 4.98 5.5 4.5 7 1.5z" stroke="#B08A4A" stroke-width="1.1" stroke-linejoin="round"/></svg>
+          Marketing
+        </button>
+        <button class="comm-category-btn" id="cat-auth">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="6" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5 6V4.5a2 2 0 014 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Autenticação
+        </button>
+      </div>
+      <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);margin-top:4px;">Utility = transacional (lembretes, confirmações) · Marketing = promocional (reativação, ofertas)</div>
+    </div>
     <div class="comm-drawer-section">
       <div class="comm-drawer-label">Canal de envio</div>
       <div class="comm-channel-row">
@@ -994,10 +1102,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
         <span class="comm-token" onclick="insertToken('[tratamento]')">[tratamento]</span>
         <span class="comm-token" onclick="insertToken('[link]')">[link]</span>
       </div>
+      <div class="comm-approval-info">
+        ℹ Ao salvar, o template será enviado ao Meta para aprovação. Prazo típico: <strong>24–72 horas</strong>. As variáveis <code>[nome]</code>, <code>[hora]</code> etc. são convertidas para <code>{{1}}</code>, <code>{{2}}</code> no envio à API.
+      </div>
+    </div>
+    <div class="comm-drawer-section" id="qr-toggle-section" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="comm-drawer-label" style="margin-bottom:0;">Botões de resposta rápida (Quick Reply)</div>
+        <button class="auto-toggle on" id="qr-toggle" style="margin-top:0;" onclick="toggleQR()"></button>
+      </div>
+      <div id="qr-btn-config" style="display:flex;gap:8px;margin-top:8px;">
+        <input style="flex:1;padding:7px 10px;border:1px solid var(--line-2);border-radius:8px;font-family:var(--font-sans);font-size:12px;background:var(--cream);color:var(--ink);outline:none;" value="✓ Confirmar" readonly>
+        <input style="flex:1;padding:7px 10px;border:1px solid var(--line-2);border-radius:8px;font-family:var(--font-sans);font-size:12px;background:var(--cream);color:var(--ink);outline:none;" value="↺ Remarcar" readonly>
+      </div>
     </div>
     <div class="comm-drawer-section">
       <div class="comm-drawer-label">Preview — como o paciente vê</div>
-      <div class="wa-preview-wrap">
+      <div class="wa-preview-wrap" id="auto-wa-wrap">
         <div class="wa-preview-bar">
           <div class="wa-preview-bar-avatar">PO</div>
           <div>
@@ -1011,12 +1132,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
             <div class="wa-bubble-time">09:15 ✓✓</div>
           </div>
         </div>
+        <div class="wa-quick-reply-bar">
+          <button class="wa-qr-btn">✓ Confirmar</button>
+          <button class="wa-qr-btn">↺ Remarcar</button>
+        </div>
       </div>
     </div>
   </div>
   <div class="comm-drawer-footer">
     <button class="btn-ghost" onclick="closeAutoDrawer()">Cancelar</button>
-    <button class="btn-primary">Salvar automação</button>
+    <button class="btn-primary" id="auto-save-btn">Enviar para aprovação →</button>
   </div>
 </aside>
 
@@ -1042,28 +1167,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     <div class="wizard-panel active" data-step="1">
       <div class="comm-drawer-label">Quem receberá esta campanha?</div>
       <div class="segment-options">
-        <div class="segment-option selected" onclick="selectSegment(this)">
+        <div class="segment-option selected" onclick="selectSegment(this)" data-total="248" data-optin="187">
           <div class="segment-option-radio"></div>
           <div class="segment-option-text">Todos os pacientes</div>
-          <div class="segment-option-count">248</div>
+          <div class="segment-option-count">248 <span class="segment-option-optin">· 187 WA</span></div>
         </div>
-        <div class="segment-option" onclick="selectSegment(this)">
+        <div class="segment-option" onclick="selectSegment(this)" data-total="42" data-optin="38">
           <div class="segment-option-radio"></div>
           <div class="segment-option-text">Em tratamento ativo</div>
-          <div class="segment-option-count">42</div>
+          <div class="segment-option-count">42 <span class="segment-option-optin">· 38 WA</span></div>
         </div>
-        <div class="segment-option" onclick="selectSegment(this)">
+        <div class="segment-option" onclick="selectSegment(this)" data-total="28" data-optin="19">
           <div class="segment-option-radio"></div>
           <div class="segment-option-text">Inativos 60+ dias</div>
-          <div class="segment-option-count">28</div>
+          <div class="segment-option-count">28 <span class="segment-option-optin">· 19 WA</span></div>
         </div>
-        <div class="segment-option" onclick="selectSegment(this)">
+        <div class="segment-option" onclick="selectSegment(this)" data-total="9" data-optin="9">
           <div class="segment-option-radio"></div>
           <div class="segment-option-text">Novos pacientes (último mês)</div>
-          <div class="segment-option-count">9</div>
+          <div class="segment-option-count">9 <span class="segment-option-optin">· 9 WA</span></div>
         </div>
       </div>
-      <div class="wizard-preview-note">248 pacientes serão alcançados por esta campanha.</div>
+      <div class="optin-warning">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="7" cy="7" r="5.5" stroke="#B08A4A" stroke-width="1.2"/><path d="M7 4.5v3M7 9.5v.5" stroke="#B08A4A" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <span>Apenas pacientes com <strong>opt-in WhatsApp</strong> receberão a mensagem. Os demais serão alcançados via email (se selecionado).</span>
+      </div>
+      <div class="wizard-preview-note" id="segment-preview-note">187 conversas WA + 61 emails serão disparados.</div>
     </div>
 
     <!-- Step 2 -->
@@ -1120,8 +1249,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           </div>
         </div>
       </div>
-      <div class="wizard-preview-note" style="background:var(--accent-50);border-color:rgba(193,95,60,0.2);color:var(--accent-ink);">
-        Resumo: <strong>248 mensagens</strong> via WhatsApp · Custo estimado: <strong>R$ 49,60</strong>
+      <div class="campaign-cost-breakdown">
+        <div class="cost-line"><span><strong>187 conversas</strong> via WhatsApp · Marketing</span></div>
+        <div class="cost-line"><span style="color:var(--ink-4);">R$ 0,32 × 187 conversas</span><span class="cost-total">R$ 59,84</span></div>
+        <div class="cost-line" style="margin-top:4px;"><span>61 emails</span><span style="font-family:var(--font-mono);font-size:12px;color:var(--ink-3);">R$ 0,02 × 61 = R$ 1,22</span></div>
+        <div class="cost-line" style="border-top:1px solid var(--line-2);padding-top:6px;margin-top:2px;"><span><strong>Custo total estimado</strong></span><span class="cost-total">R$ 61,06</span></div>
+        <div class="cost-note">WhatsApp cobra por <strong>conversa de 24h</strong>, não por mensagem. Marketing: ~R$ 0,32 · Utility: ~R$ 0,18 (BR, mai/2025). Isenção de cobrança nas primeiras 1.000 conversas/mês iniciadas pelo cliente.</div>
       </div>
     </div>
   </div>
@@ -1169,16 +1302,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     document.getElementById('auto-drawer-title').textContent = btn.dataset.autoName || 'Editar automação';
     var timing = btn.dataset.autoTrigger || '24h antes da consulta';
     var msg = btn.dataset.autoMsg || '';
+    var isInteractive = btn.dataset.autoType === 'interactive';
     var sel = document.getElementById('auto-drawer-timing');
     for (var i = 0; i < sel.options.length; i++) {
       if (sel.options[i].text.toLowerCase().includes(timing.toLowerCase().substring(0,8))) { sel.selectedIndex = i; break; }
     }
     document.getElementById('auto-drawer-msg').value = msg;
+    // show/hide quick reply section
+    var qrSection = document.getElementById('qr-toggle-section');
+    qrSection.style.display = isInteractive ? '' : 'none';
+    var wrap = document.getElementById('auto-wa-wrap');
+    if (isInteractive) { wrap.classList.add('has-qr'); } else { wrap.classList.remove('has-qr'); }
+    // set category pill
+    document.querySelectorAll('.comm-category-btn').forEach(function(b) { b.classList.remove('selected'); });
+    var catId = isInteractive ? 'cat-utility' : 'cat-utility';
+    document.getElementById(catId).classList.add('selected');
     updateWAPreview();
     document.getElementById('auto-drawer').classList.add('open');
     document.getElementById('auto-backdrop').classList.add('visible');
   }
   window.openAutoDrawer = openAutoDrawer;
+
+  function toggleQR() {
+    var wrap = document.getElementById('auto-wa-wrap');
+    wrap.classList.toggle('has-qr');
+  }
+  window.toggleQR = toggleQR;
 
   function closeAutoDrawer() {
     document.getElementById('auto-drawer').classList.remove('open');
@@ -1273,6 +1422,27 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   // Comm channel btn toggle (in drawers)
   document.querySelectorAll('.comm-channel-btn').forEach(function(btn) {
     btn.addEventListener('click', function() { btn.classList.toggle('selected'); });
+  });
+
+  // Category btn — single select
+  document.querySelectorAll('.comm-category-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.comm-category-btn').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+    });
+  });
+
+  // Segment selection in wizard updates preview note
+  document.querySelectorAll('#campaign-drawer .segment-option').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      var optin = parseInt(opt.dataset.optin || 0);
+      var total = parseInt(opt.dataset.total || 0);
+      var rest = total - optin;
+      var note = document.getElementById('segment-preview-note');
+      if (note) {
+        note.textContent = optin + ' conversas WA' + (rest > 0 ? ' + ' + rest + ' emails serão disparados.' : ' serão disparados.');
+      }
+    });
   });
 
   // ESC closes any open drawer
