@@ -141,8 +141,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* ── AUTOMATION GRID ── */
 .comm-auto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.auto-card { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; transition: border-color 180ms, box-shadow 180ms; cursor: default; }
-.auto-card:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.auto-card { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; transition: border-color 180ms, border-radius 180ms; cursor: default; position: relative; }
+.auto-card:hover { border-color: var(--line); border-bottom-left-radius: 0; border-bottom-right-radius: 0; z-index: 10; }
 .auto-card.is-inactive { opacity: 0.55; }
 
 /* compact meta row: status + channels inline */
@@ -152,10 +152,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .auto-headline-metric { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); padding: 6px 10px; background: var(--paper-2); border-radius: 7px; letter-spacing: 0.01em; }
 .auto-headline-metric strong { font-family: var(--font-mono); color: var(--ink-3); font-weight: 500; letter-spacing: 0.04em; }
 
-/* expandable section — hidden by default, shown on hover */
-.auto-card-expand { overflow: hidden; max-height: 0; opacity: 0; display: flex; flex-direction: column; gap: 10px; transition: max-height 300ms ease, opacity 220ms ease; }
-.auto-card:hover .auto-card-expand { max-height: 320px; opacity: 1; }
-.auto-card-expand .auto-preview-text { margin-top: 2px; }
+/* expandable section — absolute so it doesn't push the grid */
+.auto-card-expand { position: absolute; top: calc(100% - 1px); left: -1px; right: -1px; background: var(--cream); border: 1px solid var(--line); border-top: 1px solid var(--line-2); border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); overflow: hidden; max-height: 0; opacity: 0; padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 12px 28px -8px rgba(26,20,14,0.16); z-index: 10; pointer-events: none; transition: max-height 320ms ease, opacity 240ms ease; }
+.auto-card:hover .auto-card-expand { max-height: 340px; opacity: 1; pointer-events: auto; }
 .auto-card-expand .auto-metrics { border-top: 1px solid var(--line-2); padding-top: 10px; }
 .auto-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 .auto-card-title-group { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
