@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plural Orto · Comunicação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:       #F4EEE2;
+  --paper-2:     #EDE5D2;
+  --paper-3:     #E3D9C0;
+  --cream:       #FBF6EE;
+  --ink:         #17140F;
+  --ink-2:       #3A352C;
+  --ink-3:       #6B6456;
+  --ink-4:       #9B937F;
+  --line:        #D9CFB8;
+  --line-2:      #E5DCC6;
+  --accent:      #C15F3C;
+  --accent-ink:  #8A3E25;
+  --accent-soft: #EDD6C3;
+  --accent-50:   #F7E7D8;
+  --gold:        #B08A4A;
+  --gold-soft:   #E8D9B2;
+  --red:         #B03030;
+  --red-soft:    #F5DDD8;
+  --green:       #6E7F4C;
+  --shadow-sm: 0 1px 2px rgba(26,20,14,0.04), 0 2px 6px rgba(26,20,14,0.04);
+  --shadow-md: 0 2px 4px rgba(26,20,14,0.04), 0 12px 30px -12px rgba(26,20,14,0.12);
+  --radius-sm: 10px;
+  --radius:    16px;
+  --font-sans:  "Inter", system-ui, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+  --header-h: 56px;
+  --nav-h:    48px;
+}
+
+html, body {
+  font-family: var(--font-sans); background: var(--paper); color: var(--ink);
+  font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(110,127,76,0.05) 0, transparent 40%),
+    radial-gradient(at 85% 90%, rgba(176,138,74,0.04) 0, transparent 45%);
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.eyebrow {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-4); font-weight: 500;
+  margin-bottom: 10px; display: block;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h); background: rgba(244,238,226,0.82);
+  backdrop-filter: blur(16px) saturate(1.1); -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid rgba(217,207,184,0.7);
+  display: flex; align-items: center; justify-content: space-between; padding: 0 32px;
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em; }
+.brand-mark { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, #1F1A13 0%, #2E2820 100%); position: relative; overflow: hidden; box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); flex-shrink: 0; }
+.brand-mark::after { content: ""; position: absolute; inset: auto auto 5px 5px; width: 9px; height: 9px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #E37A54, #B84C2B); box-shadow: 0 0 10px rgba(193,95,60,0.6); }
+.header-right { display: flex; align-items: center; gap: 18px; }
+.bell-wrap { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 9px; cursor: pointer; position: relative; transition: background 150ms; }
+.bell-wrap:hover { background: var(--paper-2); }
+.bell-wrap svg { width: 17px; height: 17px; }
+.bell-pip { position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); border: 1.5px solid var(--paper); }
+.user-chip { display: flex; align-items: center; gap: 10px; padding: 5px 12px 5px 6px; background: var(--cream); border: 1px solid var(--line-2); border-radius: 999px; cursor: pointer; box-shadow: var(--shadow-sm); transition: box-shadow 150ms, border-color 150ms; }
+.user-chip:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #E37A54, #B84C2B); display: flex; align-items: center; justify-content: center; font-family: var(--font-sans); font-size: 10.5px; font-weight: 600; color: var(--cream); flex-shrink: 0; }
+.user-info { line-height: 1.2; }
+.user-name   { font-size: 13px; font-weight: 500; }
+.user-clinic { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4); }
+
+/* ── NAV ── */
+.nav { position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99; height: var(--nav-h); background: rgba(244,238,226,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(217,207,184,0.6); display: flex; align-items: center; padding: 0 32px; gap: 2px; }
+.nav-tab { padding: 0 16px; height: var(--nav-h); display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 400; color: var(--ink-3); border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap; }
+.nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
+.nav-tab:hover { color: var(--ink); }
+.nav-tab:hover svg { opacity: 0.9; }
+.nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.nav-tab.active svg { opacity: 1; }
+
+/* ── MAIN ── */
+.main { margin-top: calc(var(--header-h) + var(--nav-h)); padding: 28px 32px 48px; }
+
+/* ── CARD ── */
+.card { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm); }
+.footer-link { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500; }
+.footer-link:hover { opacity: 0.75; }
+
+/* ── BUTTONS ── */
+.btn-primary { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; background: var(--accent); color: #FBF6EE; border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 13px; font-weight: 500; cursor: pointer; box-shadow: 0 1px 4px rgba(193,95,60,0.25); transition: opacity 150ms; }
+.btn-primary:hover { opacity: 0.88; }
+.btn-ghost { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: transparent; color: var(--ink-3); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--line-2); transition: all 120ms; }
+.btn-ghost:hover { border-color: var(--line); color: var(--ink); background: var(--paper-2); }
+.btn-sm { padding: 5px 12px; font-size: 11px; letter-spacing: 0.03em; border-radius: 8px; }
+
+/* ── PAGE HEADER ── */
+.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.page-title { font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1; }
+
+/* ── KPI BAR ── */
+.kpi-bar { display: flex; align-items: stretch; margin-bottom: 20px; padding: 0; overflow: hidden; }
+.kpi-section { flex: 1; padding: 18px 22px; }
+.kpi-section + .kpi-section { border-left: 1px solid var(--line-2); }
+.kpi-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+.kpi-val { font-family: var(--font-serif); font-size: 28px; font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
+.kpi-val.accent { color: var(--accent-ink); }
+.kpi-val.warn { color: var(--gold); }
+.kpi-val.good { color: var(--green); }
+.kpi-sub { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); margin-top: 5px; }
+.kpi-sub.good { color: var(--green); }
+.kpi-sub.warn { color: var(--gold); }
+.kpi-mini-bar { height: 3px; background: var(--line-2); border-radius: 2px; margin-top: 9px; overflow: hidden; }
+.kpi-mini-bar-fill { height: 100%; border-radius: 2px; background: var(--green); }
+.kpi-badge { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: var(--gold); color: #FBF6EE; border-radius: 50%; font-size: 10px; font-weight: 600; margin-left: 6px; vertical-align: middle; }
+
+/* ── SECTION DIVIDER ── */
+.section-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0 14px; }
+.section-divider-line { flex: 1; height: 1px; background: var(--line-2); }
+.section-divider-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-4); font-weight: 500; white-space: nowrap; }
+
+/* ── COMM TABS ── */
+.comm-tab-bar { display: flex; align-items: center; gap: 2px; border-bottom: 1px solid var(--line-2); margin-bottom: 24px; }
+.comm-tab { padding: 10px 18px; font-family: var(--font-sans); font-size: 13px; font-weight: 400; color: var(--ink-3); border-bottom: 2px solid transparent; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; transition: color 150ms; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+.comm-tab:hover { color: var(--ink); }
+.comm-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.comm-tab-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; background: var(--gold); color: #FBF6EE; border-radius: 999px; font-size: 10px; font-weight: 600; }
+.comm-tab-panel { display: none; }
+.comm-tab-panel.active { display: block; }
+
+/* ── AUTOMATION GRID ── */
+.comm-auto-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.auto-card { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 12px; transition: border-color 150ms; }
+.auto-card:hover { border-color: var(--line); }
+.auto-card.is-inactive { opacity: 0.55; }
+.auto-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.auto-card-title-group { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
+.auto-icon { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.auto-icon.bell    { background: var(--accent-soft); color: var(--accent-ink); }
+.auto-icon.check   { background: rgba(110,127,76,0.12); color: var(--green); }
+.auto-icon.react   { background: var(--gold-soft); color: #7A5E2B; }
+.auto-icon.star    { background: rgba(193,95,60,0.08); color: var(--accent-ink); }
+.auto-icon.session { background: var(--red-soft); color: var(--red); }
+.auto-icon.cake    { background: var(--paper-2); color: var(--ink-3); }
+.auto-icon svg { width: 16px; height: 16px; }
+.auto-name { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; margin-bottom: 3px; }
+.auto-trigger { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); }
+.auto-toggle { width: 36px; height: 20px; border-radius: 999px; background: var(--line); position: relative; cursor: pointer; transition: background 250ms; border: none; flex-shrink: 0; margin-top: 2px; }
+.auto-toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: white; transition: transform 250ms; box-shadow: 0 1px 3px rgba(0,0,0,0.18); }
+.auto-toggle.on { background: #25D366; }
+.auto-toggle.on::after { transform: translateX(16px); }
+
+.auto-channels { display: flex; gap: 5px; flex-wrap: wrap; }
+.whatsapp-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; background: rgba(37,211,102,0.10); color: #128C7E; border: 1px solid rgba(37,211,102,0.25); font-family: var(--font-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.email-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; background: var(--accent-50); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.2); font-family: var(--font-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.whatsapp-pill svg, .email-pill svg { width: 9px; height: 9px; }
+
+.auto-preview-text { font-family: var(--font-sans); font-size: 12px; color: var(--ink-3); line-height: 1.5; background: var(--paper-2); border-radius: 8px; padding: 10px 12px; border-left: 2px solid var(--line); }
+.auto-preview-text .token { color: var(--accent-ink); font-weight: 500; }
+
+.auto-metrics { border-top: 1px solid var(--line-2); padding-top: 10px; display: flex; flex-direction: column; gap: 3px; }
+.auto-metric-row { display: flex; justify-content: space-between; align-items: baseline; }
+.auto-metric-label { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); }
+.auto-metric-val { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em; }
+.auto-metric-val.green { color: var(--green); font-weight: 500; }
+.auto-metric-val.accent { color: var(--accent-ink); font-weight: 500; }
+
+.auto-card-footer { display: flex; justify-content: space-between; align-items: center; }
+.auto-edit-btn { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500; cursor: pointer; background: none; border: none; }
+.auto-edit-btn:hover { opacity: 0.75; }
+.auto-diff-badge { font-family: var(--font-sans); font-size: 10px; font-weight: 600; color: var(--accent-ink); background: var(--accent-50); border: 1px solid rgba(193,95,60,0.2); padding: 2px 7px; border-radius: 999px; letter-spacing: 0.03em; }
+
+/* ── INBOX ── */
+.inbox-panel { display: flex; flex-direction: column; gap: 0; }
+.inbox-list { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.inbox-row { border-bottom: 1px solid var(--line-2); cursor: pointer; transition: background 120ms; }
+.inbox-row:last-child { border-bottom: none; }
+.inbox-row-main { display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center; padding: 13px 16px; }
+.inbox-row:hover .inbox-row-main { background: var(--paper-2); }
+.inbox-row.needs-action .inbox-row-main { background: rgba(176,138,74,0.06); }
+.inbox-row.needs-action:hover .inbox-row-main { background: rgba(176,138,74,0.10); }
+.inbox-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-sans); font-size: 12px; font-weight: 600; flex-shrink: 0; }
+.inbox-body { min-width: 0; }
+.inbox-name { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 1px; }
+.inbox-source { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); margin-bottom: 3px; }
+.inbox-snippet { font-family: var(--font-sans); font-size: 12px; color: var(--ink-3); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.inbox-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.inbox-time { font-family: var(--font-mono); font-size: 10px; color: var(--ink-4); letter-spacing: 0.04em; }
+.inbox-status { font-family: var(--font-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; }
+.inbox-status.action { background: var(--gold-soft); color: #7A5E2B; }
+.inbox-status.resolved { background: rgba(110,127,76,0.10); color: var(--green); }
+
+.inbox-expanded { display: none; padding: 0 16px 14px; }
+.inbox-row.open .inbox-expanded { display: block; }
+.inbox-reply-bubble { background: #E7FFDB; border-radius: 12px 12px 2px 12px; padding: 10px 14px; font-family: var(--font-sans); font-size: 13px; color: #1a3b2a; max-width: 80%; margin-bottom: 10px; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+.inbox-reply-time { font-size: 10px; color: rgba(26,59,42,0.5); margin-top: 4px; text-align: right; }
+.inbox-action-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+.inbox-action-btn { padding: 6px 14px; border-radius: 8px; font-family: var(--font-sans); font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid var(--line-2); color: var(--ink-3); background: var(--cream); transition: all 120ms; }
+.inbox-action-btn:hover { background: var(--paper-2); border-color: var(--line); color: var(--ink); }
+.inbox-action-btn.primary { background: var(--accent); color: #FBF6EE; border-color: var(--accent); box-shadow: 0 1px 4px rgba(193,95,60,0.2); }
+.inbox-action-btn.primary:hover { opacity: 0.88; }
+.inbox-resolved-list { opacity: 0.6; }
+
+/* ── CAMPAIGNS ── */
+.campaigns-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.campaign-list { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.campaign-row { display: grid; grid-template-columns: 40px 1fr auto auto auto auto; gap: 16px; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line-2); transition: background 120ms; }
+.campaign-row:last-child { border-bottom: none; }
+.campaign-row:hover { background: var(--paper-2); }
+.campaign-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.campaign-icon.wa  { background: rgba(37,211,102,0.10); }
+.campaign-icon.em  { background: var(--accent-50); }
+.campaign-icon.both{ background: var(--paper-2); }
+.campaign-icon svg { width: 18px; height: 18px; }
+.campaign-name { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink); }
+.campaign-sub  { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); margin-top: 1px; }
+.campaign-channels { display: flex; gap: 4px; }
+.campaign-stat-col { text-align: right; }
+.campaign-stat-num { font-family: var(--font-mono); font-size: 13px; color: var(--ink); letter-spacing: 0.04em; }
+.campaign-stat-num.green { color: var(--green); font-weight: 500; }
+.campaign-stat-label { font-family: var(--font-sans); font-size: 10px; color: var(--ink-4); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 1px; }
+.campaign-action { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500; white-space: nowrap; cursor: pointer; }
+.campaign-action:hover { opacity: 0.75; }
+
+/* ── TEMPLATES GRID ── */
+.templates-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.templates-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.template-card { background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; transition: border-color 150ms; }
+.template-card:hover { border-color: var(--line); }
+.template-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.template-cat { font-family: var(--font-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line); }
+.template-name { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--ink); }
+.template-preview { font-family: var(--font-sans); font-size: 12px; color: var(--ink-3); line-height: 1.5; background: var(--paper-2); border-radius: 8px; padding: 10px 12px; flex: 1; }
+.template-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--line-2); }
+.template-usage { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); }
+.template-actions { display: flex; gap: 6px; }
+.template-btn { font-family: var(--font-sans); font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 7px; cursor: pointer; transition: all 120ms; }
+.template-btn.use { background: var(--accent); color: #FBF6EE; border: 1px solid var(--accent); }
+.template-btn.use:hover { opacity: 0.88; }
+.template-btn.edit { background: transparent; color: var(--ink-3); border: 1px solid var(--line-2); }
+.template-btn.edit:hover { background: var(--paper-2); border-color: var(--line); color: var(--ink); }
+
+/* ── COMM DRAWER ── */
+.comm-backdrop { position: fixed; inset: 0; background: rgba(26,20,14,0.25); opacity: 0; pointer-events: none; transition: opacity 200ms ease; z-index: 200; backdrop-filter: blur(2px); }
+.comm-backdrop.visible { opacity: 1; pointer-events: auto; }
+.comm-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 500px; max-width: 100vw; background: var(--cream); border-left: 1px solid var(--line-2); box-shadow: var(--shadow-md); transform: translateX(100%); pointer-events: none; transition: transform 240ms cubic-bezier(0.4,0,0.2,1); z-index: 201; display: flex; flex-direction: column; }
+.comm-drawer.open { transform: translateX(0); pointer-events: auto; }
+.comm-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px 14px; border-bottom: 1px solid var(--line-2); flex-shrink: 0; }
+.comm-drawer-title { font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.02em; }
+.comm-drawer-close { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ink-3); transition: background 150ms; }
+.comm-drawer-close:hover { background: var(--paper-2); color: var(--ink); }
+.comm-drawer-close svg { width: 14px; height: 14px; }
+.comm-drawer-body { flex: 1; overflow-y: auto; padding: 20px 22px; display: flex; flex-direction: column; gap: 18px; }
+.comm-drawer-body::-webkit-scrollbar { width: 4px; }
+.comm-drawer-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+.comm-drawer-footer { padding: 14px 22px; border-top: 1px solid var(--line-2); display: flex; gap: 10px; justify-content: flex-end; flex-shrink: 0; }
+.comm-drawer-section { display: flex; flex-direction: column; gap: 8px; }
+.comm-drawer-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-4); font-weight: 500; }
+.comm-channel-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.comm-channel-btn { display: flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line-2); background: var(--cream); font-family: var(--font-sans); font-size: 12px; font-weight: 500; color: var(--ink-3); cursor: pointer; transition: all 120ms; }
+.comm-channel-btn.selected { border-color: var(--accent); background: var(--accent-50); color: var(--accent-ink); }
+.comm-channel-btn svg { width: 14px; height: 14px; }
+.comm-select { width: 100%; padding: 9px 12px; background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 13px; color: var(--ink); outline: none; cursor: pointer; }
+.comm-select:focus { border-color: var(--accent); }
+.comm-textarea { width: 100%; padding: 10px 12px; background: var(--cream); border: 1px solid var(--line-2); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 13px; color: var(--ink); outline: none; resize: vertical; min-height: 96px; line-height: 1.5; }
+.comm-textarea:focus { border-color: var(--accent); }
+.comm-tokens { display: flex; gap: 6px; flex-wrap: wrap; }
+.comm-token { font-family: var(--font-mono); font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--accent-50); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.2); cursor: pointer; }
+.comm-token:hover { background: var(--accent-soft); }
+
+/* WhatsApp Preview */
+.wa-preview-wrap { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line-2); }
+.wa-preview-bar { background: #075E54; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
+.wa-preview-bar-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-family: var(--font-sans); font-size: 11px; font-weight: 600; color: white; flex-shrink: 0; }
+.wa-preview-bar-name { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: white; }
+.wa-preview-bar-status { font-family: var(--font-sans); font-size: 11px; color: rgba(255,255,255,0.65); }
+.wa-preview-body { background: #ECE5DD url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.03' fill='%23000'%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/g%3E%3C/svg%3E"); padding: 14px; min-height: 80px; }
+.wa-bubble { background: white; border-radius: 8px 8px 8px 2px; padding: 9px 12px; max-width: 85%; box-shadow: 0 1px 2px rgba(0,0,0,0.1); display: inline-block; }
+.wa-bubble-text { font-family: var(--font-sans); font-size: 13px; color: #111; line-height: 1.5; }
+.wa-bubble-time { font-family: var(--font-sans); font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 3px; text-align: right; }
+
+/* Campaign wizard steps */
+.wizard-steps { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+.wizard-step { display: flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4); font-weight: 500; }
+.wizard-step-num { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+.wizard-step.active .wizard-step-num { border-color: var(--accent); background: var(--accent); color: white; }
+.wizard-step.active { color: var(--accent-ink); }
+.wizard-step.done .wizard-step-num { border-color: var(--green); background: var(--green); color: white; }
+.wizard-connector { flex: 1; height: 1px; background: var(--line-2); }
+.wizard-panel { display: none; }
+.wizard-panel.active { display: flex; flex-direction: column; gap: 14px; }
+.segment-options { display: flex; flex-direction: column; gap: 8px; }
+.segment-option { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--line-2); cursor: pointer; transition: all 120ms; }
+.segment-option:hover { background: var(--paper-2); border-color: var(--line); }
+.segment-option.selected { border-color: var(--accent); background: var(--accent-50); }
+.segment-option-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 120ms; }
+.segment-option.selected .segment-option-radio { border-color: var(--accent); background: var(--accent); }
+.segment-option.selected .segment-option-radio::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: white; }
+.segment-option-text { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink); }
+.segment-option-count { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); margin-left: auto; }
+.wizard-preview-note { background: var(--accent-50); border: 1px solid rgba(193,95,60,0.2); border-radius: var(--radius-sm); padding: 10px 14px; font-family: var(--font-sans); font-size: 12px; color: var(--accent-ink); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    Plural Orto
+  </div>
+  <div class="header-right">
+    <div class="bell-wrap">
+      <svg viewBox="0 0 17 17" fill="none">
+        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z" stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 11.5a1.5 1.5 0 003 0" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="bell-pip"></div>
+    </div>
+    <div class="user-chip">
+      <div class="avatar">DM</div>
+      <div class="user-info">
+        <div class="user-name">Dr. Marcelo</div>
+        <div class="user-clinic">Clínica Central</div>
+      </div>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;flex-shrink:0;">
+        <path d="M1 1l4 4 4-4" stroke="#9B937F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-tab" href="prototipo1.html">
+    <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="8" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="8" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+    Dashboard
+  </a>
+  <a class="nav-tab" href="recepcao.html">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M2 11.5h10M2 11.5V4a1 1 0 011-1h8a1 1 0 011 1v7.5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M5 7.5h4M5 9.5h2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M1.5 11.5h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    Recepção
+  </a>
+  <a class="nav-tab" href="consultorio.html">
+    <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 13h5M7 10v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    Consultório Virtual
+  </a>
+  <a class="nav-tab" href="agenda.html">
+    <svg viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 6h11" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="4.5" cy="9.5" r="0.8" fill="currentColor"/><circle cx="7" cy="9.5" r="0.8" fill="currentColor"/><circle cx="9.5" cy="9.5" r="0.8" fill="currentColor"/></svg>
+    Agenda
+  </a>
+  <a class="nav-tab" href="pacientes.html">
+    <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 13.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    Pacientes
+  </a>
+  <a class="nav-tab active" href="comunicacao.html">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+    Comunicação
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M1.5 12.5h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="2" y="7.5" width="2.5" height="5" rx="0.6" stroke="currentColor" stroke-width="1.1"/><rect x="5.75" y="4.5" width="2.5" height="8" rx="0.6" stroke="currentColor" stroke-width="1.1"/><rect x="9.5" y="1.5" width="2.5" height="11" rx="0.6" stroke="currentColor" stroke-width="1.1"/></svg>
+    Financeiro
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.05 3.05l1.06 1.06M9.89 9.89l1.06 1.06M10.95 3.05L9.89 4.11M4.11 9.89l-1.06 1.06" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    Configurações
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-title">Comunicação</div>
+    <button class="btn-primary" id="btn-new-campaign">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5v10M1.5 6.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Nova campanha
+    </button>
+  </div>
+
+  <!-- KPI Bar -->
+  <div class="card kpi-bar" style="padding:0;">
+    <div class="kpi-section">
+      <div class="kpi-label">Enviados hoje</div>
+      <div class="kpi-val">34</div>
+      <div class="kpi-sub">24 automático · 10 manual</div>
+    </div>
+    <div class="kpi-section">
+      <div class="kpi-label">Taxa de confirmação</div>
+      <div class="kpi-val good">62%</div>
+      <div class="kpi-sub good">↑ +8% vs semana passada</div>
+      <div class="kpi-mini-bar"><div class="kpi-mini-bar-fill" style="width:62%;"></div></div>
+    </div>
+    <div class="kpi-section">
+      <div class="kpi-label">Receita recuperada</div>
+      <div class="kpi-val accent">R$ 1.240</div>
+      <div class="kpi-sub">No-shows evitados este mês</div>
+    </div>
+    <div class="kpi-section">
+      <div class="kpi-label">Caixa de entrada</div>
+      <div class="kpi-val warn">5 <span style="font-family:var(--font-sans);font-size:13px;color:var(--gold);">mensagens</span></div>
+      <div class="kpi-sub warn">3 precisam de ação</div>
+    </div>
+  </div>
+
+  <!-- Comm Tabs -->
+  <div class="comm-tab-bar">
+    <button class="comm-tab active" data-tab="automacoes">Automações</button>
+    <button class="comm-tab" data-tab="inbox">Caixa de entrada <span class="comm-tab-badge">3</span></button>
+    <button class="comm-tab" data-tab="campanhas">Campanhas</button>
+    <button class="comm-tab" data-tab="modelos">Modelos</button>
+  </div>
+
+  <!-- ── TAB: AUTOMAÇÕES ── -->
+  <div class="comm-tab-panel active" data-tab="automacoes">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div>
+        <div style="font-family:var(--font-serif);font-size:17px;letter-spacing:-0.02em;">5 automações ativas</div>
+        <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);margin-top:2px;">Rodando em segundo plano · sem ação necessária</div>
+      </div>
+    </div>
+    <div class="comm-auto-grid">
+
+      <!-- Card 1: Lembrete 24h -->
+      <div class="auto-card">
+        <div class="auto-card-header">
+          <div class="auto-card-title-group">
+            <div class="auto-icon bell">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.8A3.7 3.7 0 004.3 5.5v3.4l-.9 1.6h9.2l-.9-1.6V5.5A3.7 3.7 0 008 1.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M6.5 10.5a1.5 1.5 0 003 0" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="auto-name">Lembrete 24h antes</div>
+              <div class="auto-trigger">24h antes de cada consulta</div>
+            </div>
+          </div>
+          <button class="auto-toggle on" data-auto="1"></button>
+        </div>
+        <div class="auto-channels">
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+          <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
+        </div>
+        <div class="auto-preview-text">"Olá <span class="token">[nome]</span>, lembrando que você tem consulta amanhã às <span class="token">[hora]</span> com <span class="token">[médico]</span>. Confirme com SIM ou avise se precisar remarcar."</div>
+        <div class="auto-metrics">
+          <div class="auto-metric-row"><span class="auto-metric-label">Enviados hoje</span><span class="auto-metric-val accent">34 mensagens</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Taxa de leitura</span><span class="auto-metric-val green">94%</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Confirmações</span><span class="auto-metric-val green">78% confirmaram</span></div>
+        </div>
+        <div class="auto-card-footer">
+          <button class="auto-edit-btn" data-auto-name="Lembrete 24h antes" data-auto-trigger="24h antes da consulta" data-auto-msg="Olá [nome], lembrando que você tem consulta amanhã às [hora] com [médico] na Plural Orto. Confirme com SIM ou avise se precisar remarcar." onclick="openAutoDrawer(this)">Editar →</button>
+        </div>
+      </div>
+
+      <!-- Card 2: Confirmação 48h -->
+      <div class="auto-card">
+        <div class="auto-card-header">
+          <div class="auto-card-title-group">
+            <div class="auto-icon check">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M2 8l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="auto-name">Confirmação interativa 48h</div>
+              <div class="auto-trigger">48h antes · resposta SIM/NÃO</div>
+            </div>
+          </div>
+          <button class="auto-toggle on" data-auto="2"></button>
+        </div>
+        <div class="auto-channels">
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+        </div>
+        <div class="auto-preview-text">"Olá <span class="token">[nome]</span>! Você tem consulta na <span class="token">[dia]</span> às <span class="token">[hora]</span>. Responda SIM para confirmar ou NÃO se precisar remarcar."</div>
+        <div class="auto-metrics">
+          <div class="auto-metric-row"><span class="auto-metric-label">Taxa de resposta</span><span class="auto-metric-val green">78%</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Confirmados hoje</span><span class="auto-metric-val accent">12 pacientes</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Bot processa resposta</span><span class="auto-metric-val">automaticamente</span></div>
+        </div>
+        <div class="auto-card-footer">
+          <button class="auto-edit-btn" data-auto-name="Confirmação interativa 48h" data-auto-trigger="48h antes da consulta" data-auto-msg="Olá [nome]! Você tem consulta na [dia] às [hora]. Responda SIM para confirmar ou NÃO se precisar remarcar." onclick="openAutoDrawer(this)">Editar →</button>
+        </div>
+      </div>
+
+      <!-- Card 3: Reativação -->
+      <div class="auto-card">
+        <div class="auto-card-header">
+          <div class="auto-card-title-group">
+            <div class="auto-icon react">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M13 8A5 5 0 113 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M13 8v-3M13 8h-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="auto-name">Reativação de inativos</div>
+              <div class="auto-trigger">Sem visita há 90+ dias</div>
+            </div>
+          </div>
+          <button class="auto-toggle on" data-auto="3"></button>
+        </div>
+        <div class="auto-channels">
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+          <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
+        </div>
+        <div class="auto-preview-text">"Sentimos sua falta, <span class="token">[nome]</span>! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar."</div>
+        <div class="auto-metrics">
+          <div class="auto-metric-row"><span class="auto-metric-label">Alcançados este mês</span><span class="auto-metric-val accent">15 pacientes</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Reagendaram</span><span class="auto-metric-val green">6 (40%)</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Receita recuperada</span><span class="auto-metric-val green">R$ 840</span></div>
+        </div>
+        <div class="auto-card-footer">
+          <button class="auto-edit-btn" data-auto-name="Reativação de inativos" data-auto-trigger="Sem visita há 90+ dias" data-auto-msg="Sentimos sua falta, [nome]! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar." onclick="openAutoDrawer(this)">Editar →</button>
+        </div>
+      </div>
+
+      <!-- Card 4: NPS Pós-consulta -->
+      <div class="auto-card">
+        <div class="auto-card-header">
+          <div class="auto-card-title-group">
+            <div class="auto-icon star">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.8 3.6 4 .58-2.9 2.83.68 3.99L8 10.77l-3.58 1.74.68-3.99L2.2 5.68l4-.58L8 1.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="auto-name">Pesquisa pós-consulta NPS</div>
+              <div class="auto-trigger">2h após encerrar consulta</div>
+            </div>
+          </div>
+          <button class="auto-toggle on" data-auto="4"></button>
+        </div>
+        <div class="auto-channels">
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+        </div>
+        <div class="auto-preview-text">"Como foi sua consulta hoje com o <span class="token">[médico]</span>? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! <span class="token">[link]</span>"</div>
+        <div class="auto-metrics">
+          <div class="auto-metric-row"><span class="auto-metric-label">NPS médio</span><span class="auto-metric-val green">9,2 / 10</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Taxa de resposta</span><span class="auto-metric-val green">68%</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Avaliações este mês</span><span class="auto-metric-val accent">43 respostas</span></div>
+        </div>
+        <div class="auto-card-footer">
+          <button class="auto-edit-btn" data-auto-name="Pesquisa pós-consulta NPS" data-auto-trigger="2h após encerrar consulta" data-auto-msg="Como foi sua consulta hoje com o [médico]? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! [link]" onclick="openAutoDrawer(this)">Editar →</button>
+        </div>
+      </div>
+
+      <!-- Card 5: Sessão em aberto -->
+      <div class="auto-card" style="border-color:rgba(176,48,48,0.2);">
+        <div class="auto-card-header">
+          <div class="auto-card-title-group">
+            <div class="auto-icon session">
+              <svg viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2" width="13" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 6h13" stroke="currentColor" stroke-width="1.2"/><path d="M5 1v2M11 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M8 9v2M7 10h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="auto-name">Sessão em aberto</div>
+              <div class="auto-trigger">Tratamento ativo sem próx. sessão há 14d</div>
+            </div>
+          </div>
+          <button class="auto-toggle on" data-auto="5"></button>
+        </div>
+        <div class="auto-channels">
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+        </div>
+        <div class="auto-preview-text">"Olá <span class="token">[nome]</span>, notamos que seu <span class="token">[tratamento]</span> ainda não tem próxima sessão marcada. Quer que a gente agende para você?"</div>
+        <div class="auto-metrics">
+          <div class="auto-metric-row"><span class="auto-metric-label">Atingidos esta semana</span><span class="auto-metric-val accent">7 pacientes</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Agendaram após msg</span><span class="auto-metric-val green">4 (57%)</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Receita ativada</span><span class="auto-metric-val green">R$ 560 esta semana</span></div>
+        </div>
+        <div class="auto-card-footer">
+          <button class="auto-edit-btn" data-auto-name="Sessão em aberto" data-auto-trigger="Tratamento ativo sem próxima sessão há 14+ dias" data-auto-msg="Olá [nome], notamos que seu [tratamento] ainda não tem próxima sessão marcada. Quer que a gente agende para você? Clique aqui." onclick="openAutoDrawer(this)">Editar →</button>
+          <span class="auto-diff-badge">⚡ Exclusivo</span>
+        </div>
+      </div>
+
+      <!-- Card 6: Aniversário (inativo) -->
+      <div class="auto-card is-inactive">
+        <div class="auto-card-header">
+          <div class="auto-card-title-group">
+            <div class="auto-icon cake">
+              <svg viewBox="0 0 16 16" fill="none"><rect x="1.5" y="8" width="13" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 8V6.5M8 8V6.5M11.5 8V6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M4.5 6.5c0-1 1-1.5 1-2.5s-1-1.5-1-2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M8 6.5c0-1 1-1.5 1-2.5s-1-1.5-1-2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M11.5 6.5c0-1 1-1.5 1-2.5s-1-1.5-1-2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="auto-name">Aniversário do paciente</div>
+              <div class="auto-trigger">No dia do aniversário</div>
+            </div>
+          </div>
+          <button class="auto-toggle" data-auto="6"></button>
+        </div>
+        <div class="auto-channels">
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+        </div>
+        <div class="auto-preview-text">"Feliz aniversário, <span class="token">[nome]</span>! 🎂 A equipe da Plural Orto deseja um dia muito especial. Como presente: 20% de desconto em clareamento este mês!"</div>
+        <div class="auto-metrics">
+          <div class="auto-metric-row"><span class="auto-metric-label">Aniversários esta semana</span><span class="auto-metric-val">3 pacientes</span></div>
+          <div class="auto-metric-row"><span class="auto-metric-label">Status</span><span class="auto-metric-val" style="color:var(--ink-4);">Inativo — clique no toggle</span></div>
+        </div>
+        <div class="auto-card-footer">
+          <button class="auto-edit-btn" data-auto-name="Aniversário do paciente" data-auto-trigger="No dia do aniversário" data-auto-msg="Feliz aniversário, [nome]! 🎂 A equipe da Plural Orto deseja um dia muito especial. Como presente: 20% de desconto em clareamento este mês!" onclick="openAutoDrawer(this)">Editar →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TAB: CAIXA DE ENTRADA ── -->
+  <div class="comm-tab-panel" data-tab="inbox">
+    <div class="section-divider" style="margin-top:0;">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Precisa de ação · 3</div>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="inbox-list" style="margin-bottom:20px;">
+
+      <!-- Bruno Lima -->
+      <div class="inbox-row needs-action">
+        <div class="inbox-row-main">
+          <div class="inbox-avatar" style="background:var(--paper-2);color:var(--ink-3);">BL</div>
+          <div class="inbox-body">
+            <div class="inbox-name">Bruno Lima</div>
+            <div class="inbox-source">Respondeu · Lembrete 24h antes · amanhã 14:00 Dr. Marcelo</div>
+            <div class="inbox-snippet">"não posso ir amanhã, pode remarcar?"</div>
+          </div>
+          <div class="inbox-meta">
+            <div class="inbox-time">08:41</div>
+            <div class="inbox-status action">Ação</div>
+          </div>
+        </div>
+        <div class="inbox-expanded">
+          <div class="inbox-reply-bubble">
+            não posso ir amanhã, pode remarcar?
+            <div class="inbox-reply-time">08:41 ✓✓</div>
+          </div>
+          <div class="inbox-action-bar">
+            <button class="inbox-action-btn primary">Remarcar</button>
+            <button class="inbox-action-btn">Liberar horário</button>
+            <button class="inbox-action-btn">Marcar resolvido</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carlos Mendes -->
+      <div class="inbox-row needs-action">
+        <div class="inbox-row-main">
+          <div class="inbox-avatar" style="background:var(--red-soft);color:var(--red);">CM</div>
+          <div class="inbox-body">
+            <div class="inbox-name">Carlos Mendes</div>
+            <div class="inbox-source">Respondeu · Campanha reativação de inativos</div>
+            <div class="inbox-snippet">"quanto custa uma consulta de avaliação?"</div>
+          </div>
+          <div class="inbox-meta">
+            <div class="inbox-time">09:03</div>
+            <div class="inbox-status action">Ação</div>
+          </div>
+        </div>
+        <div class="inbox-expanded">
+          <div class="inbox-reply-bubble">
+            quanto custa uma consulta de avaliação?
+            <div class="inbox-reply-time">09:03 ✓✓</div>
+          </div>
+          <div class="inbox-action-bar">
+            <button class="inbox-action-btn primary">Responder</button>
+            <button class="inbox-action-btn">Enviar tabela de preços</button>
+            <button class="inbox-action-btn">Marcar resolvido</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ana Costa -->
+      <div class="inbox-row needs-action">
+        <div class="inbox-row-main">
+          <div class="inbox-avatar" style="background:var(--accent-soft);color:var(--accent-ink);">AC</div>
+          <div class="inbox-body">
+            <div class="inbox-name">Ana Costa</div>
+            <div class="inbox-source">Respondeu · Confirmação interativa 48h</div>
+            <div class="inbox-snippet">"posso chegar 15min mais tarde?"</div>
+          </div>
+          <div class="inbox-meta">
+            <div class="inbox-time">09:17</div>
+            <div class="inbox-status action">Ação</div>
+          </div>
+        </div>
+        <div class="inbox-expanded">
+          <div class="inbox-reply-bubble">
+            posso chegar 15min mais tarde?
+            <div class="inbox-reply-time">09:17 ✓✓</div>
+          </div>
+          <div class="inbox-action-bar">
+            <button class="inbox-action-btn primary">Avisar dentista</button>
+            <button class="inbox-action-btn">Confirmar mesmo assim</button>
+            <button class="inbox-action-btn">Remarcar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Resolvidas automaticamente · 2</div>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="inbox-list inbox-resolved-list">
+      <div class="inbox-row">
+        <div class="inbox-row-main">
+          <div class="inbox-avatar" style="background:var(--red-soft);color:var(--red);">JA</div>
+          <div class="inbox-body">
+            <div class="inbox-name">Juliana Alves</div>
+            <div class="inbox-source">Confirmação interativa 48h · processado automaticamente</div>
+            <div class="inbox-snippet">"SIM" → consulta confirmada</div>
+          </div>
+          <div class="inbox-meta">
+            <div class="inbox-time">07:55</div>
+            <div class="inbox-status resolved">Resolvido</div>
+          </div>
+        </div>
+      </div>
+      <div class="inbox-row">
+        <div class="inbox-row-main">
+          <div class="inbox-avatar" style="background:var(--red-soft);color:var(--red);">ES</div>
+          <div class="inbox-body">
+            <div class="inbox-name">Eduardo Santos</div>
+            <div class="inbox-source">Sessão em aberto · agendou via link</div>
+            <div class="inbox-snippet">Clicou em "agendar" · canal 3ª sessão marcada para 14 mai</div>
+          </div>
+          <div class="inbox-meta">
+            <div class="inbox-time">08:12</div>
+            <div class="inbox-status resolved">Resolvido</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: CAMPANHAS ── -->
+  <div class="comm-tab-panel" data-tab="campanhas">
+    <div class="campaigns-header">
+      <div>
+        <div style="font-family:var(--font-serif);font-size:17px;letter-spacing:-0.02em;">3 campanhas realizadas</div>
+        <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);margin-top:2px;">Disparos manuais para segmentos de pacientes</div>
+      </div>
+      <button class="btn-primary" onclick="openCampaignDrawer()">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1.5v10M1.5 6.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Nova campanha
+      </button>
+    </div>
+    <div class="campaign-list card" style="padding:0;">
+      <div class="campaign-row">
+        <div class="campaign-icon wa">
+          <svg viewBox="0 0 18 18" fill="none"><path d="M9 1C4.58 1 1 4.58 1 9c0 1.42.38 2.75 1.04 3.9L1 17l4.24-1.08A8 8 0 109 1z" fill="#25D366"/></svg>
+        </div>
+        <div>
+          <div class="campaign-name">Promoção clareamento — Maio 2025</div>
+          <div class="campaign-sub">Enviada em 06 mai · Segmento: Em tratamento (45 pacientes)</div>
+          <div class="campaign-channels" style="margin-top:4px;">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+            <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
+          </div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num">89%</div>
+          <div class="campaign-stat-label">Leitura WA</div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num">7</div>
+          <div class="campaign-stat-label">Agendamentos</div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num green">R$ 2.100</div>
+          <div class="campaign-stat-label">Receita gerada</div>
+        </div>
+        <a class="campaign-action">Ver relatório →</a>
+      </div>
+      <div class="campaign-row">
+        <div class="campaign-icon wa">
+          <svg viewBox="0 0 18 18" fill="none"><path d="M9 1C4.58 1 1 4.58 1 9c0 1.42.38 2.75 1.04 3.9L1 17l4.24-1.08A8 8 0 109 1z" fill="#25D366"/></svg>
+        </div>
+        <div>
+          <div class="campaign-name">Retorno pós-férias — Março 2025</div>
+          <div class="campaign-sub">Enviada em 02 mar · Segmento: Inativos 60+ dias (28 pacientes)</div>
+          <div class="campaign-channels" style="margin-top:4px;">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WhatsApp</span>
+          </div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num">39%</div>
+          <div class="campaign-stat-label">Responderam</div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num">11</div>
+          <div class="campaign-stat-label">Agendamentos</div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num green">R$ 1.540</div>
+          <div class="campaign-stat-label">Receita gerada</div>
+        </div>
+        <a class="campaign-action">Ver relatório →</a>
+      </div>
+      <div class="campaign-row">
+        <div class="campaign-icon em">
+          <svg viewBox="0 0 18 18" fill="none"><rect x="1.5" y="4" width="15" height="10" rx="1.5" stroke="#C15F3C" stroke-width="1.3"/><path d="M1.5 6l7.5 5 7.5-5" stroke="#C15F3C" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="campaign-name">Semana de prevenção bucal — Abril</div>
+          <div class="campaign-sub">Enviada em 14 abr · Segmento: Todos os pacientes (180 pacientes)</div>
+          <div class="campaign-channels" style="margin-top:4px;">
+            <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
+          </div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num">34%</div>
+          <div class="campaign-stat-label">Abertura email</div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num">3</div>
+          <div class="campaign-stat-label">Agendamentos</div>
+        </div>
+        <div class="campaign-stat-col">
+          <div class="campaign-stat-num green">R$ 360</div>
+          <div class="campaign-stat-label">Receita gerada</div>
+        </div>
+        <a class="campaign-action">Ver relatório →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: MODELOS ── -->
+  <div class="comm-tab-panel" data-tab="modelos">
+    <div class="templates-header">
+      <div style="font-family:var(--font-serif);font-size:17px;letter-spacing:-0.02em;">Biblioteca de modelos</div>
+      <button class="btn-ghost">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Novo modelo
+      </button>
+    </div>
+    <div class="templates-grid">
+
+      <div class="template-card">
+        <div class="template-card-top">
+          <span class="template-cat">Lembrete</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+        </div>
+        <div class="template-name">Lembrete padrão 24h</div>
+        <div class="template-preview">Olá [nome], lembrando que você tem consulta amanhã às [hora] com [médico]. Confirme com SIM ou avise se precisar remarcar. Até amanhã!</div>
+        <div class="template-footer">
+          <span class="template-usage">Usado 47×</span>
+          <div class="template-actions">
+            <button class="template-btn edit">Editar</button>
+            <button class="template-btn use">Usar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-card-top">
+          <span class="template-cat">Confirmação</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+        </div>
+        <div class="template-name">Confirmação interativa</div>
+        <div class="template-preview">Olá [nome]! Você tem consulta na [dia] às [hora]. Responda SIM para confirmar ou NÃO se precisar remarcar. Aguardamos você!</div>
+        <div class="template-footer">
+          <span class="template-usage">Usado 38×</span>
+          <div class="template-actions">
+            <button class="template-btn edit">Editar</button>
+            <button class="template-btn use">Usar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-card-top">
+          <span class="template-cat">Onboarding</span>
+          <div style="display:flex;gap:4px;">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+            <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
+          </div>
+        </div>
+        <div class="template-name">Boas-vindas paciente novo</div>
+        <div class="template-preview">Bem-vindo à Plural Orto, [nome]! É um prazer ter você conosco. Sua primeira consulta está marcada para [data] às [hora]. Qualquer dúvida, estamos aqui!</div>
+        <div class="template-footer">
+          <span class="template-usage">Usado 23×</span>
+          <div class="template-actions">
+            <button class="template-btn edit">Editar</button>
+            <button class="template-btn use">Usar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-card-top">
+          <span class="template-cat">NPS</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+        </div>
+        <div class="template-name">Pesquisa de satisfação</div>
+        <div class="template-preview">Como foi sua consulta hoje com o [médico]? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! Clique aqui para avaliar: [link]</div>
+        <div class="template-footer">
+          <span class="template-usage">Usado 41×</span>
+          <div class="template-actions">
+            <button class="template-btn edit">Editar</button>
+            <button class="template-btn use">Usar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-card-top">
+          <span class="template-cat">Reativação</span>
+          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+        </div>
+        <div class="template-name">Reativação gentil</div>
+        <div class="template-preview">Sentimos sua falta, [nome]! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar online.</div>
+        <div class="template-footer">
+          <span class="template-usage">Usado 15×</span>
+          <div class="template-actions">
+            <button class="template-btn edit">Editar</button>
+            <button class="template-btn use">Usar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-card-top">
+          <span class="template-cat">Campanha</span>
+          <div style="display:flex;gap:4px;">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+            <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
+          </div>
+        </div>
+        <div class="template-name">Promoção genérica</div>
+        <div class="template-preview">Olá [nome]! Temos uma novidade especial para você: [oferta]. Aproveite até [data]. Clique aqui para saber mais e agendar: [link]</div>
+        <div class="template-footer">
+          <span class="template-usage">Usado 8×</span>
+          <div class="template-actions">
+            <button class="template-btn edit">Editar</button>
+            <button class="template-btn use">Usar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ── AUTOMATION EDIT DRAWER ── -->
+<div class="comm-backdrop" id="auto-backdrop"></div>
+<aside class="comm-drawer" id="auto-drawer">
+  <div class="comm-drawer-header">
+    <div class="comm-drawer-title" id="auto-drawer-title">Editar automação</div>
+    <button class="comm-drawer-close" id="auto-drawer-close">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="comm-drawer-body">
+    <div class="comm-drawer-section">
+      <div class="comm-drawer-label">Canal de envio</div>
+      <div class="comm-channel-row">
+        <button class="comm-channel-btn selected">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C3.69 1 1 3.69 1 7c0 1 .27 1.94.74 2.74L1 13l3.36-.77A6 6 0 107 1z" fill="#25D366"/></svg>
+          WhatsApp
+        </button>
+        <button class="comm-channel-btn selected">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="#C15F3C" stroke-width="1.2"/><path d="M1 4.5l6 4 6-4" stroke="#C15F3C" stroke-width="1.2"/></svg>
+          Email
+        </button>
+        <button class="comm-channel-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2.5" y="1" width="9" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 10.5h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          SMS
+        </button>
+      </div>
+    </div>
+    <div class="comm-drawer-section">
+      <div class="comm-drawer-label">Quando enviar</div>
+      <select class="comm-select" id="auto-drawer-timing">
+        <option>24h antes da consulta</option>
+        <option>48h antes da consulta</option>
+        <option>2h antes da consulta</option>
+        <option>2h após encerrar consulta</option>
+        <option>No dia do aniversário</option>
+        <option>14 dias sem próxima sessão</option>
+        <option>90 dias sem visita</option>
+      </select>
+    </div>
+    <div class="comm-drawer-section">
+      <div class="comm-drawer-label">Mensagem — WhatsApp</div>
+      <textarea class="comm-textarea" id="auto-drawer-msg" rows="4" oninput="updateWAPreview()"></textarea>
+      <div class="comm-tokens">
+        <span class="comm-token" onclick="insertToken('[nome]')">[nome]</span>
+        <span class="comm-token" onclick="insertToken('[hora]')">[hora]</span>
+        <span class="comm-token" onclick="insertToken('[data]')">[data]</span>
+        <span class="comm-token" onclick="insertToken('[dia]')">[dia]</span>
+        <span class="comm-token" onclick="insertToken('[médico]')">[médico]</span>
+        <span class="comm-token" onclick="insertToken('[tratamento]')">[tratamento]</span>
+        <span class="comm-token" onclick="insertToken('[link]')">[link]</span>
+      </div>
+    </div>
+    <div class="comm-drawer-section">
+      <div class="comm-drawer-label">Preview — como o paciente vê</div>
+      <div class="wa-preview-wrap">
+        <div class="wa-preview-bar">
+          <div class="wa-preview-bar-avatar">PO</div>
+          <div>
+            <div class="wa-preview-bar-name">Plural Orto</div>
+            <div class="wa-preview-bar-status">online</div>
+          </div>
+        </div>
+        <div class="wa-preview-body">
+          <div class="wa-bubble">
+            <div class="wa-bubble-text" id="wa-preview-text">Olá Ana Costa, lembrando que você tem consulta amanhã às 10:30 com Dr. Marcelo na Plural Orto. Confirme com SIM ou avise se precisar remarcar.</div>
+            <div class="wa-bubble-time">09:15 ✓✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comm-drawer-footer">
+    <button class="btn-ghost" onclick="closeAutoDrawer()">Cancelar</button>
+    <button class="btn-primary">Salvar automação</button>
+  </div>
+</aside>
+
+<!-- ── CAMPAIGN DRAWER ── -->
+<div class="comm-backdrop" id="campaign-backdrop"></div>
+<aside class="comm-drawer" id="campaign-drawer">
+  <div class="comm-drawer-header">
+    <div class="comm-drawer-title">Nova campanha</div>
+    <button class="comm-drawer-close" id="campaign-drawer-close">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="comm-drawer-body">
+    <div class="wizard-steps">
+      <div class="wizard-step active" data-step="1"><div class="wizard-step-num">1</div>Segmento</div>
+      <div class="wizard-connector"></div>
+      <div class="wizard-step" data-step="2"><div class="wizard-step-num">2</div>Mensagem</div>
+      <div class="wizard-connector"></div>
+      <div class="wizard-step" data-step="3"><div class="wizard-step-num">3</div>Envio</div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="wizard-panel active" data-step="1">
+      <div class="comm-drawer-label">Quem receberá esta campanha?</div>
+      <div class="segment-options">
+        <div class="segment-option selected" onclick="selectSegment(this)">
+          <div class="segment-option-radio"></div>
+          <div class="segment-option-text">Todos os pacientes</div>
+          <div class="segment-option-count">248</div>
+        </div>
+        <div class="segment-option" onclick="selectSegment(this)">
+          <div class="segment-option-radio"></div>
+          <div class="segment-option-text">Em tratamento ativo</div>
+          <div class="segment-option-count">42</div>
+        </div>
+        <div class="segment-option" onclick="selectSegment(this)">
+          <div class="segment-option-radio"></div>
+          <div class="segment-option-text">Inativos 60+ dias</div>
+          <div class="segment-option-count">28</div>
+        </div>
+        <div class="segment-option" onclick="selectSegment(this)">
+          <div class="segment-option-radio"></div>
+          <div class="segment-option-text">Novos pacientes (último mês)</div>
+          <div class="segment-option-count">9</div>
+        </div>
+      </div>
+      <div class="wizard-preview-note">248 pacientes serão alcançados por esta campanha.</div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="wizard-panel" data-step="2">
+      <div class="comm-drawer-section">
+        <div class="comm-drawer-label">Canal de envio</div>
+        <div class="comm-channel-row">
+          <button class="comm-channel-btn selected">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C3.69 1 1 3.69 1 7c0 1 .27 1.94.74 2.74L1 13l3.36-.77A6 6 0 107 1z" fill="#25D366"/></svg>WhatsApp
+          </button>
+          <button class="comm-channel-btn">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="#C15F3C" stroke-width="1.2"/><path d="M1 4.5l6 4 6-4" stroke="#C15F3C" stroke-width="1.2"/></svg>Email
+          </button>
+        </div>
+      </div>
+      <div class="comm-drawer-section">
+        <div class="comm-drawer-label">Mensagem</div>
+        <textarea class="comm-textarea" rows="4" placeholder="Escreva sua mensagem ou selecione um modelo…">Olá [nome]! Temos uma novidade especial para você na Plural Orto. Clique aqui para saber mais: [link]</textarea>
+        <div class="comm-tokens">
+          <span class="comm-token">[nome]</span>
+          <span class="comm-token">[link]</span>
+          <span class="comm-token">[data]</span>
+        </div>
+      </div>
+      <div class="comm-drawer-section">
+        <div class="comm-drawer-label">Preview</div>
+        <div class="wa-preview-wrap">
+          <div class="wa-preview-bar">
+            <div class="wa-preview-bar-avatar">PO</div>
+            <div><div class="wa-preview-bar-name">Plural Orto</div><div class="wa-preview-bar-status">online</div></div>
+          </div>
+          <div class="wa-preview-body">
+            <div class="wa-bubble">
+              <div class="wa-bubble-text">Olá Ana Costa! Temos uma novidade especial para você na Plural Orto. Clique aqui para saber mais: pluralorto.com.br/oferta</div>
+              <div class="wa-bubble-time">agora ✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="wizard-panel" data-step="3">
+      <div class="comm-drawer-section">
+        <div class="comm-drawer-label">Quando enviar</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="segment-option selected" onclick="selectSegment(this)">
+            <div class="segment-option-radio"></div>
+            <div class="segment-option-text">Enviar agora</div>
+          </div>
+          <div class="segment-option" onclick="selectSegment(this)">
+            <div class="segment-option-radio"></div>
+            <div class="segment-option-text">Agendar para data e hora específica</div>
+          </div>
+        </div>
+      </div>
+      <div class="wizard-preview-note" style="background:var(--accent-50);border-color:rgba(193,95,60,0.2);color:var(--accent-ink);">
+        Resumo: <strong>248 mensagens</strong> via WhatsApp · Custo estimado: <strong>R$ 49,60</strong>
+      </div>
+    </div>
+  </div>
+  <div class="comm-drawer-footer" id="campaign-drawer-footer">
+    <button class="btn-ghost" id="campaign-prev" onclick="campaignStep(-1)" style="display:none;">← Voltar</button>
+    <button class="btn-ghost" onclick="closeCampaignDrawer()">Cancelar</button>
+    <button class="btn-primary" id="campaign-next" onclick="campaignStep(1)">Próximo →</button>
+  </div>
+</aside>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── TAB SWITCHING ──
+  document.querySelectorAll('.comm-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var t = tab.dataset.tab;
+      document.querySelectorAll('.comm-tab').forEach(function(x) { x.classList.toggle('active', x.dataset.tab === t); });
+      document.querySelectorAll('.comm-tab-panel').forEach(function(p) { p.classList.toggle('active', p.dataset.tab === t); });
+    });
+  });
+
+  // ── AUTO TOGGLE ──
+  document.querySelectorAll('.auto-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      btn.classList.toggle('on');
+      var card = btn.closest('.auto-card');
+      card.classList.toggle('is-inactive', !btn.classList.contains('on'));
+    });
+  });
+
+  // ── INBOX EXPAND ──
+  document.querySelectorAll('.inbox-row').forEach(function(row) {
+    row.addEventListener('click', function(e) {
+      if (e.target.closest('.inbox-action-btn')) return;
+      if (!row.querySelector('.inbox-expanded')) return;
+      row.classList.toggle('open');
+    });
+  });
+
+  // ── AUTO DRAWER ──
+  function openAutoDrawer(btn) {
+    document.getElementById('auto-drawer-title').textContent = btn.dataset.autoName || 'Editar automação';
+    var timing = btn.dataset.autoTrigger || '24h antes da consulta';
+    var msg = btn.dataset.autoMsg || '';
+    var sel = document.getElementById('auto-drawer-timing');
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].text.toLowerCase().includes(timing.toLowerCase().substring(0,8))) { sel.selectedIndex = i; break; }
+    }
+    document.getElementById('auto-drawer-msg').value = msg;
+    updateWAPreview();
+    document.getElementById('auto-drawer').classList.add('open');
+    document.getElementById('auto-backdrop').classList.add('visible');
+  }
+  window.openAutoDrawer = openAutoDrawer;
+
+  function closeAutoDrawer() {
+    document.getElementById('auto-drawer').classList.remove('open');
+    document.getElementById('auto-backdrop').classList.remove('visible');
+  }
+  window.closeAutoDrawer = closeAutoDrawer;
+  document.getElementById('auto-drawer-close').addEventListener('click', closeAutoDrawer);
+  document.getElementById('auto-backdrop').addEventListener('click', function() {
+    closeAutoDrawer();
+    closeCampaignDrawer();
+  });
+
+  // ── WA PREVIEW ──
+  function updateWAPreview() {
+    var msg = document.getElementById('auto-drawer-msg').value;
+    var preview = msg
+      .replace(/\[nome\]/g, 'Ana Costa')
+      .replace(/\[hora\]/g, '10:30')
+      .replace(/\[data\]/g, '09 mai')
+      .replace(/\[dia\]/g, 'quinta-feira')
+      .replace(/\[médico\]/g, 'Dr. Marcelo')
+      .replace(/\[tratamento\]/g, 'manutenção ortodôntica')
+      .replace(/\[link\]/g, 'pluralorto.com.br/agendar');
+    document.getElementById('wa-preview-text').textContent = preview;
+  }
+  window.updateWAPreview = updateWAPreview;
+
+  function insertToken(token) {
+    var ta = document.getElementById('auto-drawer-msg');
+    var start = ta.selectionStart, end = ta.selectionEnd;
+    ta.value = ta.value.substring(0, start) + token + ta.value.substring(end);
+    ta.selectionStart = ta.selectionEnd = start + token.length;
+    ta.focus();
+    updateWAPreview();
+  }
+  window.insertToken = insertToken;
+
+  // ── CAMPAIGN DRAWER ──
+  var campaignCurrentStep = 1;
+  var campaignMaxStep = 3;
+
+  function openCampaignDrawer() {
+    campaignCurrentStep = 1;
+    updateCampaignWizard();
+    document.getElementById('campaign-drawer').classList.add('open');
+    document.getElementById('campaign-backdrop').classList.add('visible');
+  }
+  window.openCampaignDrawer = openCampaignDrawer;
+  document.getElementById('btn-new-campaign').addEventListener('click', openCampaignDrawer);
+
+  function closeCampaignDrawer() {
+    document.getElementById('campaign-drawer').classList.remove('open');
+    document.getElementById('campaign-backdrop').classList.remove('visible');
+  }
+  window.closeCampaignDrawer = closeCampaignDrawer;
+  document.getElementById('campaign-drawer-close').addEventListener('click', closeCampaignDrawer);
+
+  function campaignStep(dir) {
+    campaignCurrentStep = Math.max(1, Math.min(campaignMaxStep, campaignCurrentStep + dir));
+    updateCampaignWizard();
+  }
+  window.campaignStep = campaignStep;
+
+  function updateCampaignWizard() {
+    var s = campaignCurrentStep;
+    document.querySelectorAll('.wizard-step').forEach(function(el) {
+      var n = parseInt(el.dataset.step);
+      el.classList.toggle('active', n === s);
+      el.classList.toggle('done', n < s);
+    });
+    document.querySelectorAll('.wizard-panel').forEach(function(p) {
+      p.classList.toggle('active', parseInt(p.dataset.step) === s);
+    });
+    var prevBtn = document.getElementById('campaign-prev');
+    var nextBtn = document.getElementById('campaign-next');
+    prevBtn.style.display = s > 1 ? '' : 'none';
+    nextBtn.textContent = s === campaignMaxStep ? 'Enviar campanha' : 'Próximo →';
+    if (s === campaignMaxStep) {
+      nextBtn.onclick = function() { closeCampaignDrawer(); };
+    } else {
+      nextBtn.onclick = function() { campaignStep(1); };
+    }
+  }
+
+  function selectSegment(el) {
+    var parent = el.parentNode;
+    parent.querySelectorAll('.segment-option').forEach(function(o) { o.classList.remove('selected'); });
+    el.classList.add('selected');
+  }
+  window.selectSegment = selectSegment;
+
+  // Comm channel btn toggle (in drawers)
+  document.querySelectorAll('.comm-channel-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { btn.classList.toggle('selected'); });
+  });
+
+  // ESC closes any open drawer
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeAutoDrawer(); closeCampaignDrawer(); }
+  });
+
+})();
+</script>
+</body>
+</html>
