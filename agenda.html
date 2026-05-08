@@ -362,6 +362,123 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .status-badge.arrived { background: rgba(110,127,76,0.15); color: var(--green); border: 1px solid rgba(110,127,76,0.35); font-weight: 600; }
 .status-badge.conf    { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.25); }
 .status-badge.unconf  { background: rgba(176,138,74,0.10); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.status-badge.done    { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line); }
+
+/* ── ANIMATION SYSTEM ── */
+.cal-wrapper { position: relative; }
+.cal-view { transition: opacity 150ms ease, transform 150ms ease; }
+.cal-view.exiting {
+  opacity: 0; transform: scale(0.97); pointer-events: none;
+  position: absolute; top: 0; left: 0; right: 0;
+}
+.day-overlay {
+  opacity: 0; transform: translateY(10px); pointer-events: none;
+  transition: opacity 200ms ease 80ms, transform 220ms ease 80ms;
+}
+.day-overlay.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* ── OVERLAY UI ── */
+.overlay-top {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px; flex-wrap: wrap;
+}
+.overlay-back-btn {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500;
+  color: var(--accent-ink); padding: 6px 14px; border-radius: 8px;
+  border: 1px solid rgba(193,95,60,0.25); background: var(--accent-50);
+  cursor: pointer; transition: background 150ms;
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+.overlay-back-btn:hover { background: var(--accent-soft); }
+.overlay-day-title {
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.02em; flex: 1;
+}
+.overlay-kpi-bar {
+  display: flex; align-items: stretch; padding: 0; overflow: hidden; margin-bottom: 16px;
+}
+.overlay-kpi-section { flex: 1; padding: 16px 20px; }
+.overlay-kpi-section + .overlay-kpi-section { border-left: 1px solid var(--line-2); }
+.overlay-alert-strip {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  background: var(--paper-2); border-radius: var(--radius-sm);
+  padding: 10px 14px; margin-bottom: 14px;
+}
+.overlay-alert-pill {
+  font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 999px;
+}
+.overlay-alert-pill.medical { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.3); }
+.overlay-alert-pill.payment { background: var(--gold-soft); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.overlay-alert-pill.new-pt  { background: rgba(110,127,76,0.08); color: var(--green); border: 1px solid rgba(110,127,76,0.2); }
+.overlay-free-slot {
+  border: 1.5px dashed var(--line); border-radius: var(--radius);
+  padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; transition: border-color 150ms; margin-bottom: 10px;
+}
+.overlay-free-slot:hover { border-color: var(--accent); }
+.overlay-free-label { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); letter-spacing: 0.06em; text-transform: uppercase; }
+.overlay-free-action { font-family: var(--font-sans); font-size: 11px; color: var(--accent-ink); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* ── PATIENT CARDS (overlay) ── */
+.patient-card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 10px;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.patient-card.is-current   { border-left: 3px solid var(--accent); background: rgba(193,95,60,0.015); }
+.patient-card.is-arrived   { border-left: 3px solid var(--green); }
+.patient-card.is-unconfirmed { border-left: 3px solid var(--gold); }
+.patient-card.pc-past      { opacity: 0.55; }
+.pc-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+.pc-avatar {
+  width: 36px; height: 36px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; font-family: var(--font-sans);
+  font-size: 12px; font-weight: 600; flex-shrink: 0;
+}
+.pc-info { flex: 1; min-width: 0; }
+.pc-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
+.pc-name { font-family: var(--font-serif); font-size: 17px; letter-spacing: -0.02em; }
+.pc-age  { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); }
+.pc-proc { font-family: var(--font-sans); font-size: 13px; color: var(--ink-3); }
+.pc-time-badge { font-family: var(--font-mono); font-size: 13px; color: var(--ink-3); flex-shrink: 0; }
+.pc-tags { display: flex; gap: 5px; flex-wrap: wrap; margin: 7px 0 0; }
+.pc-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line-2);
+}
+.pc-note   { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); }
+.pc-action {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--accent-ink); font-weight: 500; cursor: pointer;
+}
+.pc-action:hover { opacity: 0.75; }
+
+/* Alert tags */
+.alert-tag {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+}
+.alert-tag.medical { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.3); font-weight: 600; }
+.alert-tag.payment { background: var(--gold-soft); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.alert-tag.new-pt  { background: rgba(110,127,76,0.08); color: var(--green); border: 1px solid rgba(110,127,76,0.2); }
+.alert-tag.remark  { background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line); }
+
+/* Section divider */
+.section-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0 12px; }
+.section-divider-line  { flex: 1; height: 1px; background: var(--line-2); }
+.section-divider-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-4); font-weight: 500; white-space: nowrap;
+}
+
+/* Break block */
+.break-block {
+  background: var(--paper-2); border: 1px solid var(--line-2); border-radius: var(--radius-sm);
+  padding: 10px 16px; display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin-bottom: 10px;
+}
+.break-label    { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); letter-spacing: 0.04em; text-transform: uppercase; }
+.break-duration { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); }
 </style>
 </head>
 <body>
@@ -514,308 +631,316 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
     <!-- Calendar (left) -->
     <div>
-      <div class="cal-header">
-        <div class="cal-section-title">Maio 2025</div>
-        <div class="cal-legend">
-          <div class="cal-legend-item">
-            <div class="cal-legend-dot" style="background:var(--green)"></div>
-            <span class="cal-legend-label">Alta ocupação</span>
-          </div>
-          <div class="cal-legend-item">
-            <div class="cal-legend-dot" style="background:var(--gold)"></div>
-            <span class="cal-legend-label">Média</span>
-          </div>
-          <div class="cal-legend-item">
-            <div class="cal-legend-dot" style="background:var(--red)"></div>
-            <span class="cal-legend-label">Baixa</span>
-          </div>
-        </div>
-      </div>
+      <div class="cal-wrapper">
+        <div class="cal-view" id="cal-view">
 
-      <div class="cal-grid">
+          <div class="cal-header">
+            <div class="cal-section-title">Maio 2025</div>
+            <div class="cal-legend">
+              <div class="cal-legend-item">
+                <div class="cal-legend-dot" style="background:var(--green)"></div>
+                <span class="cal-legend-label">Alta ocupação</span>
+              </div>
+              <div class="cal-legend-item">
+                <div class="cal-legend-dot" style="background:var(--gold)"></div>
+                <span class="cal-legend-label">Média</span>
+              </div>
+              <div class="cal-legend-item">
+                <div class="cal-legend-dot" style="background:var(--red)"></div>
+                <span class="cal-legend-label">Baixa</span>
+              </div>
+            </div>
+          </div>
 
-        <!-- Day name headers -->
-        <div class="cal-head">Seg</div>
-        <div class="cal-head">Ter</div>
-        <div class="cal-head">Qua</div>
-        <div class="cal-head">Qui</div>
-        <div class="cal-head">Sex</div>
+          <div class="cal-grid">
 
-        <!-- Week 1: 1–2 Mai (Thu–Fri, Mon–Wed empty) -->
-        <div class="cal-cell empty"></div>
-        <div class="cal-cell empty"></div>
-        <div class="cal-cell empty"></div>
+            <!-- Day name headers -->
+            <div class="cal-head">Seg</div>
+            <div class="cal-head">Ter</div>
+            <div class="cal-head">Qua</div>
+            <div class="cal-head">Qui</div>
+            <div class="cal-head">Sex</div>
 
-        <!-- Thu 1 — past, low -->
-        <div class="cal-cell past">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">1</span>
-          </div>
-          <div class="cal-count">3 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill done" style="width:25%"></div>
-          </div>
-        </div>
+            <!-- Week 1: 1–2 Mai (Thu–Fri, Mon–Wed empty) -->
+            <div class="cal-cell empty"></div>
+            <div class="cal-cell empty"></div>
+            <div class="cal-cell empty"></div>
 
-        <!-- Fri 2 — past, warn -->
-        <div class="cal-cell past">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">2</span>
-          </div>
-          <div class="cal-count">7 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill done" style="width:58%"></div>
-          </div>
-        </div>
+            <!-- Thu 1 — past, low -->
+            <div class="cal-cell past" data-day="1">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">1</span>
+              </div>
+              <div class="cal-count">3 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill done" style="width:25%"></div>
+              </div>
+            </div>
 
-        <!-- Week 2: 5–9 Mai -->
+            <!-- Fri 2 — past, warn -->
+            <div class="cal-cell past" data-day="2">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">2</span>
+              </div>
+              <div class="cal-count">7 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill done" style="width:58%"></div>
+              </div>
+            </div>
 
-        <!-- Mon 5 — past -->
-        <div class="cal-cell past">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">5</span>
-          </div>
-          <div class="cal-count">8 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill done" style="width:67%"></div>
-          </div>
-        </div>
+            <!-- Week 2: 5–9 Mai -->
 
-        <!-- Tue 6 — past -->
-        <div class="cal-cell past">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">6</span>
-          </div>
-          <div class="cal-count">7 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill done" style="width:58%"></div>
-          </div>
-        </div>
+            <!-- Mon 5 — past -->
+            <div class="cal-cell past" data-day="5">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">5</span>
+              </div>
+              <div class="cal-count">8 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill done" style="width:67%"></div>
+              </div>
+            </div>
 
-        <!-- Wed 7 — TODAY -->
-        <div class="cal-cell today">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">7</span>
-            <span class="cal-today-badge">Hoje</span>
-          </div>
-          <div class="cal-count">9 consultas</div>
-          <div class="cal-dots">
-            <div class="cal-dot unconf" title="2 sem confirmar"></div>
-            <div class="cal-dot medical" title="1 alerta médico"></div>
-            <div class="cal-dot payment" title="1 cobrança pendente"></div>
-          </div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:75%"></div>
-          </div>
-        </div>
+            <!-- Tue 6 — past -->
+            <div class="cal-cell past" data-day="6">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">6</span>
+              </div>
+              <div class="cal-count">7 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill done" style="width:58%"></div>
+              </div>
+            </div>
 
-        <!-- Thu 8 — upcoming, full -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">8</span>
-          </div>
-          <div class="cal-count">11 consultas</div>
-          <div class="cal-dots">
-            <div class="cal-dot unconf" title="2 sem confirmar"></div>
-          </div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill good" style="width:92%"></div>
-          </div>
-        </div>
+            <!-- Wed 7 — TODAY -->
+            <div class="cal-cell today" data-day="7">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">7</span>
+                <span class="cal-today-badge">Hoje</span>
+              </div>
+              <div class="cal-count">9 consultas</div>
+              <div class="cal-dots">
+                <div class="cal-dot unconf" title="2 sem confirmar"></div>
+                <div class="cal-dot medical" title="1 alerta médico"></div>
+                <div class="cal-dot payment" title="1 cobrança pendente"></div>
+              </div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:75%"></div>
+              </div>
+            </div>
 
-        <!-- Fri 9 — upcoming -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">9</span>
-          </div>
-          <div class="cal-count">8 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:67%"></div>
-          </div>
-        </div>
+            <!-- Thu 8 — upcoming, full -->
+            <div class="cal-cell" data-day="8">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">8</span>
+              </div>
+              <div class="cal-count">11 consultas</div>
+              <div class="cal-dots">
+                <div class="cal-dot unconf" title="2 sem confirmar"></div>
+              </div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill good" style="width:92%"></div>
+              </div>
+            </div>
 
-        <!-- Week 3: 12–16 Mai -->
+            <!-- Fri 9 — upcoming -->
+            <div class="cal-cell" data-day="9">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">9</span>
+              </div>
+              <div class="cal-count">8 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:67%"></div>
+              </div>
+            </div>
 
-        <!-- Mon 12 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">12</span>
-          </div>
-          <div class="cal-count">6 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:50%"></div>
-          </div>
-        </div>
+            <!-- Week 3: 12–16 Mai -->
 
-        <!-- Tue 13 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">13</span>
-          </div>
-          <div class="cal-count">9 consultas</div>
-          <div class="cal-dots">
-            <div class="cal-dot medical"></div>
-          </div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill good" style="width:75%"></div>
-          </div>
-        </div>
+            <!-- Mon 12 -->
+            <div class="cal-cell" data-day="12">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">12</span>
+              </div>
+              <div class="cal-count">6 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:50%"></div>
+              </div>
+            </div>
 
-        <!-- Wed 14 — heaviest upcoming -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">14</span>
-          </div>
-          <div class="cal-count">11 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill good" style="width:92%"></div>
-          </div>
-        </div>
+            <!-- Tue 13 -->
+            <div class="cal-cell" data-day="13">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">13</span>
+              </div>
+              <div class="cal-count">9 consultas</div>
+              <div class="cal-dots">
+                <div class="cal-dot medical"></div>
+              </div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill good" style="width:75%"></div>
+              </div>
+            </div>
 
-        <!-- Thu 15 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">15</span>
-          </div>
-          <div class="cal-count">7 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:58%"></div>
-          </div>
-        </div>
+            <!-- Wed 14 — heaviest upcoming -->
+            <div class="cal-cell" data-day="14">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">14</span>
+              </div>
+              <div class="cal-count">11 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill good" style="width:92%"></div>
+              </div>
+            </div>
 
-        <!-- Fri 16 — lighter -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">16</span>
-          </div>
-          <div class="cal-count">5 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill low" style="width:42%"></div>
-          </div>
-        </div>
+            <!-- Thu 15 -->
+            <div class="cal-cell" data-day="15">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">15</span>
+              </div>
+              <div class="cal-count">7 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:58%"></div>
+              </div>
+            </div>
 
-        <!-- Week 4: 19–23 Mai -->
+            <!-- Fri 16 — lighter -->
+            <div class="cal-cell" data-day="16">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">16</span>
+              </div>
+              <div class="cal-count">5 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill low" style="width:42%"></div>
+              </div>
+            </div>
 
-        <!-- Mon 19 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">19</span>
-          </div>
-          <div class="cal-count">8 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:67%"></div>
-          </div>
-        </div>
+            <!-- Week 4: 19–23 Mai -->
 
-        <!-- Tue 20 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">20</span>
-          </div>
-          <div class="cal-count">7 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:58%"></div>
-          </div>
-        </div>
+            <!-- Mon 19 -->
+            <div class="cal-cell" data-day="19">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">19</span>
+              </div>
+              <div class="cal-count">8 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:67%"></div>
+              </div>
+            </div>
 
-        <!-- Wed 21 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">21</span>
-          </div>
-          <div class="cal-count">10 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill good" style="width:83%"></div>
-          </div>
-        </div>
+            <!-- Tue 20 -->
+            <div class="cal-cell" data-day="20">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">20</span>
+              </div>
+              <div class="cal-count">7 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:58%"></div>
+              </div>
+            </div>
 
-        <!-- Thu 22 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">22</span>
-          </div>
-          <div class="cal-count">9 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill good" style="width:75%"></div>
-          </div>
-        </div>
+            <!-- Wed 21 -->
+            <div class="cal-cell" data-day="21">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">21</span>
+              </div>
+              <div class="cal-count">10 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill good" style="width:83%"></div>
+              </div>
+            </div>
 
-        <!-- Fri 23 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">23</span>
-          </div>
-          <div class="cal-count">6 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:50%"></div>
-          </div>
-        </div>
+            <!-- Thu 22 -->
+            <div class="cal-cell" data-day="22">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">22</span>
+              </div>
+              <div class="cal-count">9 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill good" style="width:75%"></div>
+              </div>
+            </div>
 
-        <!-- Week 5: 26–30 Mai -->
+            <!-- Fri 23 -->
+            <div class="cal-cell" data-day="23">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">23</span>
+              </div>
+              <div class="cal-count">6 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:50%"></div>
+              </div>
+            </div>
 
-        <!-- Mon 26 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">26</span>
-          </div>
-          <div class="cal-count">7 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:58%"></div>
-          </div>
-        </div>
+            <!-- Week 5: 26–30 Mai -->
 
-        <!-- Tue 27 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">27</span>
-          </div>
-          <div class="cal-count">8 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill warn" style="width:67%"></div>
-          </div>
-        </div>
+            <!-- Mon 26 -->
+            <div class="cal-cell" data-day="26">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">26</span>
+              </div>
+              <div class="cal-count">7 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:58%"></div>
+              </div>
+            </div>
 
-        <!-- Wed 28 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">28</span>
-          </div>
-          <div class="cal-count">9 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill good" style="width:75%"></div>
-          </div>
-        </div>
+            <!-- Tue 27 -->
+            <div class="cal-cell" data-day="27">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">27</span>
+              </div>
+              <div class="cal-count">8 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill warn" style="width:67%"></div>
+              </div>
+            </div>
 
-        <!-- Thu 29 -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">29</span>
-          </div>
-          <div class="cal-count">10 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill good" style="width:83%"></div>
-          </div>
-        </div>
+            <!-- Wed 28 -->
+            <div class="cal-cell" data-day="28">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">28</span>
+              </div>
+              <div class="cal-count">9 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill good" style="width:75%"></div>
+              </div>
+            </div>
 
-        <!-- Fri 30 — fim do mês, leve -->
-        <div class="cal-cell">
-          <div class="cal-cell-top">
-            <span class="cal-day-num">30</span>
-          </div>
-          <div class="cal-count">4 consultas</div>
-          <div class="cal-bar">
-            <div class="cal-bar-fill low" style="width:33%"></div>
-          </div>
-        </div>
+            <!-- Thu 29 -->
+            <div class="cal-cell" data-day="29">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">29</span>
+              </div>
+              <div class="cal-count">10 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill good" style="width:83%"></div>
+              </div>
+            </div>
 
-      </div>
+            <!-- Fri 30 — fim do mês, leve -->
+            <div class="cal-cell" data-day="30">
+              <div class="cal-cell-top">
+                <span class="cal-day-num">30</span>
+              </div>
+              <div class="cal-count">4 consultas</div>
+              <div class="cal-bar">
+                <div class="cal-bar-fill low" style="width:33%"></div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- /#cal-view -->
+
+        <div class="day-overlay" id="day-overlay"></div>
+
+      </div><!-- /.cal-wrapper -->
     </div>
 
     <!-- Sidebar (right) -->
     <div class="agenda-sidebar">
 
-      <!-- Selected day detail: Quarta 7 Mai -->
-      <div class="card">
+      <!-- Selected day detail -->
+      <div class="card" id="sidebar-day-card">
         <span class="eyebrow">Quarta-feira · 7 de Maio</span>
         <div class="day-detail-header">
           <div class="day-detail-count">9 consultas</div>
@@ -984,5 +1109,318 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   </div>
 
 </main>
+
+<script>
+(function() {
+
+  var DAYS_DATA = {
+    1: { label: 'Quinta-feira, 1 de Maio', status: 'past', total: 3, conf: 3, unconf: 0, revenue: 890, alerts: {}, appointments: [
+      { time:'08:30', name:'Jorge Pinto',    age:55, initials:'JP', proc:'Limpeza',              stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'10:00', name:'Cláudia Reis',   age:43, initials:'CR', proc:'Avaliação geral',      stage:null,           status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'14:30', name:'Rodrigo Matos',  age:31, initials:'RM', proc:'Restauração dente 36', stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null }
+    ]},
+    2: { label: 'Sexta-feira, 2 de Maio', status: 'past', total: 7, conf: 7, unconf: 0, revenue: 2100, alerts: {}, appointments: [
+      { time:'08:00', name:'Sandra Lima',    age:38, initials:'SL', proc:'Clareamento dental',       stage:'Sessão 1/4',   status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'09:00', name:'Antônio Souza',  age:62, initials:'AS', proc:'Prótese total',            stage:'Etapa 1/5',   status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'10:00', name:'Beatriz Neves',  age:27, initials:'BN', proc:'Manutenção ortodôntica',   stage:'Sessão 2/7',  status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'11:00', name:'Carlos Vieira',  age:45, initials:'CV', proc:'Canal radicular',          stage:'Sessão 1/2',  status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'BREAK', duration:'12:00–14:00 · 2h' },
+      { time:'14:00', name:'Diana Fonseca',  age:33, initials:'DF', proc:'Limpeza + flúor',          stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'15:00', name:'Eduardo Pires',  age:51, initials:'EP', proc:'Implante osseointegrado',  stage:'Etapa 2/6',   status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'16:00', name:'Fernanda Costa', age:29, initials:'FC', proc:'Avaliação ortodôntica',    stage:'1ª consulta', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null }
+    ]},
+    5: { label: 'Segunda-feira, 5 de Maio', status: 'past', total: 8, conf: 8, unconf: 0, revenue: 2400, alerts: {}, appointments: [
+      { time:'08:00', name:'Gustavo Moura',   age:44, initials:'GM', proc:'Manutenção ortodôntica', stage:'Sessão 6/8',   status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'09:00', name:'Helena Ramos',    age:36, initials:'HR', proc:'Restauração classe II',  stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'10:00', name:'Igor Carvalho',   age:28, initials:'IC', proc:'Extração dente 28',      stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'11:00', name:'Juliana Martins', age:52, initials:'JM', proc:'Clareamento dental',     stage:'Sessão 3/4',  status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'BREAK', duration:'12:00–14:00 · 2h' },
+      { time:'14:00', name:'Kleber Pinto',    age:39, initials:'KP', proc:'Ajuste de prótese',      stage:'Etapa 3/3',   status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'15:00', name:'Larissa Torres',  age:23, initials:'LT', proc:'Limpeza',                stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'16:00', name:'Márcio Dias',     age:47, initials:'MD', proc:'Consulta preventiva',    stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null }
+    ]},
+    6: { label: 'Terça-feira, 6 de Maio', status: 'past', total: 7, conf: 7, unconf: 0, revenue: 2100, alerts: {}, appointments: [
+      { time:'08:00', name:'Nádia Silva',    age:31, initials:'NS', proc:'Manutenção ortodôntica',      stage:'Sessão 1/7',  status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'09:00', name:'Omar Ferreira',  age:57, initials:'OF', proc:'Canal radicular · dente 27',  stage:'Sessão 2/2',  status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'10:00', name:'Priscila Melo',  age:42, initials:'PM', proc:'Clareamento dental',          stage:'Sessão 4/4',  status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'11:00', name:'Quirino Alves',  age:35, initials:'QA', proc:'Restauração',                 stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'BREAK', duration:'12:00–14:00 · 2h' },
+      { time:'14:00', name:'Renata Costa',   age:48, initials:'RC', proc:'Revisão de prótese',          stage:'Etapa 2/4',   status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null },
+      { time:'15:30', name:'Sandro Lima',    age:26, initials:'SL', proc:'Consulta ortodôntica',         stage:'1ª consulta', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Concluído', action:null }
+    ]},
+    7: { label: 'Quarta-feira, 7 de Maio', status: 'today', total: 9, conf: 7, unconf: 2, revenue: 3200,
+      alerts: { medical: 1, payment: 1, newPatient: 3 },
+      appointments: [
+        { time:'08:00', name:'Ana Costa',     age:34, initials:'AC', proc:'Manutenção ortodôntica',      stage:'Sessão 3/7',  status:'current',  avatarBg:'var(--accent-soft)', avatarFg:'var(--accent-ink)', tags:[], note:'22 min em andamento', action:null, link:'atendimento.html' },
+        { time:'09:00', name:'Bruno Lima',    age:28, initials:'BL', proc:'Extração dente 48',            stage:'Sessão única', status:'arrived',  avatarBg:'rgba(110,127,76,0.12)', avatarFg:'var(--green)', tags:['new-pt:Novo paciente'], note:'Chegou 08:47', action:'Avisar dentista' },
+        { time:'10:00', name:'Carla Mendes',  age:52, initials:'CM', proc:'Limpeza + flúor',              stage:'Sessão única', status:'conf',     avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:['new-pt:Nova paciente'], note:'Confirmada ontem', action:'Chegou' },
+        { time:'10:45', name:'Rafael Torres', age:41, initials:'RT', proc:'Avaliação ortopédica',         stage:null,           status:'conf',     avatarBg:'var(--gold-soft)', avatarFg:'#7A5E2B', tags:['payment:Cobrança R$ 450'], note:'Saldo da sessão anterior', action:'Chegou' },
+        { time:'11:30', name:'Fátima Souza',  age:38, initials:'FS', proc:'Canal radicular · dente 36',  stage:'Sessão 2/3',  status:'unconf',   avatarBg:'var(--gold-soft)', avatarFg:'#7A5E2B', tags:['remark:Pediu remarcação'], note:'Mensagem às 07:12', action:'Responder' },
+        { time:'12:00', name:'Lucas Ferreira',age:25, initials:'LF', proc:'Clareamento dental',           stage:'Sessão 2/4',  status:'conf',     avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmado hoje', action:'Chegou' },
+        { time:'BREAK', duration:'12:45–14:00 · 1h15' },
+        { time:'14:00', name:'Mariana Alves', age:47, initials:'MA', proc:'Revisão de prótese',           stage:'Etapa 4/4',  status:'unconf',   avatarBg:'var(--gold-soft)', avatarFg:'#7A5E2B', tags:[], note:'Sem resposta ao lembrete', action:'Confirmar' },
+        { time:'15:00', name:'Pedro Santos',  age:33, initials:'PS', proc:'Restauração dente 26',         stage:'Sessão única', status:'conf',    avatarBg:'var(--red-soft)', avatarFg:'var(--red)', tags:['medical:Alergia: penicilina'], note:'Confirmado ontem', action:'Chegou' },
+        { time:'16:00', name:'Isabela Cruz',  age:19, initials:'IC', proc:'Consulta ortodôntica',         stage:'1ª consulta', status:'conf',    avatarBg:'rgba(110,127,76,0.10)', avatarFg:'var(--green)', tags:['new-pt:Nova paciente'], note:'Confirmada hoje', action:'Chegou' },
+        { time:'FREE', label:'17:00 · Horário livre' }
+      ]
+    },
+    8: { label: 'Quinta-feira, 8 de Maio', status: 'future', total: 11, conf: 9, unconf: 2, revenue: 4100,
+      alerts: { newPatient: 2 },
+      appointments: [
+        { time:'08:00', name:'Tatiana Lopes',  age:29, initials:'TL', proc:'Documentação ortodôntica',   stage:'1ª consulta',  status:'conf',   avatarBg:'rgba(110,127,76,0.10)', avatarFg:'var(--green)', tags:['new-pt:Nova paciente'], note:'Confirmada hoje', action:'Chegou' },
+        { time:'08:45', name:'Carlos Pinto',   age:45, initials:'CP', proc:'Prótese total superior',     stage:'Etapa 2/5',    status:'conf',   avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmado', action:'Chegou' },
+        { time:'09:45', name:'Ana Costa',      age:34, initials:'AC', proc:'Manutenção ortodôntica',     stage:'Sessão 4/7',   status:'conf',   avatarBg:'var(--accent-soft)', avatarFg:'var(--accent-ink)', tags:[], note:'Confirmada', action:'Chegou' },
+        { time:'10:30', name:'Fernanda Ramos', age:38, initials:'FR', proc:'Clareamento dental',         stage:'Sessão 1/4',   status:'unconf', avatarBg:'var(--gold-soft)', avatarFg:'#7A5E2B', tags:[], note:'Sem resposta ao lembrete', action:'Confirmar' },
+        { time:'11:15', name:'Rafael Nunes',   age:31, initials:'RN', proc:'Avaliação ortodôntica',      stage:'1ª consulta',  status:'unconf', avatarBg:'var(--gold-soft)', avatarFg:'#7A5E2B', tags:['new-pt:Novo paciente'], note:'Aguardando confirmação', action:'Confirmar' },
+        { time:'12:00', name:'Sônia Barbosa',  age:61, initials:'SB', proc:'Consulta preventiva',        stage:'Sessão única', status:'conf',   avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmada', action:'Chegou' },
+        { time:'BREAK', duration:'12:45–14:00 · 1h15' },
+        { time:'14:00', name:'Eduardo Melo',   age:22, initials:'EM', proc:'Restauração classe II',      stage:'Sessão única', status:'conf',   avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmado', action:'Chegou' },
+        { time:'14:45', name:'Lúcia Torres',   age:54, initials:'LT', proc:'Extração dente 17',          stage:'Sessão única', status:'conf',   avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmada', action:'Chegou' },
+        { time:'15:30', name:'Marcos Vieira',  age:37, initials:'MV', proc:'Canal radicular · dente 46', stage:'Sessão 1/3',  status:'conf',   avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmado', action:'Chegou' },
+        { time:'16:15', name:'Bianca Santos',  age:26, initials:'BS', proc:'Limpeza + flúor',            stage:'Sessão única', status:'conf',   avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmada', action:'Chegou' },
+        { time:'FREE', label:'17:00 · Horário livre' }
+      ]
+    },
+    9: { label: 'Sexta-feira, 9 de Maio', status: 'future', total: 8, conf: 8, unconf: 0, revenue: 2800,
+      alerts: { medical: 1, newPatient: 1 },
+      appointments: [
+        { time:'08:00', name:'Gabriela Lima',  age:33, initials:'GL', proc:'Manutenção ortodôntica',  stage:'Sessão 5/7',   status:'conf', avatarBg:'var(--accent-soft)', avatarFg:'var(--accent-ink)', tags:[], note:'Confirmada', action:'Chegou' },
+        { time:'09:00', name:'Henrique Costa', age:48, initials:'HC', proc:'Implante osseointegrado', stage:'Etapa 3/6',    status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:['medical:Diabético controlado'], note:'Confirmado · atenção ao protocolo', action:'Chegou' },
+        { time:'10:00', name:'Patrícia Nunes', age:41, initials:'PN', proc:'Clareamento dental',      stage:'Sessão 3/4',   status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmada', action:'Chegou' },
+        { time:'11:00', name:'Roberto Dias',   age:55, initials:'RD', proc:'Ajuste de prótese',       stage:'Etapa 2/3',    status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmado', action:'Chegou' },
+        { time:'BREAK', duration:'12:00–14:00 · 2h' },
+        { time:'14:00', name:'Júlia Mendes',   age:19, initials:'JM', proc:'Instalação do aparelho',  stage:'1ª consulta',  status:'conf', avatarBg:'rgba(110,127,76,0.10)', avatarFg:'var(--green)', tags:['new-pt:Nova paciente'], note:'Confirmada · nova paciente', action:'Chegou' },
+        { time:'15:00', name:'André Ferreira', age:30, initials:'AF', proc:'Restauração dente 16',    stage:'Sessão única', status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmado', action:'Chegou' },
+        { time:'16:00', name:'Clara Oliveira', age:27, initials:'CO', proc:'Consulta ortodôntica',    stage:'Avaliação',    status:'conf', avatarBg:'var(--paper-2)', avatarFg:'var(--ink-3)', tags:[], note:'Confirmada', action:'Chegou' },
+        { time:'FREE', label:'17:00 · Horário livre' }
+      ]
+    },
+    12: { label: 'Segunda-feira, 12 de Maio', status: 'future', total: 6,  conf: 6,  unconf: 0, revenue: 1900, alerts: {}, simplified: true },
+    13: { label: 'Terça-feira, 13 de Maio',   status: 'future', total: 9,  conf: 8,  unconf: 1, revenue: 2900, alerts: { medical: 1 }, simplified: true },
+    14: { label: 'Quarta-feira, 14 de Maio',  status: 'future', total: 11, conf: 10, unconf: 1, revenue: 3800, alerts: { newPatient: 2 }, simplified: true },
+    15: { label: 'Quinta-feira, 15 de Maio',  status: 'future', total: 7,  conf: 7,  unconf: 0, revenue: 2200, alerts: {}, simplified: true },
+    16: { label: 'Sexta-feira, 16 de Maio',   status: 'future', total: 5,  conf: 4,  unconf: 1, revenue: 1500, alerts: {}, simplified: true },
+    19: { label: 'Segunda-feira, 19 de Maio', status: 'future', total: 8,  conf: 7,  unconf: 1, revenue: 2600, alerts: {}, simplified: true },
+    20: { label: 'Terça-feira, 20 de Maio',   status: 'future', total: 7,  conf: 7,  unconf: 0, revenue: 2100, alerts: {}, simplified: true },
+    21: { label: 'Quarta-feira, 21 de Maio',  status: 'future', total: 10, conf: 9,  unconf: 1, revenue: 3200, alerts: {}, simplified: true },
+    22: { label: 'Quinta-feira, 22 de Maio',  status: 'future', total: 9,  conf: 9,  unconf: 0, revenue: 2900, alerts: {}, simplified: true },
+    23: { label: 'Sexta-feira, 23 de Maio',   status: 'future', total: 6,  conf: 5,  unconf: 1, revenue: 1800, alerts: {}, simplified: true },
+    26: { label: 'Segunda-feira, 26 de Maio', status: 'future', total: 7,  conf: 7,  unconf: 0, revenue: 2200, alerts: {}, simplified: true },
+    27: { label: 'Terça-feira, 27 de Maio',   status: 'future', total: 8,  conf: 7,  unconf: 1, revenue: 2500, alerts: {}, simplified: true },
+    28: { label: 'Quarta-feira, 28 de Maio',  status: 'future', total: 9,  conf: 9,  unconf: 0, revenue: 2900, alerts: {}, simplified: true },
+    29: { label: 'Quinta-feira, 29 de Maio',  status: 'future', total: 10, conf: 9,  unconf: 1, revenue: 3100, alerts: {}, simplified: true },
+    30: { label: 'Sexta-feira, 30 de Maio',   status: 'future', total: 4,  conf: 4,  unconf: 0, revenue: 1200, alerts: {}, simplified: true }
+  };
+
+  function buildTagsHTML(tags) {
+    if (!tags || !tags.length) return '';
+    var pills = tags.map(function(tag) {
+      var idx = tag.indexOf(':');
+      var type = tag.substring(0, idx);
+      var label = tag.substring(idx + 1);
+      return '<span class="alert-tag ' + type + '">' + label + '</span>';
+    });
+    return '<div class="pc-tags">' + pills.join('') + '</div>';
+  }
+
+  function buildApptCard(appt, isPast) {
+    var cardClass = 'patient-card';
+    if (isPast) {
+      cardClass += ' pc-past';
+    } else if (appt.status === 'current') {
+      cardClass += ' is-current';
+    } else if (appt.status === 'arrived') {
+      cardClass += ' is-arrived';
+    } else if (appt.status === 'unconf') {
+      cardClass += ' is-unconfirmed';
+    }
+
+    var badgeClass, badgeText;
+    if (isPast) {
+      badgeClass = 'status-badge done'; badgeText = 'Concluído';
+    } else if (appt.status === 'current') {
+      badgeClass = 'status-badge on'; badgeText = 'Em atend.';
+    } else if (appt.status === 'arrived') {
+      badgeClass = 'status-badge arrived'; badgeText = 'Na clínica';
+    } else if (appt.status === 'unconf') {
+      badgeClass = 'status-badge unconf'; badgeText = 'Sem confirmar';
+    } else {
+      badgeClass = 'status-badge conf'; badgeText = 'Confirmado';
+    }
+
+    var stageHTML = appt.stage ? ' <span style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4)">' + appt.stage + '</span>' : '';
+
+    var actionHTML = '';
+    if (appt.link) {
+      actionHTML = '<a class="pc-action" href="' + appt.link + '">Ver atendimento →</a>';
+    } else if (appt.action) {
+      actionHTML = '<span class="pc-action">' + appt.action + ' →</span>';
+    }
+
+    var bottomHTML = (appt.note || actionHTML)
+      ? '<div class="pc-bottom"><span class="pc-note">' + (appt.note || '') + '</span>' + actionHTML + '</div>'
+      : '';
+
+    return '<div class="' + cardClass + '">' +
+      '<div class="pc-top">' +
+        '<div class="pc-avatar" style="background:' + appt.avatarBg + ';color:' + appt.avatarFg + '">' + appt.initials + '</div>' +
+        '<div class="pc-info">' +
+          '<div class="pc-name-row">' +
+            '<span class="pc-name">' + appt.name + '</span>' +
+            '<span class="pc-age">' + appt.age + ' anos</span>' +
+            '<span class="' + badgeClass + '">' + badgeText + '</span>' +
+          '</div>' +
+          '<div class="pc-proc">' + appt.proc + stageHTML + '</div>' +
+        '</div>' +
+        '<div class="pc-time-badge">' + appt.time + '</div>' +
+      '</div>' +
+      buildTagsHTML(appt.tags) +
+      bottomHTML +
+    '</div>';
+  }
+
+  function buildDayHTML(data) {
+    var isPast = data.status === 'past';
+
+    var kpiBar = '<div class="card overlay-kpi-bar">' +
+      '<div class="overlay-kpi-section">' +
+        '<div class="kpi-label">Total</div>' +
+        '<div class="kpi-val">' + data.total + '</div>' +
+      '</div>' +
+      '<div class="overlay-kpi-section">' +
+        '<div class="kpi-label">Confirmados</div>' +
+        '<div class="kpi-val" style="color:' + (isPast ? 'var(--ink-4)' : 'var(--green)') + '">' + data.conf + '</div>' +
+      '</div>' +
+      '<div class="overlay-kpi-section">' +
+        '<div class="kpi-label">Sem confirmar</div>' +
+        '<div class="kpi-val' + (data.unconf > 0 ? ' warn' : '') + '">' + data.unconf + '</div>' +
+      '</div>' +
+      '<div class="overlay-kpi-section">' +
+        '<div class="kpi-label">Receita estimada</div>' +
+        '<div style="font-family:var(--font-mono);font-size:20px;line-height:1;letter-spacing:0.02em;margin-top:2px">R$ ' + data.revenue.toLocaleString('pt-BR') + '</div>' +
+      '</div>' +
+    '</div>';
+
+    var alertStrip = '';
+    if (data.alerts && (data.alerts.medical || data.alerts.payment || data.alerts.newPatient)) {
+      var pills = [];
+      if (data.alerts.medical)    pills.push('<span class="overlay-alert-pill medical">⚕ ' + data.alerts.medical + (data.alerts.medical === 1 ? ' alerta médico' : ' alertas médicos') + '</span>');
+      if (data.alerts.payment)    pills.push('<span class="overlay-alert-pill payment">R$ ' + data.alerts.payment + (data.alerts.payment === 1 ? ' cobrança pendente' : ' cobranças pendentes') + '</span>');
+      if (data.alerts.newPatient) pills.push('<span class="overlay-alert-pill new-pt">★ ' + data.alerts.newPatient + (data.alerts.newPatient === 1 ? ' novo paciente' : ' novos pacientes') + '</span>');
+      alertStrip = '<div class="overlay-alert-strip">' + pills.join('') + '</div>';
+    }
+
+    var apptHTML = '';
+    if (data.simplified) {
+      apptHTML = '<div style="text-align:center;padding:28px 0 12px;color:var(--ink-4);font-family:var(--font-sans);font-size:13px;line-height:1.7;">Dados detalhados disponíveis<br>na semana anterior ao dia</div>';
+    } else if (data.appointments) {
+      var morningItems = [], afternoonItems = [], breakItem = null, freeItem = null;
+      data.appointments.forEach(function(appt) {
+        if (appt.time === 'BREAK') { breakItem = appt; return; }
+        if (appt.time === 'FREE')  { freeItem  = appt; return; }
+        var h = parseInt(appt.time.split(':')[0], 10);
+        if (h >= 14) afternoonItems.push(appt);
+        else morningItems.push(appt);
+      });
+
+      if (morningItems.length) {
+        apptHTML += '<div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">Manhã</span><div class="section-divider-line"></div></div>';
+        morningItems.forEach(function(a) { apptHTML += buildApptCard(a, isPast); });
+      }
+      if (breakItem) {
+        apptHTML += '<div class="break-block"><span class="break-label">Intervalo</span><span class="break-duration">' + breakItem.duration + '</span></div>';
+      }
+      if (afternoonItems.length) {
+        apptHTML += '<div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">Tarde</span><div class="section-divider-line"></div></div>';
+        afternoonItems.forEach(function(a) { apptHTML += buildApptCard(a, isPast); });
+      }
+      if (freeItem) {
+        apptHTML += '<div class="overlay-free-slot"><span class="overlay-free-label">' + freeItem.label + '</span><span class="overlay-free-action">+ Encaixar paciente</span></div>';
+      }
+    }
+
+    var statusBadge = isPast
+      ? '<span class="status-badge done">Concluído</span>'
+      : (data.status === 'today' ? '<span class="status-badge on">Hoje</span>' : '<span class="status-badge conf">Agendado</span>');
+
+    return '<div class="overlay-top">' +
+        '<button class="overlay-back-btn" id="overlay-back-btn">← Voltar ao calendário</button>' +
+        '<div class="overlay-day-title">' + data.label + '</div>' +
+        statusBadge +
+      '</div>' +
+      kpiBar +
+      alertStrip +
+      apptHTML;
+  }
+
+  function buildSidebarHTML(data) {
+    var isPast = data.status === 'past';
+    var unconfText = data.unconf > 0 ? data.unconf + ' sem confirmar' : 'Todos confirmados';
+    var unconfStyle = data.unconf > 0 ? '' : ' style="color:var(--green)"';
+
+    var items = '';
+    if (data.appointments && !data.simplified) {
+      data.appointments.forEach(function(appt) {
+        if (appt.time === 'BREAK' || appt.time === 'FREE') return;
+        var dotClass = isPast ? 'conf' : (appt.status === 'current' ? 'current' : (appt.status === 'arrived' ? 'arrived' : appt.status));
+        items += '<div class="day-appt-item">' +
+          '<div class="day-appt-dot ' + dotClass + '"></div>' +
+          '<div class="day-appt-body">' +
+            '<div class="day-appt-row">' +
+              '<span class="day-appt-name">' + appt.name + '</span>' +
+              '<span class="day-appt-time">' + appt.time + '</span>' +
+            '</div>' +
+            '<div class="day-appt-proc">' + appt.proc + '</div>' +
+          '</div>' +
+        '</div>';
+      });
+    } else {
+      items = '<div style="padding:16px 0 8px;color:var(--ink-4);font-family:var(--font-sans);font-size:13px;text-align:center;">Ver overlay para detalhes</div>';
+    }
+
+    var footerHref = isPast ? '#' : 'recepcao.html';
+    var footerText = isPast ? 'Histórico do dia →' : 'Ver fila do dia →';
+
+    return '<span class="eyebrow">' + data.label + '</span>' +
+      '<div class="day-detail-header">' +
+        '<div class="day-detail-count">' + data.total + ' consultas</div>' +
+        '<div class="day-detail-meta"' + unconfStyle + '>' + unconfText + '</div>' +
+      '</div>' +
+      items +
+      '<div class="card-footer"><a class="footer-link" href="' + footerHref + '">' + footerText + '</a></div>';
+  }
+
+  function showDay(dayNum) {
+    var data = DAYS_DATA[dayNum];
+    if (!data) return;
+
+    document.getElementById('day-overlay').innerHTML = buildDayHTML(data);
+    document.getElementById('sidebar-day-card').innerHTML = buildSidebarHTML(data);
+    document.getElementById('cal-view').classList.add('exiting');
+
+    setTimeout(function() {
+      document.getElementById('day-overlay').classList.add('visible');
+      var backBtn = document.getElementById('overlay-back-btn');
+      if (backBtn) backBtn.addEventListener('click', hideDayView);
+    }, 100);
+  }
+
+  function hideDayView() {
+    document.getElementById('day-overlay').classList.remove('visible');
+    setTimeout(function() {
+      document.getElementById('cal-view').classList.remove('exiting');
+      document.getElementById('day-overlay').innerHTML = '';
+      document.getElementById('sidebar-day-card').innerHTML = buildSidebarHTML(DAYS_DATA[7]);
+    }, 180);
+  }
+
+  document.querySelectorAll('.cal-cell[data-day]').forEach(function(cell) {
+    cell.addEventListener('click', function() {
+      showDay(parseInt(this.dataset.day, 10));
+    });
+  });
+
+})();
+</script>
 </body>
 </html>
