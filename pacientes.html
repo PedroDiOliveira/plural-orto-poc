@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plural Orto · Pacientes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:       #F4EEE2;
+  --paper-2:     #EDE5D2;
+  --paper-3:     #E3D9C0;
+  --cream:       #FBF6EE;
+  --ink:         #17140F;
+  --ink-2:       #3A352C;
+  --ink-3:       #6B6456;
+  --ink-4:       #9B937F;
+  --line:        #D9CFB8;
+  --line-2:      #E5DCC6;
+  --accent:      #C15F3C;
+  --accent-ink:  #8A3E25;
+  --accent-soft: #EDD6C3;
+  --accent-50:   #F7E7D8;
+  --gold:        #B08A4A;
+  --gold-soft:   #E8D9B2;
+  --red:         #B03030;
+  --red-soft:    #F5DDD8;
+  --green:       #6E7F4C;
+
+  --shadow-sm: 0 1px 2px rgba(26,20,14,0.04), 0 2px 6px rgba(26,20,14,0.04);
+  --shadow-md: 0 2px 4px rgba(26,20,14,0.04), 0 12px 30px -12px rgba(26,20,14,0.12);
+
+  --radius-sm: 10px;
+  --radius:    16px;
+
+  --font-sans:  "Inter", system-ui, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+
+  --header-h: 56px;
+  --nav-h:    48px;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(110,127,76,0.05) 0, transparent 40%),
+    radial-gradient(at 85% 90%, rgba(176,138,74,0.04) 0, transparent 45%);
+  background-attachment: fixed;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500; margin-bottom: 10px; display: block;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(244,238,226,0.82);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid rgba(217,207,184,0.7);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em;
+}
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, #1F1A13 0%, #2E2820 100%);
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); flex-shrink: 0;
+}
+.brand-mark::after {
+  content: ""; position: absolute; inset: auto auto 5px 5px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #E37A54, #B84C2B);
+  box-shadow: 0 0 10px rgba(193,95,60,0.6);
+}
+.header-right { display: flex; align-items: center; gap: 18px; }
+.bell-wrap {
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; cursor: pointer; position: relative; transition: background 150ms;
+}
+.bell-wrap:hover { background: var(--paper-2); }
+.bell-wrap svg { width: 17px; height: 17px; }
+.bell-pip {
+  position: absolute; top: 7px; right: 8px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); border: 1.5px solid var(--paper);
+}
+.user-chip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 5px 12px 5px 6px;
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: 999px; cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: box-shadow 150ms, border-color 150ms;
+}
+.user-chip:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #E37A54, #B84C2B);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 10.5px; font-weight: 600;
+  color: var(--cream); flex-shrink: 0;
+}
+.user-info { line-height: 1.2; }
+.user-name   { font-size: 13px; font-weight: 500; }
+.user-clinic { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99;
+  height: var(--nav-h);
+  background: rgba(244,238,226,0.75);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(217,207,184,0.6);
+  display: flex; align-items: center; padding: 0 32px; gap: 2px;
+}
+.nav-tab {
+  padding: 0 16px; height: var(--nav-h);
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 400; color: var(--ink-3);
+  border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap;
+}
+.nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
+.nav-tab:hover { color: var(--ink); }
+.nav-tab:hover svg { opacity: 0.9; }
+.nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.nav-tab.active svg { opacity: 1; }
+
+/* ── MAIN ── */
+.main { margin-top: calc(var(--header-h) + var(--nav-h)); padding: 28px 32px 48px; }
+
+/* ── CARD ── */
+.card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm);
+}
+.footer-link {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+}
+.footer-link:hover { opacity: 0.75; }
+
+/* ── BTN ── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; background: var(--accent); color: #FBF6EE;
+  border-radius: var(--radius-sm); font-family: var(--font-sans);
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  box-shadow: 0 1px 4px rgba(193,95,60,0.25); transition: opacity 150ms;
+}
+.btn-primary:hover { opacity: 0.88; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 18px;
+}
+.page-title {
+  font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1;
+}
+
+/* ── STATUS BADGES ── */
+.status-badge {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+  white-space: nowrap; flex-shrink: 0;
+}
+.status-badge.on      { background: rgba(193,95,60,0.10); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.25); }
+.status-badge.conf    { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.25); }
+.status-badge.unconf  { background: rgba(176,138,74,0.10); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.status-badge.done    { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line); }
+.status-badge.pend    { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.25); }
+
+/* ── ALERT TAGS ── */
+.alert-tag {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+}
+.alert-tag.medical { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.3); font-weight: 600; }
+.alert-tag.payment { background: var(--gold-soft); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.alert-tag.new-pt  { background: rgba(110,127,76,0.08); color: var(--green); border: 1px solid rgba(110,127,76,0.2); }
+.alert-tag.remark  { background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line); }
+
+/* ── PROGRESS BAR ── */
+.pc-progress-bar  { height: 4px; background: var(--line-2); border-radius: 2px; overflow: hidden; margin-top: 5px; }
+.pc-progress-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+
+/* ── KPI CHIPS ── */
+.pt-kpi-bar {
+  display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.pt-kpi-chip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 18px; border-radius: 999px;
+  border: 1px solid var(--line-2); background: var(--cream);
+  cursor: pointer; transition: border-color 150ms, background 150ms;
+  box-shadow: var(--shadow-sm);
+}
+.pt-kpi-chip:hover { border-color: var(--line); }
+.pt-kpi-chip.active { border-color: var(--accent); background: var(--accent-50); }
+.pt-kpi-chip.active-red  { border-color: var(--red); background: var(--red-soft); }
+.pt-kpi-chip.active-gold { border-color: var(--gold); background: var(--gold-soft); }
+.pt-kpi-num {
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.02em; line-height: 1;
+}
+.pt-kpi-num.red  { color: var(--red); }
+.pt-kpi-num.gold { color: var(--gold); }
+.pt-kpi-num.accent { color: var(--accent-ink); }
+.pt-kpi-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--ink-3); line-height: 1.2;
+}
+.pt-kpi-chip.active .pt-kpi-label     { color: var(--accent-ink); }
+.pt-kpi-chip.active-red .pt-kpi-label  { color: var(--red); }
+.pt-kpi-chip.active-gold .pt-kpi-label { color: #7A5E2B; }
+
+/* ── PATIENTS LAYOUT ── */
+.patients-layout {
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 14px; align-items: start;
+}
+
+/* ── LEFT COLUMN ── */
+.pt-left { display: flex; flex-direction: column; gap: 0; }
+
+.pt-toolbar {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.pt-search-wrap {
+  flex: 1; min-width: 200px; position: relative;
+}
+.pt-search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 14px; height: 14px; color: var(--ink-4); pointer-events: none;
+}
+.pt-search {
+  width: 100%; padding: 9px 12px 9px 36px;
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 13px;
+  color: var(--ink); outline: none; transition: border-color 150ms;
+}
+.pt-search::placeholder { color: var(--ink-4); }
+.pt-search:focus { border-color: var(--accent); }
+
+.pt-filter-bar {
+  display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.pt-filter-tab {
+  padding: 5px 14px; border-radius: 999px;
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--line-2); color: var(--ink-3); background: transparent;
+  transition: all 120ms;
+}
+.pt-filter-tab:hover { border-color: var(--line); color: var(--ink); }
+.pt-filter-tab.active { background: var(--accent); color: #FBF6EE; border-color: var(--accent); }
+
+/* ── PATIENT LIST ── */
+.pt-list {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.pt-list-empty {
+  padding: 40px 24px; text-align: center;
+  font-family: var(--font-sans); font-size: 13px; color: var(--ink-4);
+}
+
+.pt-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 12px; align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line-2);
+  cursor: pointer; transition: background 120ms;
+  position: relative;
+}
+.pt-row:last-child { border-bottom: none; }
+.pt-row:hover { background: var(--paper-2); }
+.pt-row.selected {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding-left: 13px;
+}
+.pt-row.selected:hover { background: var(--accent-soft); }
+
+.pt-row-avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+}
+.pt-row-main { min-width: 0; }
+.pt-row-name {
+  font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 1px;
+}
+.pt-row-sub {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.pt-row-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.pt-row-meta {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 5px;
+  flex-shrink: 0;
+}
+.pt-row-last {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.pt-row-warning {
+  font-family: var(--font-sans); font-size: 10px; color: var(--gold); font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+}
+
+/* ── DETAIL PANEL ── */
+.pt-detail {
+  position: sticky;
+  top: calc(var(--header-h) + var(--nav-h) + 28px);
+  max-height: calc(100vh - var(--header-h) - var(--nav-h) - 56px);
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.pt-detail::-webkit-scrollbar { width: 4px; }
+.pt-detail::-webkit-scrollbar-track { background: transparent; }
+.pt-detail::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+
+.pt-detail-empty {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 48px 24px;
+  text-align: center; box-shadow: var(--shadow-sm);
+}
+.pt-detail-empty-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--paper-2); display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+}
+.pt-detail-empty-icon svg { width: 18px; height: 18px; color: var(--ink-4); }
+.pt-detail-empty-title {
+  font-family: var(--font-serif); font-size: 17px; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 4px;
+}
+.pt-detail-empty-sub {
+  font-family: var(--font-sans); font-size: 13px; color: var(--ink-4);
+}
+
+/* ── PROFILE CARD ── */
+.pt-profile-hd {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;
+}
+.pt-profile-avatar {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 15px; font-weight: 600;
+}
+.pt-profile-name {
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.02em;
+  line-height: 1.1; margin-bottom: 2px;
+}
+.pt-profile-meta {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-3); margin-bottom: 4px;
+}
+.pt-profile-contact {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+}
+.pt-profile-contact svg { width: 11px; height: 11px; flex-shrink: 0; }
+.pt-profile-pills {
+  display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px;
+  padding-top: 10px; border-top: 1px solid var(--line-2);
+}
+.pt-insurance-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+  padding: 2px 8px; border-radius: 999px;
+  background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line);
+}
+
+/* ── QUICK ACTIONS ── */
+.pt-quick-actions {
+  display: flex; gap: 8px;
+}
+.pt-action-btn {
+  flex: 1; padding: 8px 10px; border-radius: var(--radius-sm);
+  font-family: var(--font-sans); font-size: 12px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; transition: opacity 120ms, background 120ms;
+  border: 1px solid var(--line-2); color: var(--ink-3); background: var(--cream);
+}
+.pt-action-btn:hover { background: var(--paper-2); border-color: var(--line); color: var(--ink); }
+.pt-action-btn.primary {
+  background: var(--accent); color: #FBF6EE; border-color: var(--accent);
+  box-shadow: 0 1px 4px rgba(193,95,60,0.25);
+}
+.pt-action-btn.primary:hover { opacity: 0.88; }
+.pt-action-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+/* ── TREATMENT CARDS ── */
+.pt-treatment-card {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line-2);
+}
+.pt-treatment-card:last-child { border-bottom: none; padding-bottom: 0; }
+.pt-treatment-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 3px;
+}
+.pt-treatment-name {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink);
+}
+.pt-treatment-session {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.04em; flex-shrink: 0;
+}
+.pt-treatment-meta {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); margin-top: 6px;
+}
+.pt-treatment-meta strong { color: var(--ink-3); font-weight: 500; }
+.pt-treatment-warning {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--font-sans); font-size: 11px; color: var(--gold);
+  font-weight: 500; margin-top: 5px;
+}
+.pt-treatment-warning svg { width: 11px; height: 11px; flex-shrink: 0; }
+.pt-treatment-action {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+  margin-top: 7px; display: inline-block; cursor: pointer;
+}
+.pt-treatment-action:hover { opacity: 0.75; }
+
+/* ── PAY SECTION ── */
+.pt-pay-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid var(--line-2);
+}
+.pt-pay-row:last-child { border-bottom: none; }
+.pt-pay-label {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.pt-pay-value {
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink); letter-spacing: 0.04em;
+}
+.pt-pay-value.ok    { color: var(--green); }
+.pt-pay-value.pend  { color: var(--red); font-weight: 600; }
+.pt-pay-status {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+}
+.pt-pay-status.ok   { color: var(--green); }
+.pt-pay-status.pend { color: var(--red); }
+.pt-pay-status svg  { width: 11px; height: 11px; }
+
+/* ── HISTORY ── */
+.pt-history-row {
+  display: grid; grid-template-columns: 52px 1fr auto;
+  gap: 8px; align-items: baseline;
+  padding: 7px 0; border-bottom: 1px solid var(--line-2);
+  font-family: var(--font-sans); font-size: 11px;
+}
+.pt-history-row:last-child { border-bottom: none; }
+.pt-history-date { font-family: var(--font-mono); color: var(--ink-4); letter-spacing: 0.04em; }
+.pt-history-proc { color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pt-history-paid { color: var(--green); font-weight: 500; white-space: nowrap; }
+.pt-history-unpaid { color: var(--red); font-weight: 500; white-space: nowrap; }
+
+.pt-card-footer {
+  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-2);
+  text-align: right;
+}
+
+/* ── RESULT COUNT ── */
+.pt-result-count {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+  padding: 6px 0 8px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    Plural Orto
+  </div>
+  <div class="header-right">
+    <div class="bell-wrap">
+      <svg viewBox="0 0 17 17" fill="none">
+        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z" stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 11.5a1.5 1.5 0 003 0" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="bell-pip"></div>
+    </div>
+    <div class="user-chip">
+      <div class="avatar">DM</div>
+      <div class="user-info">
+        <div class="user-name">Dr. Marcelo</div>
+        <div class="user-clinic">Clínica Central</div>
+      </div>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;flex-shrink:0;">
+        <path d="M1 1l4 4 4-4" stroke="#9B937F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-tab" href="prototipo1.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="1" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    Dashboard
+  </a>
+  <a class="nav-tab" href="recepcao.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M2 11.5h10M2 11.5V4a1 1 0 011-1h8a1 1 0 011 1v7.5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M5 7.5h4M5 9.5h2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M1.5 11.5h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    Recepção
+  </a>
+  <a class="nav-tab" href="consultorio.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 13h5M7 10v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Consultório Virtual
+  </a>
+  <a class="nav-tab" href="agenda.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1.5" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 6h11" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="4.5" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="7" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="9.5" cy="9.5" r="0.8" fill="currentColor"/>
+    </svg>
+    Agenda
+  </a>
+  <a class="nav-tab active" href="pacientes.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 13.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Pacientes
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+    Comunicação
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M1.5 12.5h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <rect x="2" y="7.5" width="2.5" height="5" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="5.75" y="4.5" width="2.5" height="8" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="9.5" y="1.5" width="2.5" height="11" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+    </svg>
+    Financeiro
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.05 3.05l1.06 1.06M9.89 9.89l1.06 1.06M10.95 3.05L9.89 4.11M4.11 9.89l-1.06 1.06" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Configurações
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-title">Pacientes</div>
+    <button class="btn-primary" id="btn-new-patient">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+        <path d="M6.5 1.5v10M1.5 6.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Novo paciente
+    </button>
+  </div>
+
+  <!-- KPI Chips -->
+  <div class="pt-kpi-bar" id="pt-kpi-bar">
+    <div class="pt-kpi-chip active" data-segment="all">
+      <div class="pt-kpi-num" id="kpi-total">248</div>
+      <div class="pt-kpi-label">Total de pacientes</div>
+    </div>
+    <div class="pt-kpi-chip" data-segment="treatment">
+      <div class="pt-kpi-num accent" id="kpi-treatment">42</div>
+      <div class="pt-kpi-label">Em tratamento</div>
+    </div>
+    <div class="pt-kpi-chip" data-segment="pending">
+      <div class="pt-kpi-num red" id="kpi-pending">8</div>
+      <div class="pt-kpi-label">Pagamento pendente</div>
+    </div>
+    <div class="pt-kpi-chip" data-segment="inactive">
+      <div class="pt-kpi-num gold" id="kpi-inactive">15</div>
+      <div class="pt-kpi-label">Sem consulta 3+ meses</div>
+    </div>
+  </div>
+
+  <!-- Layout -->
+  <div class="patients-layout">
+
+    <!-- Left: List -->
+    <div class="pt-left">
+      <!-- Toolbar -->
+      <div class="pt-toolbar">
+        <div class="pt-search-wrap">
+          <svg class="pt-search-icon" viewBox="0 0 14 14" fill="none">
+            <circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M9.5 9.5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <input class="pt-search" id="pt-search" type="text" placeholder="Buscar por nome, telefone ou email…" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Segment filters -->
+      <div class="pt-filter-bar" id="pt-filter-bar">
+        <button class="pt-filter-tab active" data-segment="all">Todos</button>
+        <button class="pt-filter-tab" data-segment="treatment">Em tratamento</button>
+        <button class="pt-filter-tab" data-segment="pending">Pagamento pendente</button>
+        <button class="pt-filter-tab" data-segment="inactive">Inativos</button>
+        <button class="pt-filter-tab" data-segment="new">Novos</button>
+      </div>
+
+      <!-- Result count -->
+      <div class="pt-result-count" id="pt-result-count">12 pacientes</div>
+
+      <!-- List -->
+      <div class="pt-list" id="pt-list"></div>
+    </div>
+
+    <!-- Right: Detail -->
+    <div class="pt-detail" id="pt-detail">
+      <div class="pt-detail-empty">
+        <div class="pt-detail-empty-icon">
+          <svg viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="6" r="3" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M2 17c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="pt-detail-empty-title">Selecione um paciente</div>
+        <div class="pt-detail-empty-sub">O perfil completo aparecerá aqui</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+(function() {
+  'use strict';
+
+  const PATIENTS = [
+    {
+      id: 1, initials: 'AC', avatarBg: 'var(--accent-soft)', avatarColor: 'var(--accent-ink)',
+      name: 'Ana Costa', age: 34, gender: 'F', since: 'nov. 2023',
+      phone: '(34) 99999-1234', email: 'ana.costa@email.com', source: 'Indicação',
+      segments: ['treatment'],
+      alerts: [{ type: 'medical', label: '⚠ Alergia: penicilina' }],
+      insurance: 'Amil',
+      lastVisit: '22 abr', lastVisitDays: 16,
+      treatments: [
+        { name: 'Manutenção ortodôntica', sessions: 4, total: 7, lastSession: '22 abr', nextAppt: '22 mai', hasNext: true },
+        { name: 'Clareamento dental', sessions: 2, total: 4, lastSession: '10 abr', nextAppt: '10 jun', hasNext: true }
+      ],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 320,00', lastDate: '30 abr', method: 'PIX' },
+      history: [
+        { date: '22 abr', proc: 'Manutenção ortodôntica', paid: true },
+        { date: '22 mar', proc: 'Clareamento — sessão 2', paid: true },
+        { date: '08 mar', proc: 'Manutenção ortodôntica', paid: true },
+        { date: '10 fev', proc: 'Clareamento — sessão 1', paid: true },
+        { date: '08 fev', proc: 'Manutenção ortodôntica', paid: true },
+      ]
+    },
+    {
+      id: 2, initials: 'BL', avatarBg: 'var(--paper-2)', avatarColor: 'var(--ink-3)',
+      name: 'Bruno Lima', age: 28, gender: 'M', since: 'jan. 2024',
+      phone: '(34) 98888-5678', email: 'bruno.lima@gmail.com', source: 'Instagram',
+      segments: ['treatment'],
+      alerts: [],
+      insurance: null,
+      lastVisit: '15 abr', lastVisitDays: 23,
+      treatments: [
+        { name: 'Recuperação pós-extração 48', sessions: 2, total: 4, lastSession: '15 abr', nextAppt: null, hasNext: false }
+      ],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 180,00', lastDate: '15 abr', method: 'Cartão' },
+      history: [
+        { date: '15 abr', proc: 'Retorno pós-cirúrgico', paid: true },
+        { date: '01 abr', proc: 'Extração do dente 48', paid: true },
+        { date: '10 mar', proc: '1ª consulta — avaliação', paid: true },
+      ]
+    },
+    {
+      id: 3, initials: 'CM', avatarBg: 'var(--red-soft)', avatarColor: 'var(--red)',
+      name: 'Carlos Mendes', age: 45, gender: 'M', since: 'ago. 2023',
+      phone: '(34) 97777-9012', email: 'cmendes@empresa.com.br', source: 'Google',
+      segments: ['pending'],
+      alerts: [{ type: 'payment', label: 'R$ 640 em aberto' }],
+      insurance: 'Unimed',
+      lastVisit: '08 mar', lastVisitDays: 60,
+      treatments: [
+        { name: 'Prótese parcial removível', sessions: 3, total: 5, lastSession: '08 mar', nextAppt: null, hasNext: false }
+      ],
+      payment: { balance: 640, status: 'pending', lastAmount: 'R$ 320,00', lastDate: '15 fev', method: 'Boleto' },
+      history: [
+        { date: '08 mar', proc: 'Prótese — moldagem final', paid: false },
+        { date: '20 fev', proc: 'Prótese — prova em cera', paid: false },
+        { date: '02 fev', proc: 'Prótese — 1ª consulta', paid: true },
+      ]
+    },
+    {
+      id: 4, initials: 'DF', avatarBg: 'rgba(110,127,76,0.10)', avatarColor: 'var(--green)',
+      name: 'Daniela Ferreira', age: 22, gender: 'F', since: 'abr. 2025',
+      phone: '(34) 96666-3456', email: 'daniela.f@gmail.com', source: 'Instagram',
+      segments: ['new'],
+      alerts: [{ type: 'new-pt', label: 'Novo paciente' }],
+      insurance: null,
+      lastVisit: '24 abr', lastVisitDays: 14,
+      treatments: [],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 120,00', lastDate: '24 abr', method: 'PIX' },
+      history: [
+        { date: '24 abr', proc: '1ª consulta — avaliação completa', paid: true },
+      ]
+    },
+    {
+      id: 5, initials: 'ES', avatarBg: 'var(--red-soft)', avatarColor: 'var(--red)',
+      name: 'Eduardo Santos', age: 38, gender: 'M', since: 'jun. 2023',
+      phone: '(34) 95555-7890', email: 'edu.santos@hotmail.com', source: 'Indicação',
+      segments: ['treatment'],
+      alerts: [{ type: 'medical', label: '⚠ Alergia: dipirona' }],
+      insurance: 'SulAmérica',
+      lastVisit: '30 abr', lastVisitDays: 8,
+      treatments: [
+        { name: 'Tratamento de canal — dente 36', sessions: 2, total: 3, lastSession: '30 abr', nextAppt: '14 mai', hasNext: true }
+      ],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 580,00', lastDate: '30 abr', method: 'PIX' },
+      history: [
+        { date: '30 abr', proc: 'Canal — 2ª sessão', paid: true },
+        { date: '16 abr', proc: 'Canal — 1ª sessão', paid: true },
+        { date: '10 abr', proc: 'Avaliação de urgência', paid: true },
+      ]
+    },
+    {
+      id: 6, initials: 'FO', avatarBg: 'var(--paper-2)', avatarColor: 'var(--ink-4)',
+      name: 'Fernanda Oliveira', age: 31, gender: 'F', since: 'fev. 2023',
+      phone: '(34) 94444-2345', email: 'fernanda.oliv@gmail.com', source: 'Facebook',
+      segments: ['inactive'],
+      alerts: [],
+      insurance: null,
+      lastVisit: '05 jan', lastVisitDays: 123,
+      treatments: [],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 150,00', lastDate: '05 jan', method: 'Dinheiro' },
+      history: [
+        { date: '05 jan', proc: 'Limpeza + flúor', paid: true },
+        { date: '01 jul', proc: 'Limpeza + flúor', paid: true },
+        { date: '12 jan', proc: 'Limpeza + restauração', paid: true },
+      ]
+    },
+    {
+      id: 7, initials: 'GC', avatarBg: 'var(--accent-soft)', avatarColor: 'var(--accent-ink)',
+      name: 'Gabriel Costa', age: 26, gender: 'M', since: 'mar. 2025',
+      phone: '(34) 93333-6789', email: 'gabriel.costa@gmail.com', source: 'Instagram',
+      segments: ['treatment'],
+      alerts: [],
+      insurance: null,
+      lastVisit: '28 abr', lastVisitDays: 10,
+      treatments: [
+        { name: 'Clareamento dental', sessions: 2, total: 4, lastSession: '28 abr', nextAppt: '20 mai', hasNext: true }
+      ],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 240,00', lastDate: '28 abr', method: 'PIX' },
+      history: [
+        { date: '28 abr', proc: 'Clareamento — sessão 2', paid: true },
+        { date: '07 abr', proc: 'Clareamento — sessão 1', paid: true },
+        { date: '25 mar', proc: '1ª consulta — avaliação', paid: true },
+      ]
+    },
+    {
+      id: 8, initials: 'HR', avatarBg: 'rgba(110,127,76,0.10)', avatarColor: 'var(--green)',
+      name: 'Helena Rocha', age: 41, gender: 'F', since: 'set. 2022',
+      phone: '(34) 92222-1234', email: 'h.rocha@outlook.com', source: 'Indicação',
+      segments: ['treatment'],
+      alerts: [],
+      insurance: 'Unimed',
+      lastVisit: '02 mai', lastVisitDays: 6,
+      treatments: [
+        { name: 'Manutenção ortodôntica', sessions: 5, total: 7, lastSession: '02 mai', nextAppt: '02 jun', hasNext: true },
+        { name: 'Clareamento dental', sessions: 3, total: 4, lastSession: '15 abr', nextAppt: '15 jun', hasNext: true }
+      ],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 320,00', lastDate: '02 mai', method: 'Convênio' },
+      history: [
+        { date: '02 mai', proc: 'Manutenção ortodôntica', paid: true },
+        { date: '15 abr', proc: 'Clareamento — sessão 3', paid: true },
+        { date: '02 abr', proc: 'Manutenção ortodôntica', paid: true },
+        { date: '01 mar', proc: 'Manutenção ortodôntica', paid: true },
+        { date: '01 fev', proc: 'Manutenção ortodôntica', paid: true },
+      ]
+    },
+    {
+      id: 9, initials: 'IM', avatarBg: 'rgba(110,127,76,0.10)', avatarColor: 'var(--green)',
+      name: 'Igor Mendes', age: 19, gender: 'M', since: 'mai. 2025',
+      phone: '(34) 91111-5678', email: 'igor.m@gmail.com', source: 'Google',
+      segments: ['new'],
+      alerts: [{ type: 'new-pt', label: 'Novo paciente' }],
+      insurance: null,
+      lastVisit: '06 mai', lastVisitDays: 2,
+      treatments: [],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 120,00', lastDate: '06 mai', method: 'PIX' },
+      history: [
+        { date: '06 mai', proc: '1ª consulta — avaliação ortodôntica', paid: true },
+      ]
+    },
+    {
+      id: 10, initials: 'JA', avatarBg: 'var(--red-soft)', avatarColor: 'var(--red)',
+      name: 'Juliana Alves', age: 35, gender: 'F', since: 'out. 2023',
+      phone: '(34) 90000-9012', email: 'ju.alves@email.com', source: 'Indicação',
+      segments: ['pending'],
+      alerts: [
+        { type: 'medical', label: '⚠ Alergia: látex' },
+        { type: 'payment', label: 'R$ 320 pendente' }
+      ],
+      insurance: null,
+      lastVisit: '18 mar', lastVisitDays: 50,
+      treatments: [
+        { name: 'Restaurações múltiplas', sessions: 2, total: 4, lastSession: '18 mar', nextAppt: null, hasNext: false }
+      ],
+      payment: { balance: 320, status: 'pending', lastAmount: 'R$ 320,00', lastDate: '18 mar', method: 'PIX pendente' },
+      history: [
+        { date: '18 mar', proc: 'Restauração — dentes 14, 15', paid: false },
+        { date: '01 mar', proc: 'Restauração — dente 13', paid: true },
+        { date: '15 fev', proc: 'Avaliação + radiografias', paid: true },
+      ]
+    },
+    {
+      id: 11, initials: 'LN', avatarBg: 'var(--paper-2)', avatarColor: 'var(--ink-4)',
+      name: 'Lucia Nunes', age: 52, gender: 'F', since: 'abr. 2022',
+      phone: '(34) 88888-3456', email: 'lucia.nunes@uol.com.br', source: 'Indicação',
+      segments: ['inactive'],
+      alerts: [],
+      insurance: 'Bradesco Saúde',
+      lastVisit: '10 dez', lastVisitDays: 149,
+      treatments: [
+        { name: 'Tratamento ortodôntico', sessions: 3, total: 7, lastSession: '10 dez', nextAppt: null, hasNext: false }
+      ],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 290,00', lastDate: '10 dez', method: 'Convênio' },
+      history: [
+        { date: '10 dez', proc: 'Manutenção ortodôntica', paid: true },
+        { date: '10 nov', proc: 'Manutenção ortodôntica', paid: true },
+        { date: '08 out', proc: 'Manutenção ortodôntica', paid: true },
+      ]
+    },
+    {
+      id: 12, initials: 'MS', avatarBg: 'var(--accent-soft)', avatarColor: 'var(--accent-ink)',
+      name: 'Marcos Santos', age: 48, gender: 'M', since: 'jan. 2025',
+      phone: '(34) 77777-7890', email: 'marcos.santos@gmail.com', source: 'Google',
+      segments: ['treatment'],
+      alerts: [],
+      insurance: null,
+      lastVisit: '05 mai', lastVisitDays: 3,
+      treatments: [
+        { name: 'Implante osseointegrado', sessions: 2, total: 3, lastSession: '05 mai', nextAppt: '18 ago', hasNext: true }
+      ],
+      payment: { balance: 0, status: 'ok', lastAmount: 'R$ 1.800,00', lastDate: '05 mai', method: 'PIX' },
+      history: [
+        { date: '05 mai', proc: 'Implante — instalação do implante', paid: true },
+        { date: '10 fev', proc: 'Implante — planejamento + guia', paid: true },
+        { date: '20 jan', proc: '1ª consulta — avaliação implante', paid: true },
+      ]
+    }
+  ];
+
+  let currentSegment = 'all';
+  let currentSearch = '';
+  let selectedId = null;
+  let searchTimer = null;
+
+  function getFilteredPatients() {
+    return PATIENTS.filter(p => {
+      const matchSeg = currentSegment === 'all' || p.segments.includes(currentSegment);
+      if (!matchSeg) return false;
+      if (!currentSearch) return true;
+      const q = currentSearch.toLowerCase();
+      return p.name.toLowerCase().includes(q) || p.phone.includes(q) || p.email.toLowerCase().includes(q);
+    });
+  }
+
+  function avatarHTML(initials, bg, color, size) {
+    return '<div class="' + size + '" style="background:' + bg + ';color:' + color + ';">' + initials + '</div>';
+  }
+
+  function buildRow(p) {
+    const isSelected = p.id === selectedId;
+    const treatmentText = p.treatments.length > 0
+      ? p.treatments[0].name + ' · ' + p.treatments[0].sessions + '/' + p.treatments[0].total
+      : (p.segments.includes('new') ? 'Novo paciente' : 'Sem tratamento ativo');
+
+    const tagsHTML = p.alerts.map(a => '<span class="alert-tag ' + a.type + '">' + a.label + '</span>').join('');
+
+    let warningHTML = '';
+    const hasNoNext = p.treatments.some(t => !t.hasNext);
+    if (hasNoNext && p.treatments.length > 0) {
+      warningHTML = '<div class="pt-row-warning">Sem próx. sessão</div>';
+    }
+    const daysText = p.lastVisitDays > 90
+      ? p.lastVisitDays + ' dias'
+      : p.lastVisit;
+
+    let badgeHTML = '';
+    if (p.payment.balance > 0) {
+      badgeHTML = '<span class="status-badge pend">Pendente</span>';
+    } else if (p.segments.includes('inactive')) {
+      badgeHTML = '<span class="status-badge done">Inativo</span>';
+    } else if (p.segments.includes('new')) {
+      badgeHTML = '<span class="status-badge conf">Novo</span>';
+    } else if (p.treatments.length > 0) {
+      badgeHTML = '<span class="status-badge on">Em tratamento</span>';
+    }
+
+    return '<div class="pt-row' + (isSelected ? ' selected' : '') + '" data-id="' + p.id + '">'
+      + avatarHTML(p.initials, p.avatarBg, p.avatarColor, 'pt-row-avatar')
+      + '<div class="pt-row-main">'
+        + '<div class="pt-row-name">' + p.name + ' <span style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);font-weight:400;">&middot; ' + p.age + 'a</span></div>'
+        + '<div class="pt-row-sub">' + treatmentText + '</div>'
+        + (tagsHTML ? '<div class="pt-row-tags">' + tagsHTML + '</div>' : '')
+      + '</div>'
+      + '<div class="pt-row-meta">'
+        + badgeHTML
+        + '<div class="pt-row-last">' + daysText + '</div>'
+        + warningHTML
+      + '</div>'
+      + '</div>';
+  }
+
+  function renderList() {
+    const filtered = getFilteredPatients();
+    const list = document.getElementById('pt-list');
+    const count = document.getElementById('pt-result-count');
+
+    count.textContent = filtered.length + (filtered.length === 1 ? ' paciente' : ' pacientes');
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<div class="pt-list-empty">Nenhum paciente encontrado</div>';
+      return;
+    }
+    list.innerHTML = filtered.map(buildRow).join('');
+  }
+
+  function buildPayStatus(p) {
+    if (p.payment.balance > 0) {
+      return '<div class="pt-pay-status pend">'
+        + '<svg viewBox="0 0 11 11" fill="none"><path d="M5.5 2v3.5L7.5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.1"/></svg>'
+        + 'Pendente há ' + Math.round(p.lastVisitDays / 30) + ' meses'
+        + '</div>';
+    }
+    return '<div class="pt-pay-status ok">'
+      + '<svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      + 'Dia em dia'
+      + '</div>';
+  }
+
+  function buildDetail(p) {
+    const alertPills = p.alerts.map(a => '<span class="alert-tag ' + a.type + '">' + a.label + '</span>').join('');
+    const insurancePill = p.insurance
+      ? '<span class="pt-insurance-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1l3.5 1.5v3c0 2-3.5 3.5-3.5 3.5S1.5 7.5 1.5 5.5v-3L5 1z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>' + p.insurance + '</span>'
+      : '';
+
+    // Profile card
+    let html = '<div class="card">'
+      + '<div class="pt-profile-hd">'
+        + '<div class="pt-profile-avatar" style="background:' + p.avatarBg + ';color:' + p.avatarColor + ';">' + p.initials + '</div>'
+        + '<div style="flex:1;min-width:0;">'
+          + '<div class="pt-profile-name">' + p.name + '</div>'
+          + '<div class="pt-profile-meta">' + p.age + ' anos · ' + p.gender + ' · Paciente desde ' + p.since + '</div>'
+          + '<div class="pt-profile-contact"><svg viewBox="0 0 11 11" fill="none"><rect x="1" y="2" width="9" height="7" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M1 3.5l4.5 3 4.5-3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>' + p.phone + ' · ' + p.email + '</div>'
+          + '<div class="pt-profile-meta" style="margin-top:2px;">Como conheceu: ' + p.source + '</div>'
+        + '</div>'
+      + '</div>'
+      + ((alertPills || insurancePill) ? '<div class="pt-profile-pills">' + alertPills + insurancePill + '</div>' : '')
+      + '</div>';
+
+    // Quick actions
+    html += '<div class="pt-quick-actions">'
+      + '<button class="pt-action-btn primary"><svg viewBox="0 0 12 12" fill="none"><rect x="1" y="1.5" width="10" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5h10" stroke="currentColor" stroke-width="1.2"/><path d="M4 1v1.5M8 1v1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Agendar</button>'
+      + '<button class="pt-action-btn"><svg viewBox="0 0 12 12" fill="none"><path d="M10.5 6c0 2.485-2.015 4.5-4.5 4.5-1.024 0-1.97-.347-2.727-.926L1 11l.647-2.273A4.47 4.47 0 011.5 6c0-2.485 2.015-4.5 4.5-4.5S10.5 3.515 10.5 6z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>Mensagem</button>'
+      + '<a class="pt-action-btn" href="atendimento.html"><svg viewBox="0 0 12 12" fill="none"><path d="M2 9.5h8M2 9.5V3.5a1 1 0 011-1h6a1 1 0 011 1v6" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M4.5 5.5h3M4.5 7.5h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Prontuário</a>'
+      + '</div>';
+
+    // Treatments
+    if (p.treatments.length > 0) {
+      html += '<div class="card"><span class="eyebrow">Tratamentos ativos</span>';
+      p.treatments.forEach(function(t) {
+        const pct = Math.round((t.sessions / t.total) * 100);
+        html += '<div class="pt-treatment-card">'
+          + '<div class="pt-treatment-top">'
+            + '<span class="pt-treatment-name">' + t.name + '</span>'
+            + '<span class="pt-treatment-session">Sessão ' + t.sessions + ' de ' + t.total + '</span>'
+          + '</div>'
+          + '<div class="pc-progress-bar"><div class="pc-progress-fill" style="width:' + pct + '%"></div></div>'
+          + '<div class="pt-treatment-meta">Última sessão: <strong>' + t.lastSession + '</strong>'
+            + (t.hasNext ? ' · Próxima: <strong>' + t.nextAppt + '</strong>' : '')
+          + '</div>'
+          + (t.hasNext ? '' : '<div class="pt-treatment-warning"><svg viewBox="0 0 11 11" fill="none"><path d="M5.5 1L1 9.5h9L5.5 1z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M5.5 5v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>Sem próxima sessão agendada</div>')
+          + '<a class="pt-treatment-action" href="agenda.html">Agendar próxima sessão →</a>'
+          + '</div>';
+      });
+      html += '</div>';
+    }
+
+    // Payment
+    html += '<div class="card"><span class="eyebrow">Situação financeira</span>';
+    html += '<div class="pt-pay-row">'
+      + '<span class="pt-pay-label">Saldo em aberto</span>'
+      + '<span class="pt-pay-value ' + (p.payment.balance > 0 ? 'pend' : 'ok') + '">R$ ' + (p.payment.balance > 0 ? p.payment.balance.toFixed(2).replace('.', ',') : '0,00') + '</span>'
+    + '</div>';
+    html += '<div class="pt-pay-row">'
+      + '<span class="pt-pay-label">Status</span>'
+      + buildPayStatus(p)
+    + '</div>';
+    html += '<div class="pt-pay-row">'
+      + '<span class="pt-pay-label">Último pagamento</span>'
+      + '<span class="pt-pay-value">' + p.payment.lastAmount + ' · ' + p.payment.lastDate + ' · ' + p.payment.method + '</span>'
+    + '</div>';
+    html += '</div>';
+
+    // History
+    if (p.history.length > 0) {
+      html += '<div class="card"><span class="eyebrow">Histórico de visitas</span>';
+      p.history.forEach(function(h) {
+        html += '<div class="pt-history-row">'
+          + '<span class="pt-history-date">' + h.date + '</span>'
+          + '<span class="pt-history-proc">' + h.proc + '</span>'
+          + '<span class="' + (h.paid ? 'pt-history-paid' : 'pt-history-unpaid') + '">' + (h.paid ? '✓ Pago' : '✗ Pendente') + '</span>'
+        + '</div>';
+      });
+      html += '<div class="pt-card-footer"><a class="footer-link" href="atendimento.html">Ver prontuário completo →</a></div>';
+      html += '</div>';
+    }
+
+    return html;
+  }
+
+  function selectPatient(id) {
+    selectedId = id;
+    renderList();
+    const p = PATIENTS.find(function(x) { return x.id === id; });
+    if (!p) return;
+    document.getElementById('pt-detail').innerHTML = buildDetail(p);
+  }
+
+  function setSegment(seg) {
+    currentSegment = seg;
+
+    // Update filter tabs
+    document.querySelectorAll('.pt-filter-tab').forEach(function(t) {
+      t.classList.toggle('active', t.dataset.segment === seg);
+    });
+
+    // Update KPI chips
+    const chipMap = { all: 'active', treatment: 'active', pending: 'active-red', inactive: 'active-gold' };
+    document.querySelectorAll('.pt-kpi-chip').forEach(function(c) {
+      c.classList.remove('active', 'active-red', 'active-gold');
+      if (c.dataset.segment === seg) {
+        c.classList.add(chipMap[seg] || 'active');
+      }
+    });
+
+    renderList();
+  }
+
+  // Event: KPI chips
+  document.querySelectorAll('.pt-kpi-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      setSegment(chip.dataset.segment);
+    });
+  });
+
+  // Event: filter tabs
+  document.querySelectorAll('.pt-filter-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      setSegment(tab.dataset.segment);
+    });
+  });
+
+  // Event: search
+  document.getElementById('pt-search').addEventListener('input', function(e) {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function() {
+      currentSearch = e.target.value.trim();
+      if (currentSearch) {
+        // Reset segment when searching
+        currentSegment = 'all';
+        document.querySelectorAll('.pt-filter-tab').forEach(function(t) {
+          t.classList.toggle('active', t.dataset.segment === 'all');
+        });
+        document.querySelectorAll('.pt-kpi-chip').forEach(function(c) {
+          c.classList.remove('active', 'active-red', 'active-gold');
+          if (c.dataset.segment === 'all') c.classList.add('active');
+        });
+      }
+      renderList();
+    }, 200);
+  });
+
+  // Event: click on patient row (delegation)
+  document.getElementById('pt-list').addEventListener('click', function(e) {
+    const row = e.target.closest('.pt-row');
+    if (!row) return;
+    const id = parseInt(row.dataset.id, 10);
+    selectPatient(id);
+    row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  // Init
+  renderList();
+
+})();
+</script>
+</body>
+</html>
