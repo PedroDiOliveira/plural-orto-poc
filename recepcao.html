@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plural Orto · Recepção</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:       #F4EEE2;
+  --paper-2:     #EDE5D2;
+  --paper-3:     #E3D9C0;
+  --cream:       #FBF6EE;
+  --ink:         #17140F;
+  --ink-2:       #3A352C;
+  --ink-3:       #6B6456;
+  --ink-4:       #9B937F;
+  --line:        #D9CFB8;
+  --line-2:      #E5DCC6;
+  --accent:      #C15F3C;
+  --accent-ink:  #8A3E25;
+  --accent-soft: #EDD6C3;
+  --accent-50:   #F7E7D8;
+  --gold:        #B08A4A;
+  --gold-soft:   #E8D9B2;
+  --red:         #B03030;
+  --red-soft:    #F5DDD8;
+  --green:       #6E7F4C;
+
+  --shadow-sm: 0 1px 2px rgba(26,20,14,0.04), 0 2px 6px rgba(26,20,14,0.04);
+  --shadow-md: 0 2px 4px rgba(26,20,14,0.04), 0 12px 30px -12px rgba(26,20,14,0.12);
+
+  --radius-sm: 10px;
+  --radius:    16px;
+
+  --font-sans:  "Inter", system-ui, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+
+  --header-h: 56px;
+  --nav-h:    48px;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(at 18% 12%, rgba(110,127,76,0.05) 0, transparent 40%),
+    radial-gradient(at 88% 85%, rgba(176,138,74,0.05) 0, transparent 45%);
+  background-attachment: fixed;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500; margin-bottom: 10px; display: block;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(244,238,226,0.82);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid rgba(217,207,184,0.7);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em;
+}
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, #1F1A13 0%, #2E2820 100%);
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); flex-shrink: 0;
+}
+.brand-mark::after {
+  content: ""; position: absolute; inset: auto auto 5px 5px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #E37A54, #B84C2B);
+  box-shadow: 0 0 10px rgba(193,95,60,0.6);
+}
+.header-right { display: flex; align-items: center; gap: 18px; }
+.bell-wrap {
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; cursor: pointer; position: relative; transition: background 150ms;
+}
+.bell-wrap:hover { background: var(--paper-2); }
+.bell-wrap svg { width: 17px; height: 17px; }
+.bell-pip {
+  position: absolute; top: 7px; right: 8px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); border: 1.5px solid var(--paper);
+}
+.user-chip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 5px 12px 5px 6px;
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: 999px; cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: box-shadow 150ms, border-color 150ms;
+}
+.user-chip:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #8EAD63, #5E7A3D);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 10.5px; font-weight: 600;
+  color: var(--cream); flex-shrink: 0;
+}
+.user-info { line-height: 1.2; }
+.user-name   { font-size: 13px; font-weight: 500; }
+.user-clinic { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99;
+  height: var(--nav-h);
+  background: rgba(244,238,226,0.75);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(217,207,184,0.6);
+  display: flex; align-items: center; padding: 0 32px; gap: 2px;
+}
+.nav-tab {
+  padding: 0 16px; height: var(--nav-h);
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 400; color: var(--ink-3);
+  border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap;
+}
+.nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
+.nav-tab:hover { color: var(--ink); }
+.nav-tab:hover svg { opacity: 0.9; }
+.nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.nav-tab.active svg { opacity: 1; }
+
+/* ── MAIN ── */
+.main { margin-top: calc(var(--header-h) + var(--nav-h)); padding: 28px 32px 48px; }
+
+/* ── CARD ── */
+.card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm);
+}
+.card-footer { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-2); }
+.footer-link {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+}
+.footer-link:hover { opacity: 0.75; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 18px;
+}
+.page-title {
+  font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1.1;
+}
+.page-date {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--ink-4); margin-top: 5px;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px;
+  background: var(--accent); color: #FBF6EE;
+  border-radius: var(--radius-sm); cursor: pointer;
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500;
+  box-shadow: 0 1px 4px rgba(193,95,60,0.25);
+  transition: opacity 150ms;
+}
+.btn-primary:hover { opacity: 0.88; }
+
+/* ── STATUS BAR ── */
+.day-bar {
+  display: flex; align-items: stretch; margin-bottom: 18px;
+  padding: 0; overflow: hidden;
+}
+.day-bar-section { flex: 1; padding: 20px 24px; }
+.day-bar-section + .day-bar-section { border-left: 1px solid var(--line-2); }
+.day-bar-section.active-status {
+  flex: 0 0 auto; padding: 20px 28px;
+  background: rgba(193,95,60,0.025);
+  border-left: 1px solid rgba(193,95,60,0.15);
+}
+.bar-kpi-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px;
+}
+.bar-kpi-val {
+  font-family: var(--font-serif); font-size: 28px; font-weight: 400;
+  line-height: 1; letter-spacing: -0.02em;
+}
+.bar-kpi-val.warn { color: var(--gold); }
+.active-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--accent-ink); font-weight: 500; margin-bottom: 5px;
+}
+.active-patient {
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.02em; line-height: 1.1;
+}
+.active-proc { font-size: 13px; color: var(--ink-3); margin-top: 3px; }
+.active-timer {
+  font-family: var(--font-mono); font-size: 11px; color: var(--accent);
+  font-weight: 500; margin-top: 6px; letter-spacing: 0.04em;
+}
+
+/* ── RECEPTION GRID ── */
+.reception-grid {
+  display: grid; grid-template-columns: 1fr 320px; gap: 14px; align-items: start;
+}
+
+/* ── PATIENT CARDS ── */
+.patient-card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 10px;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.patient-card:last-child { margin-bottom: 0; }
+.patient-card:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.patient-card.is-current {
+  border-left: 3px solid var(--accent);
+  background: rgba(193,95,60,0.02);
+  box-shadow: var(--shadow-md);
+}
+.patient-card.is-arrived {
+  border-left: 3px solid var(--green);
+  background: rgba(110,127,76,0.015);
+}
+.patient-card.is-unconfirmed {
+  border-left: 3px solid var(--gold);
+  background: rgba(176,138,74,0.015);
+}
+
+.pc-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+}
+.pc-time {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em;
+  color: var(--ink-3); font-weight: 500;
+}
+.pc-top-right { display: flex; align-items: center; gap: 8px; }
+
+.status-badge {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 999px; font-weight: 500;
+}
+.status-badge.on      { background: rgba(193,95,60,0.10); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.25); }
+.status-badge.arrived { background: rgba(110,127,76,0.15); color: var(--green); border: 1px solid rgba(110,127,76,0.35); font-weight: 600; }
+.status-badge.conf    { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.25); }
+.status-badge.unconf  { background: rgba(176,138,74,0.10); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.status-badge.done    { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line); }
+
+.action-btn {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; font-weight: 500;
+  padding: 5px 12px; border-radius: 7px; cursor: pointer;
+  transition: opacity 150ms, border-color 150ms, color 150ms;
+}
+.action-btn.primary-action {
+  background: var(--green); color: #FBF6EE;
+  box-shadow: 0 1px 3px rgba(110,127,76,0.3);
+}
+.action-btn.primary-action:hover { opacity: 0.88; }
+.action-btn.ghost {
+  background: transparent; color: var(--ink-3);
+  border: 1px solid var(--line-2);
+}
+.action-btn.ghost:hover { border-color: var(--line); color: var(--ink); }
+
+.pc-main { display: flex; gap: 12px; align-items: flex-start; }
+.pc-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  border: 1.5px solid rgba(0,0,0,0.06);
+}
+.pc-body { flex: 1; min-width: 0; }
+.pc-name { font-size: 15px; font-weight: 500; color: var(--ink); }
+.pc-age { font-weight: 400; color: var(--ink-3); font-size: 13px; }
+.pc-proc { font-size: 13px; color: var(--ink); margin-top: 3px; line-height: 1.4; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+
+.alert-tag {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+  display: inline-flex; align-items: center;
+}
+.alert-tag.medical { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.35); font-weight: 600; }
+.alert-tag.payment { background: var(--gold-soft); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.alert-tag.new-pt  { background: rgba(110,127,76,0.08); color: var(--green); border: 1px solid rgba(110,127,76,0.2); }
+.alert-tag.remark  { background: var(--paper-3); color: var(--ink-3); border: 1px solid var(--line); }
+
+.pc-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-2);
+}
+.pc-note { font-size: 13px; color: var(--ink-3); }
+.pc-note strong { color: var(--ink); font-weight: 500; }
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  display: flex; align-items: center; gap: 14px; margin: 20px 0 14px;
+}
+.section-divider-line { flex: 1; height: 1px; background: var(--line-2); }
+.section-divider-label {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-4); font-weight: 500; white-space: nowrap;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  display: flex; flex-direction: column; gap: 14px;
+  position: sticky; top: calc(var(--header-h) + var(--nav-h) + 28px);
+}
+
+/* ── PENDÊNCIAS ── */
+.pendencia-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--line-2);
+}
+.pendencia-item:last-of-type { border-bottom: none; }
+.pendencia-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
+}
+.pendencia-dot.remark  { background: var(--gold); }
+.pendencia-dot.noconf  { background: var(--gold); }
+.pendencia-dot.payment { background: var(--red); }
+.pendencia-body { flex: 1; min-width: 0; }
+.pendencia-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.pendencia-desc { font-size: 13px; color: var(--ink-3); margin-top: 1px; line-height: 1.3; }
+.pendencia-meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); margin-top: 3px; }
+.pendencia-action {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+  flex-shrink: 0; padding-top: 2px; white-space: nowrap;
+}
+.pendencia-action:hover { opacity: 0.75; }
+
+/* ── MINI SEMANA ── */
+.mini-week-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid var(--line-2);
+}
+.mini-week-item:last-of-type { border-bottom: none; }
+.mini-week-date {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.mini-week-right { text-align: right; }
+.mini-week-count { font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.02em; line-height: 1; }
+.mini-week-label { font-family: var(--font-sans); font-size: 11px; color: var(--ink-4); }
+
+/* ── COMUNICAÇÕES ── */
+.msg-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 0; border-bottom: 1px solid var(--line-2);
+}
+.msg-item:last-of-type { border-bottom: none; }
+.msg-avatar-sm {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 11px; font-weight: 600;
+}
+.msg-body { flex: 1; min-width: 0; }
+.msg-header { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+.msg-from { font-size: 13px; font-weight: 500; color: var(--ink); }
+.msg-time { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); flex-shrink: 0; }
+.msg-text { font-size: 13px; color: var(--ink-3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-unread { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    Plural Orto
+  </div>
+  <div class="header-right">
+    <div class="bell-wrap">
+      <svg viewBox="0 0 17 17" fill="none">
+        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z" stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 11.5a1.5 1.5 0 003 0" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="bell-pip"></div>
+    </div>
+    <div class="user-chip">
+      <div class="avatar">JR</div>
+      <div class="user-info">
+        <div class="user-name">Juliana Reis</div>
+        <div class="user-clinic">Secretária</div>
+      </div>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;flex-shrink:0;">
+        <path d="M1 1l4 4 4-4" stroke="#9B937F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-tab" href="prototipo1.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="1" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    Dashboard
+  </a>
+  <a class="nav-tab active" href="recepcao.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M2 11.5h10M2 11.5V4a1 1 0 011-1h8a1 1 0 011 1v7.5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M5 7.5h4M5 9.5h2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M1.5 11.5h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    Recepção
+  </a>
+  <a class="nav-tab" href="consultorio.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 13h5M7 10v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Consultório Virtual
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1.5" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 6h11" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="4.5" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="7" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="9.5" cy="9.5" r="0.8" fill="currentColor"/>
+    </svg>
+    Agenda
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 13.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Pacientes
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+    Comunicação
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M1.5 12.5h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <rect x="2" y="7.5" width="2.5" height="5" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="5.75" y="4.5" width="2.5" height="8" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="9.5" y="1.5" width="2.5" height="11" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+    </svg>
+    Financeiro
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.05 3.05l1.06 1.06M9.89 9.89l1.06 1.06M10.95 3.05L9.89 4.11M4.11 9.89l-1.06 1.06" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Configurações
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <div class="page-title">Recepção</div>
+      <div class="page-date">Quarta-feira · 7 Mai 2025</div>
+    </div>
+    <button class="btn-primary">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+        <path d="M6.5 1.5v10M1.5 6.5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Novo agendamento
+    </button>
+  </div>
+
+  <!-- Day Status Bar -->
+  <div class="day-bar card">
+    <div class="day-bar-section">
+      <div class="bar-kpi-label">Total hoje</div>
+      <div class="bar-kpi-val">9</div>
+    </div>
+    <div class="day-bar-section">
+      <div class="bar-kpi-label">Confirmados</div>
+      <div class="bar-kpi-val">7</div>
+    </div>
+    <div class="day-bar-section">
+      <div class="bar-kpi-label">Na clínica</div>
+      <div class="bar-kpi-val">2</div>
+    </div>
+    <div class="day-bar-section">
+      <div class="bar-kpi-label">Sem confirmar</div>
+      <div class="bar-kpi-val warn">2</div>
+    </div>
+    <div class="day-bar-section active-status">
+      <div class="active-label">● Em atendimento</div>
+      <div class="active-patient">Ana Costa</div>
+      <div class="active-proc">Manutenção ortodôntica</div>
+      <div class="active-timer">⏱ 22 minutos em andamento</div>
+    </div>
+  </div>
+
+  <!-- Reception Grid -->
+  <div class="reception-grid">
+
+    <!-- Patients List -->
+    <div>
+
+      <!-- 1 — Em atendimento -->
+      <div class="patient-card is-current">
+        <div class="pc-top">
+          <span class="pc-time">08:00</span>
+          <div class="pc-top-right">
+            <span class="status-badge on">Em atendimento</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: var(--accent-soft); color: var(--accent-ink);">AC</div>
+          <div class="pc-body">
+            <div class="pc-name">Ana Costa <span class="pc-age">· 34a</span></div>
+            <div class="pc-proc">Manutenção ortodôntica · aparelho fixo metálico</div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Sessão iniciada às 08:03 · <strong>22 minutos</strong> em andamento</div>
+          <a class="footer-link" href="atendimento.html">Ver consulta →</a>
+        </div>
+      </div>
+
+      <!-- 2 — Na clínica -->
+      <div class="patient-card is-arrived">
+        <div class="pc-top">
+          <span class="pc-time">09:00</span>
+          <div class="pc-top-right">
+            <span class="status-badge arrived">Na clínica</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: rgba(110,127,76,0.12); color: var(--green);">BL</div>
+          <div class="pc-body">
+            <div class="pc-name">Bruno Lima <span class="pc-age">· 28a</span></div>
+            <div class="pc-proc">Extração dente 48</div>
+            <div class="pc-tags">
+              <span class="alert-tag new-pt">Novo paciente</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Chegou às <strong>08:47</strong> · aguardando na sala</div>
+          <button class="action-btn ghost">Avisar dentista</button>
+        </div>
+      </div>
+
+      <!-- 3 — Confirmado, nova paciente -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">10:00</span>
+          <div class="pc-top-right">
+            <span class="status-badge conf">Confirmado</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: var(--paper-2); color: var(--ink-3);">CM</div>
+          <div class="pc-body">
+            <div class="pc-name">Carla Mendes <span class="pc-age">· 52a</span></div>
+            <div class="pc-proc">Limpeza + flúor</div>
+            <div class="pc-tags">
+              <span class="alert-tag new-pt">Nova paciente</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Confirmada ontem às 16:30</div>
+          <button class="action-btn primary-action">Chegou</button>
+        </div>
+      </div>
+
+      <!-- 4 — Confirmado, cobrança pendente -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">10:45</span>
+          <div class="pc-top-right">
+            <span class="status-badge conf">Confirmado</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: var(--gold-soft); color: #7A5E2B;">RT</div>
+          <div class="pc-body">
+            <div class="pc-name">Rafael Torres <span class="pc-age">· 41a</span></div>
+            <div class="pc-proc">Avaliação ortopédica</div>
+            <div class="pc-tags">
+              <span class="alert-tag payment">Cobrança R$ 450</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Saldo da sessão anterior em aberto</div>
+          <button class="action-btn primary-action">Chegou</button>
+        </div>
+      </div>
+
+      <!-- 5 — Sem confirmar, pediu remarcação -->
+      <div class="patient-card is-unconfirmed">
+        <div class="pc-top">
+          <span class="pc-time">11:30</span>
+          <div class="pc-top-right">
+            <span class="status-badge unconf">Sem confirmar</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: var(--gold-soft); color: #7A5E2B;">FS</div>
+          <div class="pc-body">
+            <div class="pc-name">Fátima Souza <span class="pc-age">· 38a</span></div>
+            <div class="pc-proc">Canal radicular 2/3</div>
+            <div class="pc-tags">
+              <span class="alert-tag remark">Pediu remarcação</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Enviou mensagem às 07:12 solicitando remarcação</div>
+          <button class="action-btn ghost">Responder</button>
+        </div>
+      </div>
+
+      <!-- 6 — Confirmado -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">12:00</span>
+          <div class="pc-top-right">
+            <span class="status-badge conf">Confirmado</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: var(--paper-2); color: var(--ink-3);">LF</div>
+          <div class="pc-body">
+            <div class="pc-name">Lucas Ferreira <span class="pc-age">· 25a</span></div>
+            <div class="pc-proc">Clareamento dental 2/4</div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Confirmado hoje às 08:15</div>
+          <button class="action-btn primary-action">Chegou</button>
+        </div>
+      </div>
+
+      <!-- Section divider: Tarde -->
+      <div class="section-divider">
+        <div class="section-divider-line"></div>
+        <div class="section-divider-label">Tarde</div>
+        <div class="section-divider-line"></div>
+      </div>
+
+      <!-- 7 — Sem confirmar -->
+      <div class="patient-card is-unconfirmed">
+        <div class="pc-top">
+          <span class="pc-time">14:00</span>
+          <div class="pc-top-right">
+            <span class="status-badge unconf">Sem confirmar</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: var(--gold-soft); color: #7A5E2B;">MA</div>
+          <div class="pc-body">
+            <div class="pc-name">Mariana Alves <span class="pc-age">· 47a</span></div>
+            <div class="pc-proc">Revisão de prótese</div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Lembrete enviado às 08:00 · sem retorno</div>
+          <button class="action-btn ghost">Confirmar</button>
+        </div>
+      </div>
+
+      <!-- 8 — Confirmado, alerta médico -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">15:00</span>
+          <div class="pc-top-right">
+            <span class="status-badge conf">Confirmado</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: var(--red-soft); color: var(--red);">PS</div>
+          <div class="pc-body">
+            <div class="pc-name">Pedro Santos <span class="pc-age">· 33a</span></div>
+            <div class="pc-proc">Restauração dente 26</div>
+            <div class="pc-tags">
+              <span class="alert-tag medical">Alergia: penicilina</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Confirmado ontem · alerta médico no prontuário</div>
+          <button class="action-btn primary-action">Chegou</button>
+        </div>
+      </div>
+
+      <!-- 9 — Confirmado, nova paciente -->
+      <div class="patient-card">
+        <div class="pc-top">
+          <span class="pc-time">16:00</span>
+          <div class="pc-top-right">
+            <span class="status-badge conf">Confirmado</span>
+          </div>
+        </div>
+        <div class="pc-main">
+          <div class="pc-avatar" style="background: rgba(110,127,76,0.10); color: var(--green);">IC</div>
+          <div class="pc-body">
+            <div class="pc-name">Isabela Cruz <span class="pc-age">· 19a</span></div>
+            <div class="pc-proc">Consulta ortodôntica</div>
+            <div class="pc-tags">
+              <span class="alert-tag new-pt">Nova paciente</span>
+            </div>
+          </div>
+        </div>
+        <div class="pc-bottom">
+          <div class="pc-note">Confirmada hoje às 09:40</div>
+          <button class="action-btn primary-action">Chegou</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Pendências -->
+      <div class="card">
+        <span class="eyebrow">Pendências</span>
+
+        <div class="pendencia-item">
+          <div class="pendencia-dot remark"></div>
+          <div class="pendencia-body">
+            <div class="pendencia-name">Fátima Souza</div>
+            <div class="pendencia-desc">Quer remarcar o 11:30 de hoje</div>
+            <div class="pendencia-meta">07:12</div>
+          </div>
+          <a class="pendencia-action" href="#">Responder</a>
+        </div>
+
+        <div class="pendencia-item">
+          <div class="pendencia-dot noconf"></div>
+          <div class="pendencia-body">
+            <div class="pendencia-name">Mariana Alves</div>
+            <div class="pendencia-desc">14:00 sem confirmação</div>
+            <div class="pendencia-meta">Lembrete às 08:00</div>
+          </div>
+          <a class="pendencia-action" href="#">Ligar</a>
+        </div>
+
+        <div class="pendencia-item">
+          <div class="pendencia-dot payment"></div>
+          <div class="pendencia-body">
+            <div class="pendencia-name">Rafael Torres</div>
+            <div class="pendencia-desc">Cobrança R$ 450 em aberto</div>
+            <div class="pendencia-meta">Sessão anterior</div>
+          </div>
+          <a class="pendencia-action" href="#">Registrar</a>
+        </div>
+
+      </div>
+
+      <!-- Próximos dias -->
+      <div class="card">
+        <span class="eyebrow">Próximos dias</span>
+
+        <div class="mini-week-item">
+          <div class="mini-week-date">QUI · 8 MAI</div>
+          <div class="mini-week-right">
+            <div class="mini-week-count">11</div>
+            <div class="mini-week-label">consultas</div>
+          </div>
+        </div>
+
+        <div class="mini-week-item">
+          <div class="mini-week-date">SEX · 9 MAI</div>
+          <div class="mini-week-right">
+            <div class="mini-week-count">8</div>
+            <div class="mini-week-label">consultas</div>
+          </div>
+        </div>
+
+        <div class="mini-week-item">
+          <div class="mini-week-date">SEG · 12 MAI</div>
+          <div class="mini-week-right">
+            <div class="mini-week-count">6</div>
+            <div class="mini-week-label">consultas</div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a class="footer-link" href="#">Ver agenda completa →</a>
+        </div>
+      </div>
+
+      <!-- Comunicações -->
+      <div class="card">
+        <span class="eyebrow">Comunicações</span>
+
+        <div class="msg-item">
+          <div class="msg-avatar-sm" style="background: var(--gold-soft); color: #7A5E2B;">FS</div>
+          <div class="msg-body">
+            <div class="msg-header">
+              <span class="msg-from">Fátima Souza</span>
+              <span class="msg-time">07:12</span>
+            </div>
+            <div class="msg-text">posso remarcar para a próxima semana?</div>
+          </div>
+          <div class="msg-unread"></div>
+        </div>
+
+        <div class="msg-item">
+          <div class="msg-avatar-sm" style="background: var(--gold-soft); color: #7A5E2B;">MA</div>
+          <div class="msg-body">
+            <div class="msg-header">
+              <span class="msg-from">Mariana Alves</span>
+              <span class="msg-time">08:34</span>
+            </div>
+            <div class="msg-text">Confirmo sim! Estarei aí às 14h</div>
+          </div>
+          <div class="msg-unread"></div>
+        </div>
+
+        <div class="msg-item">
+          <div class="msg-avatar-sm" style="background: var(--paper-2); color: var(--ink-3);">CO</div>
+          <div class="msg-body">
+            <div class="msg-header">
+              <span class="msg-from">Convênio Odonto</span>
+              <span class="msg-time">08:50</span>
+            </div>
+            <div class="msg-text">Guia aprovada — Rafael Torres · #GT-2847</div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a class="footer-link" href="#">Ver todas →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
