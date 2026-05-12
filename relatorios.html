@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plural Orto · Relatórios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:       #F4EEE2;
+  --paper-2:     #EDE5D2;
+  --paper-3:     #E3D9C0;
+  --cream:       #FBF6EE;
+  --ink:         #17140F;
+  --ink-2:       #3A352C;
+  --ink-3:       #6B6456;
+  --ink-4:       #9B937F;
+  --line:        #D9CFB8;
+  --line-2:      #E5DCC6;
+  --accent:      #C15F3C;
+  --accent-ink:  #8A3E25;
+  --accent-soft: #EDD6C3;
+  --accent-50:   #F7E7D8;
+  --gold:        #B08A4A;
+  --gold-soft:   #E8D9B2;
+  --red:         #B03030;
+  --red-soft:    #F5DDD8;
+  --green:       #6E7F4C;
+
+  --shadow-sm: 0 1px 2px rgba(26,20,14,0.04), 0 2px 6px rgba(26,20,14,0.04);
+  --shadow-md: 0 2px 4px rgba(26,20,14,0.04), 0 12px 30px -12px rgba(26,20,14,0.12);
+
+  --radius-sm: 10px;
+  --radius:    16px;
+
+  --font-sans:  "Inter", system-ui, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+
+  --header-h: 56px;
+  --nav-h:    48px;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(110,127,76,0.05) 0, transparent 40%),
+    radial-gradient(at 85% 90%, rgba(176,138,74,0.04) 0, transparent 45%);
+  background-attachment: fixed;
+  scroll-behavior: smooth;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500; margin-bottom: 10px; display: block;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(244,238,226,0.82);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid rgba(217,207,184,0.7);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em;
+}
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, #1F1A13 0%, #2E2820 100%);
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); flex-shrink: 0;
+}
+.brand-mark::after {
+  content: ""; position: absolute; inset: auto auto 5px 5px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #E37A54, #B84C2B);
+  box-shadow: 0 0 10px rgba(193,95,60,0.6);
+}
+.header-right { display: flex; align-items: center; gap: 18px; }
+.bell-wrap {
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; cursor: pointer; position: relative; transition: background 150ms;
+}
+.bell-wrap:hover { background: var(--paper-2); }
+.bell-wrap svg { width: 17px; height: 17px; }
+.bell-pip {
+  position: absolute; top: 7px; right: 8px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); border: 1.5px solid var(--paper);
+}
+.user-chip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 5px 12px 5px 6px;
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: 999px; cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: box-shadow 150ms, border-color 150ms;
+}
+.user-chip:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #E37A54, #B84C2B);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 10.5px; font-weight: 600;
+  color: var(--cream); flex-shrink: 0;
+}
+.user-info { line-height: 1.2; }
+.user-name   { font-size: 13px; font-weight: 500; }
+.user-clinic { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99;
+  height: var(--nav-h);
+  background: rgba(244,238,226,0.75);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(217,207,184,0.6);
+  display: flex; align-items: center; padding: 0 32px; gap: 2px;
+}
+.nav-tab {
+  padding: 0 16px; height: var(--nav-h);
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 400; color: var(--ink-3);
+  border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap;
+}
+.nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
+.nav-tab:hover { color: var(--ink); }
+.nav-tab:hover svg { opacity: 0.9; }
+.nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.nav-tab.active svg { opacity: 1; }
+
+/* ── MAIN ── */
+.main { margin-top: calc(var(--header-h) + var(--nav-h)); padding: 28px 32px 48px; }
+
+/* ── CARD ── */
+.card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-sm);
+}
+.divider { height: 1px; background: var(--line-2); margin: 0 -18px 14px; }
+.footer-link {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+}
+.footer-link:hover { opacity: 0.75; }
+
+/* ── BTN ── */
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; background: transparent; color: var(--ink-3);
+  border-radius: var(--radius-sm); font-family: var(--font-sans);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--line-2); transition: all 120ms;
+}
+.btn-ghost:hover { border-color: var(--line); color: var(--ink); background: var(--paper-2); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 24px; margin-bottom: 6px; flex-wrap: wrap;
+}
+.page-title {
+  font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1;
+}
+.page-sub {
+  font-family: var(--font-sans); font-size: 13px; color: var(--ink-3); margin-top: 5px;
+}
+.page-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+/* ── PERIOD PILLS ── */
+.rel-period-pills { display: flex; gap: 4px; align-items: center; }
+.rel-period-pill {
+  padding: 6px 12px; border-radius: 999px;
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em;
+  text-transform: uppercase; font-weight: 500;
+  border: 1px solid var(--line-2); color: var(--ink-3); background: transparent;
+  cursor: pointer; transition: all 120ms;
+}
+.rel-period-pill:hover { border-color: var(--line); color: var(--ink); }
+.rel-period-pill.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.rel-period-meta {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.04em; color: var(--ink-4);
+  margin-bottom: 22px; font-style: italic;
+}
+
+/* ── TAB BAR (sub-tabs) ── */
+.rel-tab-bar {
+  display: flex; align-items: center; gap: 2px;
+  border-bottom: 1px solid var(--line-2); margin-bottom: 24px;
+}
+.rel-tab {
+  padding: 10px 18px;
+  font-family: var(--font-sans); font-size: 13px; font-weight: 400; color: var(--ink-3);
+  border-bottom: 2px solid transparent; cursor: pointer;
+  background: none; transition: color 150ms;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.rel-tab:hover { color: var(--ink); }
+.rel-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.rel-tab.disabled {
+  opacity: 0.45; cursor: not-allowed; pointer-events: none;
+}
+.rel-tab-soon {
+  font-family: var(--font-sans); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-4); background: var(--paper-2);
+  padding: 2px 7px; border-radius: 999px; border: 1px solid var(--line-2);
+}
+.rel-tab-panel { display: none; }
+.rel-tab-panel.active { display: block; }
+
+/* ── KPI ── */
+.kpi-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 14px; margin-bottom: 24px;
+}
+.kpi-row.six { grid-template-columns: repeat(6, 1fr); }
+.kpi-card { position: relative; overflow: hidden; padding: 16px; }
+.kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--line); border-radius: 2px 2px 0 0;
+}
+.kpi-card.accent::before { background: var(--accent); }
+.kpi-card.gold::before   { background: var(--gold); }
+.kpi-card.alert::before  { background: var(--red); }
+.kpi-card.green::before  { background: var(--green); }
+
+.kpi-icon {
+  width: 26px; height: 26px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px; flex-shrink: 0;
+}
+.kpi-icon.accent-i { background: var(--accent-soft); }
+.kpi-icon.gold-i   { background: var(--gold-soft); }
+.kpi-icon.red-i    { background: var(--red-soft); }
+.kpi-icon.green-i  { background: rgba(110,127,76,0.15); }
+.kpi-icon.neutral-i { background: var(--paper-2); }
+.kpi-icon svg { width: 15px; height: 15px; }
+
+.kpi-label {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 8px; font-weight: 500;
+}
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 26px; font-weight: 400; letter-spacing: -0.02em;
+  color: var(--ink); line-height: 1;
+}
+.kpi-row.six .kpi-value { font-size: 22px; }
+
+/* ── DELTA CHIP ── */
+.rel-delta {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.02em; padding: 3px 8px; border-radius: 999px;
+  margin-top: 8px;
+}
+.rel-delta.good { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.22); }
+.rel-delta.bad  { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.22); }
+.rel-delta.flat { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line-2); }
+.rel-delta svg { width: 10px; height: 10px; }
+
+/* ── BAR CHART (reused from prototipo1) ── */
+.chart-wrap {
+  display: flex; align-items: flex-end; gap: 10px;
+  height: 130px; margin-bottom: 12px;
+}
+.bar-col {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; height: 100%; justify-content: flex-end; gap: 7px;
+}
+.bar-fill {
+  width: 100%; border-radius: 4px 4px 0 0;
+  background: var(--paper-3); min-height: 4px;
+  position: relative; overflow: hidden;
+  transition: opacity 120ms;
+}
+.bar-fill:hover { opacity: 0.85; }
+.bar-fill.today    { background: var(--accent); }
+.bar-fill.today::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+}
+.bar-fill.green { background: var(--green); }
+.bar-fill.gold  { background: var(--gold); }
+.bar-fill.red   { background: var(--red); }
+.bar-fill.peak  { box-shadow: 0 0 0 2px rgba(176,48,48,0.18); }
+
+.bar-day {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4);
+}
+.bar-day.today { color: var(--accent-ink); font-weight: 500; }
+.bar-day.peak  { color: var(--red); font-weight: 500; }
+.bar-val {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--ink-4); letter-spacing: 0.02em;
+}
+.bar-val.peak { color: var(--red); font-weight: 500; }
+.bar-val.today { color: var(--accent-ink); font-weight: 500; }
+
+/* ── SECTION HEADER ── */
+.rel-section { margin-bottom: 28px; scroll-margin-top: calc(var(--header-h) + var(--nav-h) + 20px); }
+.rel-section-title {
+  font-family: var(--font-serif); font-size: 19px; font-weight: 500;
+  color: var(--ink); letter-spacing: -0.015em; line-height: 1.1;
+  margin-bottom: 14px;
+}
+.rel-section-title .count {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 400;
+  color: var(--ink-4); letter-spacing: 0; margin-left: 6px;
+}
+
+.rel-microcopy {
+  font-family: var(--font-sans); font-size: 11px;
+  color: var(--ink-4); margin-top: 8px;
+  font-style: italic; line-height: 1.5;
+}
+
+/* ── 2-COL GRID ── */
+.rel-2col {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-bottom: 14px;
+}
+.rel-3col {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* ── HORIZONTAL BARS (mix / por profissional) ── */
+.rel-hbar-row {
+  display: grid; grid-template-columns: 1fr 1fr 100px;
+  gap: 12px; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--line-2);
+}
+.rel-hbar-row:last-of-type { border-bottom: none; }
+.rel-hbar-label {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.rel-hbar-sub {
+  font-family: var(--font-sans); font-size: 10.5px; color: var(--ink-4);
+  margin-top: 1px;
+}
+.rel-hbar-wrap {
+  height: 8px; background: var(--paper-2); border-radius: 4px; overflow: hidden;
+}
+.rel-hbar-fill { height: 100%; border-radius: 4px; }
+.rel-hbar-fill.accent { background: var(--accent); }
+.rel-hbar-fill.gold   { background: var(--gold); }
+.rel-hbar-fill.green  { background: var(--green); }
+.rel-hbar-fill.red    { background: var(--red); }
+.rel-hbar-fill.neutral { background: var(--ink-4); }
+
+.rel-hbar-meta {
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink);
+  letter-spacing: 0.02em; text-align: right;
+}
+.rel-hbar-meta .pct { color: var(--ink-3); font-size: 11px; margin-right: 4px; }
+
+/* ── RISK PATIENT ROW (reused pattern) ── */
+.rel-row-list {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.rel-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto auto;
+  gap: 14px; align-items: center;
+  padding: 12px 16px; border-bottom: 1px solid var(--line-2);
+  transition: background 120ms;
+}
+.rel-row:last-child { border-bottom: none; }
+.rel-row:hover { background: var(--paper-2); }
+.rel-row-avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  background: var(--red-soft); color: var(--red);
+}
+.rel-row-name {
+  font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--ink);
+}
+.rel-row-sub {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-3);
+}
+.rel-row-meta {
+  font-family: var(--font-mono); font-size: 13px; color: var(--red);
+  letter-spacing: 0.02em; font-weight: 600; text-align: right;
+}
+.rel-row-meta .sub {
+  display: block; font-family: var(--font-sans); font-size: 10px;
+  color: var(--ink-4); font-weight: 400; letter-spacing: 0.04em; margin-top: 2px;
+}
+.rel-row-action {
+  font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 6px 12px; border-radius: 7px; cursor: pointer;
+  background: var(--accent); color: #FBF6EE; border: 1px solid var(--accent);
+  white-space: nowrap; transition: opacity 120ms;
+}
+.rel-row-action:hover { opacity: 0.88; }
+
+/* ── COMPACT LIST (top horários) ── */
+.rel-compact-row {
+  display: grid; grid-template-columns: 100px 1fr auto;
+  gap: 14px; align-items: center;
+  padding: 10px 16px; border-bottom: 1px solid var(--line-2);
+}
+.rel-compact-row:last-child { border-bottom: none; }
+.rel-compact-time {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--ink);
+  letter-spacing: 0.04em;
+}
+.rel-compact-desc {
+  font-family: var(--font-sans); font-size: 12px; color: var(--ink-3);
+}
+.rel-compact-val {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--accent-ink);
+  letter-spacing: 0.02em;
+}
+
+/* ── TIMES CARD (operação §3) ── */
+.rel-time-card { padding: 18px; }
+.rel-time-label {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 500; margin-bottom: 8px;
+}
+.rel-time-value {
+  font-family: var(--font-serif); font-size: 32px;
+  letter-spacing: -0.02em; color: var(--ink); line-height: 1;
+}
+.rel-time-sub {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-4);
+  margin-top: 6px; line-height: 1.5;
+}
+.rel-time-mini {
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-2);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.rel-time-mini-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-sans); font-size: 12px;
+}
+.rel-time-mini-row .lbl { color: var(--ink-3); }
+.rel-time-mini-row .val { font-family: var(--font-mono); color: var(--ink); letter-spacing: 0.02em; }
+
+/* ── TREND FOOTER (no-show stats inline) ── */
+.rel-trend-foot {
+  display: flex; gap: 18px; padding-top: 12px;
+  border-top: 1px solid var(--line-2); margin-top: 4px;
+  flex-wrap: wrap;
+}
+.rel-trend-stat { line-height: 1.2; }
+.rel-trend-stat-lbl {
+  font-family: var(--font-sans); font-size: 10px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500; margin-bottom: 4px;
+}
+.rel-trend-stat-val {
+  font-family: var(--font-serif); font-size: 17px;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.rel-trend-stat-val.accent { color: var(--accent-ink); }
+.rel-trend-stat-val.red    { color: var(--red); }
+
+/* ── DEEPEN CHIP (Visão Geral) ── */
+.rel-deepen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+.rel-deepen-card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 14px 18px; box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; transition: border-color 150ms, background 150ms;
+}
+.rel-deepen-card:hover { border-color: var(--accent); background: var(--accent-50); }
+.rel-deepen-card.soon { cursor: not-allowed; pointer-events: none; opacity: 0.55; }
+.rel-deepen-name {
+  font-family: var(--font-serif); font-size: 17px; letter-spacing: -0.02em;
+  color: var(--ink); line-height: 1; margin-bottom: 4px;
+}
+.rel-deepen-sub {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-3);
+}
+.rel-deepen-arrow {
+  font-family: var(--font-sans); font-size: 18px; color: var(--accent-ink);
+  font-weight: 400;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    Plural Orto
+  </div>
+  <div class="header-right">
+    <div class="bell-wrap">
+      <svg viewBox="0 0 17 17" fill="none">
+        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z" stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 11.5a1.5 1.5 0 003 0" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="bell-pip"></div>
+    </div>
+    <div class="bell-wrap">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="3" stroke="#6B6456" stroke-width="1.5"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="#6B6456" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="user-chip">
+      <div class="avatar">DM</div>
+      <div class="user-info">
+        <div class="user-name">Dr. Marcelo</div>
+        <div class="user-clinic">Clínica Central</div>
+      </div>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;flex-shrink:0;">
+        <path d="M1 1l4 4 4-4" stroke="#9B937F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-tab" href="prototipo1.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="1" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    Dashboard
+  </a>
+  <a class="nav-tab" href="recepcao.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M2 11.5h10M2 11.5V4a1 1 0 011-1h8a1 1 0 011 1v7.5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M5 7.5h4M5 9.5h2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M1.5 11.5h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    Recepção
+  </a>
+  <a class="nav-tab" href="consultorio.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 13h5M7 10v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Consultório Virtual
+  </a>
+  <a class="nav-tab" href="agenda.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1.5" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 6h11" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="4.5" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="7" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="9.5" cy="9.5" r="0.8" fill="currentColor"/>
+    </svg>
+    Agenda
+  </a>
+  <a class="nav-tab" href="pacientes.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 13.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Pacientes
+  </a>
+  <a class="nav-tab" href="comunicacao.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+    Comunicação
+  </a>
+  <a class="nav-tab" href="financeiro.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M1.5 12.5h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <rect x="2" y="7.5" width="2.5" height="5" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="5.75" y="4.5" width="2.5" height="8" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="9.5" y="1.5" width="2.5" height="11" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+    </svg>
+    Financeiro
+  </a>
+  <a class="nav-tab active" href="relatorios.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M2.5 2C2.5 1.448 2.948 1 3.5 1H8l3.5 3.5V12.5c0 .552-.448 1-1 1h-7c-.552 0-1-.448-1-1V2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M8 1v3.5h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4.5 7.5h5M4.5 10h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Relatórios
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <div class="page-title">Relatórios</div>
+      <div class="page-sub">Este mês · abril 2025</div>
+    </div>
+    <div class="page-tools">
+      <div class="rel-period-pills">
+        <button class="rel-period-pill">Esta semana</button>
+        <button class="rel-period-pill active">Este mês</button>
+        <button class="rel-period-pill">Trimestre</button>
+        <button class="rel-period-pill">Ano</button>
+        <button class="rel-period-pill">Personalizado</button>
+      </div>
+      <button class="btn-ghost">Exportar PDF →</button>
+    </div>
+  </div>
+  <div class="rel-period-meta">Comparando com mês anterior</div>
+
+  <!-- TAB BAR -->
+  <div class="rel-tab-bar">
+    <button class="rel-tab" data-tab="visao">Visão Geral</button>
+    <button class="rel-tab active" data-tab="operacao">Operação</button>
+    <button class="rel-tab disabled">Pacientes <span class="rel-tab-soon">em breve</span></button>
+    <button class="rel-tab disabled">Profissionais <span class="rel-tab-soon">em breve</span></button>
+    <button class="rel-tab disabled">Campanhas <span class="rel-tab-soon">em breve</span></button>
+  </div>
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- TAB: OPERAÇÃO (default active)            -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="rel-tab-panel active" data-tab="operacao">
+
+    <!-- KPI strip -->
+    <div class="kpi-row">
+
+      <div class="card kpi-card alert">
+        <div class="kpi-icon red-i">
+          <svg viewBox="0 0 15 15" fill="none">
+            <path d="M7.5 1.5L1 14h13L7.5 1.5z" stroke="#B03030" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M7.5 6v3.5" stroke="#B03030" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="7.5" cy="11.2" r="0.7" fill="#B03030"/>
+          </svg>
+        </div>
+        <div class="kpi-label">Taxa de no-show</div>
+        <div class="kpi-value">8,2%</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 8V2M5 8l-3-3M5 8l3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          −2,3pp
+        </span>
+      </div>
+
+      <div class="card kpi-card accent">
+        <div class="kpi-icon accent-i">
+          <svg viewBox="0 0 15 15" fill="none">
+            <rect x="1.5" y="2.5" width="12" height="11" rx="1.5" stroke="#8A3E25" stroke-width="1.2"/>
+            <path d="M1.5 6h12" stroke="#8A3E25" stroke-width="1.2"/>
+            <path d="M4.5 1.5v2M10.5 1.5v2" stroke="#8A3E25" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="kpi-label">Ocupação média</div>
+        <div class="kpi-value">78%</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 2v6M5 2l-3 3M5 2l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          +6pp
+        </span>
+      </div>
+
+      <div class="card kpi-card green">
+        <div class="kpi-icon green-i">
+          <svg viewBox="0 0 15 15" fill="none">
+            <path d="M3 7.5l3 3 6-7" stroke="#6E7F4C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="kpi-label">Taxa de confirmação</div>
+        <div class="kpi-value">91%</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 2v6M5 2l-3 3M5 2l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          +3pp
+        </span>
+      </div>
+
+      <div class="card kpi-card gold">
+        <div class="kpi-icon gold-i">
+          <svg viewBox="0 0 15 15" fill="none">
+            <circle cx="7.5" cy="7.5" r="5.5" stroke="#7A5E2B" stroke-width="1.2"/>
+            <path d="M7.5 4v3.5l2 1.5" stroke="#7A5E2B" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="kpi-label">Espera na recepção</div>
+        <div class="kpi-value">8 min</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 8V2M5 8l-3-3M5 8l3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          −2 min
+        </span>
+      </div>
+
+    </div>
+
+    <!-- ── § 1 NO-SHOW & COMPARECIMENTO ── -->
+    <section class="rel-section" id="no-show">
+      <span class="eyebrow">Comparecimento</span>
+      <div class="rel-section-title">Faltas e cancelamentos</div>
+
+      <div class="rel-2col">
+
+        <div class="card">
+          <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;margin-bottom:4px;">Tendência mensal · taxa de no-show</div>
+          <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);letter-spacing:0.04em;margin-bottom:14px;">% sobre total agendado · 6 meses</div>
+          <div class="chart-wrap">
+            <div class="bar-col">
+              <div class="bar-val">12%</div>
+              <div class="bar-fill red" style="height:80%"></div>
+              <div class="bar-day">Nov</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">11%</div>
+              <div class="bar-fill red" style="height:73%"></div>
+              <div class="bar-day">Dez</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">13%</div>
+              <div class="bar-fill red" style="height:88%"></div>
+              <div class="bar-day">Jan</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">10%</div>
+              <div class="bar-fill gold" style="height:66%"></div>
+              <div class="bar-day">Fev</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">11%</div>
+              <div class="bar-fill red" style="height:73%"></div>
+              <div class="bar-day">Mar</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val today">8%</div>
+              <div class="bar-fill gold today" style="height:54%"></div>
+              <div class="bar-day today">Abr</div>
+            </div>
+          </div>
+          <div class="rel-trend-foot">
+            <div class="rel-trend-stat">
+              <div class="rel-trend-stat-lbl">Faltas no mês</div>
+              <div class="rel-trend-stat-val">24</div>
+            </div>
+            <div class="rel-trend-stat">
+              <div class="rel-trend-stat-lbl">Justificadas</div>
+              <div class="rel-trend-stat-val">8</div>
+            </div>
+            <div class="rel-trend-stat">
+              <div class="rel-trend-stat-lbl">Sem aviso</div>
+              <div class="rel-trend-stat-val red">16</div>
+            </div>
+            <div class="rel-trend-stat">
+              <div class="rel-trend-stat-lbl">Pior dia</div>
+              <div class="rel-trend-stat-val accent">Ter · noite</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;margin-bottom:4px;">Por dia da semana</div>
+          <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);letter-spacing:0.04em;margin-bottom:14px;">% de faltas em cada dia · abril</div>
+          <div class="chart-wrap">
+            <div class="bar-col">
+              <div class="bar-val">7%</div>
+              <div class="bar-fill gold" style="height:50%"></div>
+              <div class="bar-day">Seg</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val peak">14%</div>
+              <div class="bar-fill red peak" style="height:100%"></div>
+              <div class="bar-day peak">Ter ↑</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">8%</div>
+              <div class="bar-fill gold" style="height:57%"></div>
+              <div class="bar-day">Qua</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">6%</div>
+              <div class="bar-fill green" style="height:43%"></div>
+              <div class="bar-day">Qui</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">9%</div>
+              <div class="bar-fill gold" style="height:64%"></div>
+              <div class="bar-day">Sex</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">5%</div>
+              <div class="bar-fill green" style="height:36%"></div>
+              <div class="bar-day">Sáb</div>
+            </div>
+          </div>
+          <div class="rel-microcopy">Terça à noite concentra o pior índice (14%). Considere reforçar lembretes 24h e exigir reconfirmação no dia para esse horário.</div>
+        </div>
+
+      </div>
+
+      <!-- Pacientes em risco -->
+      <div style="margin-top:18px;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;">Pacientes com 2+ faltas recentes <span style="font-family:var(--font-sans);font-size:12px;color:var(--ink-4);font-weight:400;">(5)</span></div>
+          <span style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);font-style:italic;">Aja antes da próxima falta</span>
+        </div>
+        <div class="rel-row-list">
+
+          <div class="rel-row">
+            <div class="rel-row-avatar">RT</div>
+            <div>
+              <a class="rel-row-name" href="pacientes.html">Rafael Torres</a>
+              <div class="rel-row-sub">Última falta: 17 abr · ter 19:00</div>
+            </div>
+            <div class="rel-row-meta">3 faltas<span class="sub">em 60 dias</span></div>
+            <a class="rel-row-action" href="comunicacao.html">Avisar →</a>
+          </div>
+
+          <div class="rel-row">
+            <div class="rel-row-avatar">FM</div>
+            <div>
+              <a class="rel-row-name" href="pacientes.html">Fernanda Mendes</a>
+              <div class="rel-row-sub">Última falta: 10 abr · ter 18:30</div>
+            </div>
+            <div class="rel-row-meta">3 faltas<span class="sub">em 90 dias</span></div>
+            <a class="rel-row-action" href="comunicacao.html">Avisar →</a>
+          </div>
+
+          <div class="rel-row">
+            <div class="rel-row-avatar">GN</div>
+            <div>
+              <a class="rel-row-name" href="pacientes.html">Gustavo Nogueira</a>
+              <div class="rel-row-sub">Última falta: 08 abr · qua 17:00</div>
+            </div>
+            <div class="rel-row-meta">2 faltas<span class="sub">em 45 dias</span></div>
+            <a class="rel-row-action" href="comunicacao.html">Avisar →</a>
+          </div>
+
+          <div class="rel-row">
+            <div class="rel-row-avatar">HP</div>
+            <div>
+              <a class="rel-row-name" href="pacientes.html">Helena Pinto</a>
+              <div class="rel-row-sub">Última falta: 03 abr · ter 19:30</div>
+            </div>
+            <div class="rel-row-meta">2 faltas<span class="sub">em 30 dias</span></div>
+            <a class="rel-row-action" href="comunicacao.html">Avisar →</a>
+          </div>
+
+          <div class="rel-row">
+            <div class="rel-row-avatar">IS</div>
+            <div>
+              <a class="rel-row-name" href="pacientes.html">Igor Salvador</a>
+              <div class="rel-row-sub">Última falta: 28 mar · sex 09:00</div>
+            </div>
+            <div class="rel-row-meta">2 faltas<span class="sub">em 60 dias</span></div>
+            <a class="rel-row-action" href="comunicacao.html">Avisar →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── § 2 OCUPAÇÃO DA AGENDA ── -->
+    <section class="rel-section" id="ocupacao">
+      <span class="eyebrow">Capacidade</span>
+      <div class="rel-section-title">Quão cheia está sua agenda</div>
+
+      <div class="rel-2col">
+
+        <div class="card">
+          <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;margin-bottom:4px;">Ocupação por dia da semana</div>
+          <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);letter-spacing:0.04em;margin-bottom:14px;">% de slots vendidos · abril</div>
+          <div class="chart-wrap">
+            <div class="bar-col">
+              <div class="bar-val">82%</div>
+              <div class="bar-fill green" style="height:82%"></div>
+              <div class="bar-day">Seg</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">76%</div>
+              <div class="bar-fill accent" style="height:76%;background:var(--accent);"></div>
+              <div class="bar-day">Ter</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">79%</div>
+              <div class="bar-fill" style="height:79%;background:var(--accent);"></div>
+              <div class="bar-day">Qua</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">85%</div>
+              <div class="bar-fill green" style="height:85%"></div>
+              <div class="bar-day">Qui</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">88%</div>
+              <div class="bar-fill green" style="height:88%"></div>
+              <div class="bar-day">Sex</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">52%</div>
+              <div class="bar-fill gold" style="height:52%"></div>
+              <div class="bar-day">Sáb</div>
+            </div>
+          </div>
+          <div class="rel-microcopy">Sexta lidera ocupação (88%). Sábado tem capacidade ociosa relevante — vale testar oferta para retornos sazonais.</div>
+        </div>
+
+        <div class="card">
+          <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;margin-bottom:4px;">Por profissional</div>
+          <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);letter-spacing:0.04em;margin-bottom:14px;">Ocupação média · abril</div>
+
+          <div class="rel-hbar-row">
+            <div>
+              <div class="rel-hbar-label">Dr. Marcelo</div>
+              <div class="rel-hbar-sub">142 agendamentos</div>
+            </div>
+            <div class="rel-hbar-wrap">
+              <div class="rel-hbar-fill accent" style="width:84%"></div>
+            </div>
+            <div class="rel-hbar-meta">84%</div>
+          </div>
+
+          <div class="rel-hbar-row">
+            <div>
+              <div class="rel-hbar-label">Dra. Carolina</div>
+              <div class="rel-hbar-sub">98 agendamentos</div>
+            </div>
+            <div class="rel-hbar-wrap">
+              <div class="rel-hbar-fill accent" style="width:76%"></div>
+            </div>
+            <div class="rel-hbar-meta">76%</div>
+          </div>
+
+          <div class="rel-hbar-row">
+            <div>
+              <div class="rel-hbar-label">Dr. Rodrigo</div>
+              <div class="rel-hbar-sub">61 agendamentos</div>
+            </div>
+            <div class="rel-hbar-wrap">
+              <div class="rel-hbar-fill gold" style="width:61%"></div>
+            </div>
+            <div class="rel-hbar-meta">61%</div>
+          </div>
+
+          <div class="rel-microcopy">Dr. Rodrigo tem 39% de capacidade ociosa. Considere campanha direcionada para os pacientes inativos dele ou redistribuir encaixes.</div>
+        </div>
+
+      </div>
+
+      <!-- Top horários -->
+      <div style="margin-top:18px;">
+        <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;margin-bottom:10px;">Horários mais cobiçados <span style="font-family:var(--font-sans);font-size:12px;color:var(--ink-4);font-weight:400;">(top 3)</span></div>
+        <div class="rel-row-list">
+          <div class="rel-compact-row">
+            <div class="rel-compact-time">18:00 – 19:00</div>
+            <div class="rel-compact-desc">Lotado em todos os dias úteis · espera média 4 dias</div>
+            <div class="rel-compact-val">96% ocupado</div>
+          </div>
+          <div class="rel-compact-row">
+            <div class="rel-compact-time">19:00 – 20:00</div>
+            <div class="rel-compact-desc">Lotado em dias úteis · ideal para casos de longa duração</div>
+            <div class="rel-compact-val">92% ocupado</div>
+          </div>
+          <div class="rel-compact-row">
+            <div class="rel-compact-time">09:00 – 10:00</div>
+            <div class="rel-compact-desc">Primeira janela da manhã · alto comparecimento</div>
+            <div class="rel-compact-val">88% ocupado</div>
+          </div>
+        </div>
+        <div class="rel-microcopy">Considere estender o expediente noturno até 20:30 ou abrir agenda premium para horários de pico.</div>
+      </div>
+    </section>
+
+
+    <!-- ── § 3 TEMPOS & FLUXO ── -->
+    <section class="rel-section" id="tempos" style="margin-bottom:8px;">
+      <span class="eyebrow">Fluxo</span>
+      <div class="rel-section-title">Tempo de espera e atendimento</div>
+
+      <div class="rel-3col">
+
+        <div class="card rel-time-card">
+          <div class="rel-time-label">Espera na recepção</div>
+          <div class="rel-time-value">8 min</div>
+          <div class="rel-time-sub">Do horário agendado até iniciar o atendimento. <span style="color:var(--green);font-weight:500;">−2 min vs mês anterior.</span></div>
+        </div>
+
+        <div class="card rel-time-card">
+          <div class="rel-time-label">Duração média do atendimento</div>
+          <div class="rel-time-value">32 min</div>
+          <div class="rel-time-sub">Média geral · varia por tipo de procedimento.</div>
+          <div class="rel-time-mini">
+            <div class="rel-time-mini-row"><span class="lbl">Manutenção</span><span class="val">18 min</span></div>
+            <div class="rel-time-mini-row"><span class="lbl">Consulta inicial</span><span class="val">45 min</span></div>
+            <div class="rel-time-mini-row"><span class="lbl">Documentação</span><span class="val">75 min</span></div>
+          </div>
+        </div>
+
+        <div class="card rel-time-card">
+          <div class="rel-time-label">Lead time de cancelamento</div>
+          <div class="rel-time-value">14h</div>
+          <div class="rel-time-sub">Antecedência média de cancelamento. <span style="color:var(--red);font-weight:500;">8 cancelamentos com &lt;2h de aviso</span> — avaliar política de no-show.</div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- TAB: VISÃO GERAL                          -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="rel-tab-panel" data-tab="visao">
+
+    <!-- 6 KPIs -->
+    <div class="kpi-row six">
+
+      <div class="card kpi-card accent">
+        <div class="kpi-label">Pacientes ativos</div>
+        <div class="kpi-value">287</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 2v6M5 2l-3 3M5 2l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          +5%
+        </span>
+      </div>
+
+      <div class="card kpi-card accent">
+        <div class="kpi-label">Pacientes novos</div>
+        <div class="kpi-value">24</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 2v6M5 2l-3 3M5 2l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          +12%
+        </span>
+      </div>
+
+      <div class="card kpi-card accent">
+        <div class="kpi-label">Receita do mês</div>
+        <div class="kpi-value">R$ 102.060</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 2v6M5 2l-3 3M5 2l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          +8%
+        </span>
+      </div>
+
+      <div class="card kpi-card">
+        <div class="kpi-label">Ticket médio</div>
+        <div class="kpi-value">R$ 355</div>
+        <span class="rel-delta flat">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M2 5h6M8 5l-2-2M8 5l-2 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          +1,4%
+        </span>
+      </div>
+
+      <div class="card kpi-card green">
+        <div class="kpi-label">Taxa de no-show</div>
+        <div class="kpi-value">8,2%</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 8V2M5 8l-3-3M5 8l3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          −2,3pp
+        </span>
+      </div>
+
+      <div class="card kpi-card accent">
+        <div class="kpi-label">Ocupação</div>
+        <div class="kpi-value">78%</div>
+        <span class="rel-delta good">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 2v6M5 2l-3 3M5 2l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          +6pp
+        </span>
+      </div>
+
+    </div>
+
+    <!-- TREND CHART -->
+    <div class="card" style="margin-bottom:14px;">
+      <div style="font-family:var(--font-serif);font-size:17px;font-weight:500;letter-spacing:-0.02em;margin-bottom:4px;">Tendência de receita <em style="font-style:italic;color:var(--accent-ink);font-family:var(--font-serif);font-weight:400;">— últimos 6 meses</em></div>
+      <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);letter-spacing:0.04em;margin-bottom:14px;">Receita mensal · R$ × 1.000</div>
+      <div class="chart-wrap" style="height:140px;">
+        <div class="bar-col">
+          <div class="bar-val">82</div>
+          <div class="bar-fill" style="height:64%"></div>
+          <div class="bar-day">Nov</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val">78</div>
+          <div class="bar-fill" style="height:61%"></div>
+          <div class="bar-day">Dez</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val">88</div>
+          <div class="bar-fill" style="height:69%"></div>
+          <div class="bar-day">Jan</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val">91</div>
+          <div class="bar-fill" style="height:71%"></div>
+          <div class="bar-day">Fev</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val">94</div>
+          <div class="bar-fill" style="height:74%"></div>
+          <div class="bar-day">Mar</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-val today">102</div>
+          <div class="bar-fill today" style="height:80%"></div>
+          <div class="bar-day today">Abr</div>
+        </div>
+      </div>
+      <div class="rel-trend-foot">
+        <div class="rel-trend-stat">
+          <div class="rel-trend-stat-lbl">Total 6 meses</div>
+          <div class="rel-trend-stat-val">R$ 535.000</div>
+        </div>
+        <div class="rel-trend-stat">
+          <div class="rel-trend-stat-lbl">Ticket médio</div>
+          <div class="rel-trend-stat-val">R$ 348</div>
+        </div>
+        <div class="rel-trend-stat">
+          <div class="rel-trend-stat-lbl">Melhor mês</div>
+          <div class="rel-trend-stat-val accent">Abr · R$ 102k</div>
+        </div>
+        <div class="rel-trend-stat">
+          <div class="rel-trend-stat-lbl">Crescimento 6m</div>
+          <div class="rel-trend-stat-val accent">+24%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIX + ORIGEM -->
+    <div class="rel-2col">
+
+      <div class="card">
+        <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;margin-bottom:4px;">Mix de tratamentos</div>
+        <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);letter-spacing:0.04em;margin-bottom:14px;">% da receita do mês</div>
+
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Manutenção ortodôntica</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill accent" style="width:38%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">38%</span>R$ 38.780</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Aparelho fixo metálico</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill accent" style="width:24%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">24%</span>R$ 24.490</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Documentação</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill gold" style="width:14%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">14%</span>R$ 14.290</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Consulta inicial</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill gold" style="width:11%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">11%</span>R$ 11.230</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Contenção</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill neutral" style="width:8%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">8%</span>R$ 8.160</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label" style="color:var(--ink-3);">Outros</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill neutral" style="width:5%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">5%</span>R$ 5.110</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-family:var(--font-serif);font-size:15px;font-weight:500;letter-spacing:-0.01em;margin-bottom:4px;">Origem dos novos pacientes</div>
+        <div style="font-family:var(--font-sans);font-size:11px;color:var(--ink-4);letter-spacing:0.04em;margin-bottom:14px;">24 pacientes novos · abril</div>
+
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Indicação de paciente</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill green" style="width:46%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">46%</span>11 novos</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Instagram</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill accent" style="width:25%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">25%</span>6</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">Google</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill accent" style="width:17%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">17%</span>4</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label">WhatsApp orgânico</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill gold" style="width:8%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">8%</span>2</div>
+        </div>
+        <div class="rel-hbar-row">
+          <div><div class="rel-hbar-label" style="color:var(--ink-3);">Convênio</div></div>
+          <div class="rel-hbar-wrap"><div class="rel-hbar-fill neutral" style="width:4%"></div></div>
+          <div class="rel-hbar-meta"><span class="pct">4%</span>1</div>
+        </div>
+
+        <div class="rel-microcopy">Indicação responde por quase metade da aquisição. Considere um programa de reconhecimento ao paciente-embaixador.</div>
+      </div>
+
+    </div>
+
+    <!-- APROFUNDAR EM -->
+    <div style="margin-top:8px;">
+      <span class="eyebrow" style="margin-bottom:8px;">Aprofundar em</span>
+      <div class="rel-deepen">
+
+        <a class="rel-deepen-card" href="#operacao" data-go-tab="operacao">
+          <div>
+            <div class="rel-deepen-name">Operação</div>
+            <div class="rel-deepen-sub">No-show, ocupação, tempos</div>
+          </div>
+          <div class="rel-deepen-arrow">→</div>
+        </a>
+
+        <div class="rel-deepen-card soon">
+          <div>
+            <div class="rel-deepen-name">Pacientes</div>
+            <div class="rel-deepen-sub">Aquisição, retenção, cohort · em breve</div>
+          </div>
+          <div class="rel-deepen-arrow">→</div>
+        </div>
+
+        <div class="rel-deepen-card soon">
+          <div>
+            <div class="rel-deepen-name">Profissionais</div>
+            <div class="rel-deepen-sub">Ranking, produtividade · em breve</div>
+          </div>
+          <div class="rel-deepen-arrow">→</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  // Tab switching (only between the 2 active tabs)
+  document.querySelectorAll('.rel-tab').forEach(function(tab) {
+    if (tab.classList.contains('disabled')) return;
+    tab.addEventListener('click', function() {
+      var t = tab.dataset.tab;
+      document.querySelectorAll('.rel-tab').forEach(function(x) {
+        if (x.classList.contains('disabled')) return;
+        x.classList.toggle('active', x.dataset.tab === t);
+      });
+      document.querySelectorAll('.rel-tab-panel').forEach(function(p) {
+        p.classList.toggle('active', p.dataset.tab === t);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // "Aprofundar em → Operação" jumps from Visão Geral to Operação tab
+  document.querySelectorAll('[data-go-tab]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = el.dataset.goTab;
+      document.querySelectorAll('.rel-tab').forEach(function(x) {
+        if (x.classList.contains('disabled')) return;
+        x.classList.toggle('active', x.dataset.tab === target);
+      });
+      document.querySelectorAll('.rel-tab-panel').forEach(function(p) {
+        p.classList.toggle('active', p.dataset.tab === target);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Period pills (visual only — protótipo)
+  document.querySelectorAll('.rel-period-pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.rel-period-pill').forEach(function(p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
