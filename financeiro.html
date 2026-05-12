@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plural Orto · Financeiro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:       #F4EEE2;
+  --paper-2:     #EDE5D2;
+  --paper-3:     #E3D9C0;
+  --cream:       #FBF6EE;
+  --ink:         #17140F;
+  --ink-2:       #3A352C;
+  --ink-3:       #6B6456;
+  --ink-4:       #9B937F;
+  --line:        #D9CFB8;
+  --line-2:      #E5DCC6;
+  --accent:      #C15F3C;
+  --accent-ink:  #8A3E25;
+  --accent-soft: #EDD6C3;
+  --accent-50:   #F7E7D8;
+  --gold:        #B08A4A;
+  --gold-soft:   #E8D9B2;
+  --red:         #B03030;
+  --red-soft:    #F5DDD8;
+  --green:       #6E7F4C;
+
+  --shadow-sm: 0 1px 2px rgba(26,20,14,0.04), 0 2px 6px rgba(26,20,14,0.04);
+  --shadow-md: 0 2px 4px rgba(26,20,14,0.04), 0 12px 30px -12px rgba(26,20,14,0.12);
+
+  --radius-sm: 10px;
+  --radius:    16px;
+
+  --font-sans:  "Inter", system-ui, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
+
+  --header-h: 56px;
+  --nav-h:    48px;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(at 20% 10%, rgba(110,127,76,0.05) 0, transparent 40%),
+    radial-gradient(at 85% 90%, rgba(176,138,74,0.04) 0, transparent 45%);
+  background-attachment: fixed;
+  scroll-behavior: smooth;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500; margin-bottom: 10px; display: block;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: rgba(244,238,226,0.82);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid rgba(217,207,184,0.7);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-serif); font-size: 20px; letter-spacing: -0.015em;
+}
+.brand-mark {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: linear-gradient(135deg, #1F1A13 0%, #2E2820 100%);
+  position: relative; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); flex-shrink: 0;
+}
+.brand-mark::after {
+  content: ""; position: absolute; inset: auto auto 5px 5px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #E37A54, #B84C2B);
+  box-shadow: 0 0 10px rgba(193,95,60,0.6);
+}
+.header-right { display: flex; align-items: center; gap: 18px; }
+.bell-wrap {
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; cursor: pointer; position: relative; transition: background 150ms;
+}
+.bell-wrap:hover { background: var(--paper-2); }
+.bell-wrap svg { width: 17px; height: 17px; }
+.bell-pip {
+  position: absolute; top: 7px; right: 8px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); border: 1.5px solid var(--paper);
+}
+.user-chip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 5px 12px 5px 6px;
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: 999px; cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: box-shadow 150ms, border-color 150ms;
+}
+.user-chip:hover { border-color: var(--line); box-shadow: var(--shadow-md); }
+.avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #E37A54, #B84C2B);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 10.5px; font-weight: 600;
+  color: var(--cream); flex-shrink: 0;
+}
+.user-info { line-height: 1.2; }
+.user-name   { font-size: 13px; font-weight: 500; }
+.user-clinic { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-4); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: 99;
+  height: var(--nav-h);
+  background: rgba(244,238,226,0.75);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(217,207,184,0.6);
+  display: flex; align-items: center; padding: 0 32px; gap: 2px;
+}
+.nav-tab {
+  padding: 0 16px; height: var(--nav-h);
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 400; color: var(--ink-3);
+  border-bottom: 2px solid transparent; transition: color 150ms; white-space: nowrap;
+}
+.nav-tab svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.7; transition: opacity 150ms; }
+.nav-tab:hover { color: var(--ink); }
+.nav-tab:hover svg { opacity: 0.9; }
+.nav-tab.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--accent); }
+.nav-tab.active svg { opacity: 1; }
+
+/* ── MAIN ── */
+.main { margin-top: calc(var(--header-h) + var(--nav-h)); padding: 28px 32px 48px; }
+
+/* ── CARD ── */
+.card {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm);
+}
+.footer-link {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500;
+}
+.footer-link:hover { opacity: 0.75; }
+
+/* ── BTN ── */
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; background: transparent; color: var(--ink-3);
+  border-radius: var(--radius-sm); font-family: var(--font-sans);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--line-2); transition: all 120ms;
+}
+.btn-ghost:hover { border-color: var(--line); color: var(--ink); background: var(--paper-2); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 20px;
+}
+.page-title {
+  font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1;
+}
+.page-sub {
+  font-family: var(--font-sans); font-size: 13px; color: var(--ink-3); margin-top: 5px;
+}
+
+/* ── STATUS BADGES ── */
+.status-badge {
+  font-family: var(--font-sans); font-size: 11px; letter-spacing: 0;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 999px; font-weight: 500;
+  white-space: nowrap; flex-shrink: 0;
+}
+.status-badge.conf  { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.25); }
+.status-badge.wait  { background: rgba(176,138,74,0.10); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+.status-badge.pend  { background: var(--red-soft); color: var(--red); border: 1px solid rgba(176,48,48,0.25); }
+.status-badge.done  { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--line); }
+
+/* ── PILL / CHANNEL ── */
+.pay-channel {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+  padding: 2px 9px; border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.pay-channel.pix      { background: rgba(110,127,76,0.10); color: var(--green); border: 1px solid rgba(110,127,76,0.25); }
+.pay-channel.credito  { background: var(--accent-50); color: var(--accent-ink); border: 1px solid rgba(193,95,60,0.22); }
+.pay-channel.boleto   { background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line); }
+.pay-channel.convenio { background: rgba(176,138,74,0.10); color: #7A5E2B; border: 1px solid rgba(176,138,74,0.25); }
+
+/* ── KPI ── */
+.kpi-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 14px; margin-bottom: 24px;
+}
+.kpi-card { position: relative; overflow: hidden; }
+.kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--line); border-radius: 2px 2px 0 0;
+}
+.kpi-card.accent::before { background: var(--accent); }
+.kpi-card.gold::before   { background: var(--gold); }
+.kpi-card.alert::before  { background: var(--red); }
+
+.kpi-card a.kpi-link {
+  display: block; cursor: pointer; transition: opacity 120ms;
+}
+.kpi-card a.kpi-link:hover { opacity: 0.8; }
+
+.kpi-icon {
+  width: 26px; height: 26px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px; flex-shrink: 0;
+}
+.kpi-icon.accent-i { background: var(--accent-soft); }
+.kpi-icon.gold-i   { background: var(--gold-soft); }
+.kpi-icon.red-i    { background: var(--red-soft); }
+.kpi-icon.neutral-i { background: var(--paper-2); }
+.kpi-icon svg { width: 15px; height: 15px; }
+
+.kpi-label {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 8px; font-weight: 500;
+}
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 26px; font-weight: 400; letter-spacing: -0.02em;
+  color: var(--ink); line-height: 1;
+}
+.kpi-sub { font-size: 13px; color: var(--ink-3); margin-top: 5px; }
+.kpi-sub .alert-val { color: var(--red); font-weight: 500; }
+.kpi-sub .up-val    { color: var(--green); font-weight: 500; }
+.kpi-sub .gold-val  { color: #7A5E2B; font-weight: 500; }
+
+/* ── LAYOUT ── */
+.fin-layout {
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 14px; align-items: start;
+}
+.fin-left { display: flex; flex-direction: column; gap: 22px; }
+
+/* ── SECTION HEADER ── */
+.fin-section { scroll-margin-top: calc(var(--header-h) + var(--nav-h) + 20px); }
+.fin-section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.fin-section-title {
+  font-family: var(--font-serif); font-size: 19px; font-weight: 500;
+  color: var(--ink); letter-spacing: -0.015em; line-height: 1.1;
+}
+.fin-section-title .count {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 400;
+  color: var(--ink-4); letter-spacing: 0; margin-left: 6px;
+}
+.fin-section-sort {
+  display: flex; gap: 4px; align-items: center;
+}
+.fin-sort-pill {
+  padding: 4px 10px; border-radius: 999px;
+  font-family: var(--font-sans); font-size: 10.5px; letter-spacing: 0.04em;
+  text-transform: uppercase; font-weight: 500;
+  border: 1px solid var(--line-2); color: var(--ink-3); background: transparent;
+  cursor: pointer; transition: all 120ms;
+}
+.fin-sort-pill:hover { border-color: var(--line); color: var(--ink); }
+.fin-sort-pill.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+/* ── LIST (a receber / em aberto) ── */
+.fin-list {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.fin-row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto auto;
+  gap: 14px; align-items: center;
+  padding: 12px 16px; border-bottom: 1px solid var(--line-2);
+  transition: background 120ms;
+}
+.fin-row:last-child { border-bottom: none; }
+.fin-row:hover { background: var(--paper-2); }
+
+.fin-row-avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+}
+.fin-row-avatar.gold { background: var(--gold-soft); color: #7A5E2B; }
+.fin-row-avatar.red  { background: var(--red-soft); color: var(--red); }
+.fin-row-avatar.accent { background: var(--accent-soft); color: var(--accent-ink); }
+
+.fin-row-main { min-width: 0; }
+.fin-row-name {
+  font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 1px;
+}
+.fin-row-sub {
+  font-family: var(--font-sans); font-size: 11px; color: var(--ink-3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.fin-row-meta {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 3px;
+  flex-shrink: 0;
+}
+.fin-row-value {
+  font-family: var(--font-mono); font-size: 14px; font-weight: 500;
+  color: var(--ink); letter-spacing: 0.02em;
+}
+.fin-row-value.red { color: var(--red); font-weight: 600; }
+.fin-row-value.green { color: var(--green); }
+.fin-row-age {
+  font-family: var(--font-mono); font-size: 10px; color: var(--ink-4);
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.fin-row-age.danger { color: var(--red); font-weight: 500; }
+
+.fin-row-action {
+  font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 6px 12px; border-radius: 7px; cursor: pointer;
+  background: var(--accent); color: #FBF6EE; border: 1px solid var(--accent);
+  white-space: nowrap; transition: opacity 120ms;
+}
+.fin-row-action:hover { opacity: 0.88; }
+.fin-row-action.ghost {
+  background: transparent; color: var(--ink-3); border-color: var(--line-2);
+}
+.fin-row-action.ghost:hover { background: var(--paper-2); border-color: var(--line); color: var(--ink); }
+
+/* ── HISTORY ROW (compact) ── */
+.fin-hist-row {
+  display: grid;
+  grid-template-columns: 78px 1fr auto auto;
+  gap: 14px; align-items: center;
+  padding: 10px 16px; border-bottom: 1px solid var(--line-2);
+  transition: background 120ms;
+}
+.fin-hist-row:last-child { border-bottom: none; }
+.fin-hist-row:hover { background: var(--paper-2); }
+.fin-hist-date {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-4);
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.fin-hist-name {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fin-hist-value {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--green);
+  letter-spacing: 0.02em; white-space: nowrap;
+}
+
+/* ── FORECAST ── */
+.fin-forecast {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.fin-forecast-row {
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 14px; align-items: center;
+  padding: 11px 16px; border-bottom: 1px solid var(--line-2);
+}
+.fin-forecast-row:last-of-type { border-bottom: none; }
+.fin-forecast-row.today { background: var(--accent-50); }
+.fin-forecast-day {
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.fin-forecast-row.today .fin-forecast-day { color: var(--accent-ink); font-weight: 500; }
+.fin-forecast-count {
+  font-family: var(--font-sans); font-size: 12px; color: var(--ink-4);
+}
+.fin-forecast-value {
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.fin-forecast-row.today .fin-forecast-value { color: var(--accent-ink); font-weight: 500; }
+
+.fin-forecast-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--paper-2);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.fin-forecast-total-label {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 500;
+}
+.fin-forecast-total {
+  font-family: var(--font-serif); font-size: 19px;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.fin-forecast-note {
+  font-family: var(--font-sans); font-size: 11px;
+  color: var(--ink-4); margin-top: 8px; font-style: italic;
+  padding-left: 2px;
+}
+
+/* ── SIDEBAR ── */
+.fin-sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + var(--nav-h) + 28px);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.fin-sidebar-card { padding: 18px; }
+
+.fin-side-title {
+  font-family: var(--font-serif); font-size: 15px; font-weight: 500;
+  color: var(--ink); letter-spacing: -0.01em; margin-bottom: 14px;
+}
+
+/* ── PAY METHOD BAR ── */
+.fin-channel-row {
+  display: grid; grid-template-columns: 80px 1fr 64px;
+  gap: 10px; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--line-2);
+}
+.fin-channel-row:last-of-type { border-bottom: none; }
+.fin-channel-name {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 500; color: var(--ink);
+}
+.fin-channel-bar-wrap {
+  height: 6px; background: var(--paper-2); border-radius: 3px; overflow: hidden;
+}
+.fin-channel-bar-fill { height: 100%; border-radius: 3px; }
+.fin-channel-bar-fill.pix     { background: var(--accent); }
+.fin-channel-bar-fill.credito { background: var(--gold); }
+.fin-channel-bar-fill.boleto  { background: var(--ink-4); }
+.fin-channel-value {
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink); letter-spacing: 0.02em;
+  text-align: right;
+}
+
+.fin-channel-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-top: 12px; margin-top: 6px;
+  border-top: 1px solid var(--line);
+}
+.fin-channel-total-label {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 500;
+}
+.fin-channel-total-val {
+  font-family: var(--font-serif); font-size: 18px;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+
+/* ── PROFESSIONAL ROW ── */
+.fin-prof-row {
+  display: grid; grid-template-columns: 28px 1fr auto;
+  gap: 10px; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--line-2);
+}
+.fin-prof-row:last-of-type { border-bottom: none; }
+.fin-prof-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-sans); font-size: 10px; font-weight: 600;
+  background: var(--accent-soft); color: var(--accent-ink);
+}
+.fin-prof-name {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--ink);
+}
+.fin-prof-sub {
+  font-family: var(--font-sans); font-size: 10.5px; color: var(--ink-4);
+}
+.fin-prof-value {
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink);
+  letter-spacing: 0.02em; text-align: right;
+}
+
+/* ── INDICATORS ── */
+.fin-ind-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 9px 0; border-bottom: 1px solid var(--line-2);
+}
+.fin-ind-row:last-of-type { border-bottom: none; }
+.fin-ind-label {
+  font-family: var(--font-sans); font-size: 11px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink-4); font-weight: 500;
+}
+.fin-ind-value {
+  font-family: var(--font-mono); font-size: 14px; font-weight: 500;
+  color: var(--ink); letter-spacing: 0.02em;
+}
+.fin-ind-value.good { color: var(--green); }
+.fin-ind-value.warn { color: var(--gold); }
+
+.fin-side-action {
+  margin-top: 4px;
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 10px 14px; background: var(--accent); color: #FBF6EE;
+  border-radius: var(--radius-sm); font-family: var(--font-sans);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--accent);
+  box-shadow: 0 1px 4px rgba(193,95,60,0.2); transition: opacity 120ms;
+}
+.fin-side-action:hover { opacity: 0.88; }
+.fin-side-action svg { width: 13px; height: 13px; }
+
+.fin-card-footer {
+  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-2);
+  text-align: right;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    Plural Orto
+  </div>
+  <div class="header-right">
+    <div class="bell-wrap">
+      <svg viewBox="0 0 17 17" fill="none">
+        <path d="M8.5 1.8A4.2 4.2 0 004.3 6v3.8l-1 1.7h10.4l-1-1.7V6A4.2 4.2 0 008.5 1.8z" stroke="#6B6456" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M7 11.5a1.5 1.5 0 003 0" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="bell-pip"></div>
+    </div>
+    <div class="bell-wrap">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="3" stroke="#6B6456" stroke-width="1.5"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="#6B6456" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="user-chip">
+      <div class="avatar">DM</div>
+      <div class="user-info">
+        <div class="user-name">Dr. Marcelo</div>
+        <div class="user-clinic">Clínica Central</div>
+      </div>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="margin-left:4px;flex-shrink:0;">
+        <path d="M1 1l4 4 4-4" stroke="#9B937F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-tab" href="prototipo1.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="1" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="1" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="8" y="8" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    Dashboard
+  </a>
+  <a class="nav-tab" href="recepcao.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M2 11.5h10M2 11.5V4a1 1 0 011-1h8a1 1 0 011 1v7.5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M5 7.5h4M5 9.5h2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M1.5 11.5h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    Recepção
+  </a>
+  <a class="nav-tab" href="consultorio.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="2" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 13h5M7 10v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Consultório Virtual
+  </a>
+  <a class="nav-tab" href="agenda.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <rect x="1.5" y="2" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 6h11" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="4.5" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="7" cy="9.5" r="0.8" fill="currentColor"/>
+      <circle cx="9.5" cy="9.5" r="0.8" fill="currentColor"/>
+    </svg>
+    Agenda
+  </a>
+  <a class="nav-tab" href="pacientes.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M1.5 13.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Pacientes
+  </a>
+  <a class="nav-tab" href="comunicacao.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+    Comunicação
+  </a>
+  <a class="nav-tab active" href="financeiro.html">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M1.5 12.5h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      <rect x="2" y="7.5" width="2.5" height="5" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="5.75" y="4.5" width="2.5" height="8" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+      <rect x="9.5" y="1.5" width="2.5" height="11" rx="0.6" stroke="currentColor" stroke-width="1.1"/>
+    </svg>
+    Financeiro
+  </a>
+  <a class="nav-tab" href="#">
+    <svg viewBox="0 0 14 14" fill="none">
+      <path d="M2.5 2C2.5 1.448 2.948 1 3.5 1H8l3.5 3.5V12.5c0 .552-.448 1-1 1h-7c-.552 0-1-.448-1-1V2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      <path d="M8 1v3.5h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4.5 7.5h5M4.5 10h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Relatórios
+  </a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="page-header">
+    <div>
+      <div class="page-title">Financeiro</div>
+      <div class="page-sub">Terça-feira · 22 de abril de 2025</div>
+    </div>
+    <a class="btn-ghost" href="comunicacao.html">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M10.5 6c0 2.485-2.015 4.5-4.5 4.5-.91 0-1.764-.243-2.493-.664L1.5 10.5l.664-2.007A4.46 4.46 0 011.5 6c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      Disparar cobranças →
+    </a>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+
+    <div class="card kpi-card accent">
+      <div class="kpi-icon accent-i">
+        <svg viewBox="0 0 15 15" fill="none">
+          <rect x="1.5" y="3.5" width="12" height="9" rx="1.5" stroke="#8A3E25" stroke-width="1.2"/>
+          <path d="M5.5 8h4M7.5 6v4" stroke="#8A3E25" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-label">Recebido hoje</div>
+      <div class="kpi-value">R$ 4.200</div>
+      <div class="kpi-sub">12 pagamentos · <span class="up-val">+18% vs ontem</span></div>
+    </div>
+
+    <div class="card kpi-card gold">
+      <a class="kpi-link" href="#a-receber">
+        <div class="kpi-icon gold-i">
+          <svg viewBox="0 0 15 15" fill="none">
+            <circle cx="7.5" cy="7.5" r="5.5" stroke="#7A5E2B" stroke-width="1.2"/>
+            <path d="M7.5 4v3.5l2 1.5" stroke="#7A5E2B" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="kpi-label">A receber hoje</div>
+        <div class="kpi-value">R$ 1.180</div>
+        <div class="kpi-sub"><span class="gold-val">4 pacientes</span> atendidos sem fechar</div>
+      </a>
+    </div>
+
+    <div class="card kpi-card alert">
+      <a class="kpi-link" href="#em-aberto">
+        <div class="kpi-icon red-i">
+          <svg viewBox="0 0 15 15" fill="none">
+            <path d="M7.5 1.5L1 14h13L7.5 1.5z" stroke="#B03030" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M7.5 6v3.5" stroke="#B03030" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="7.5" cy="11.2" r="0.7" fill="#B03030"/>
+          </svg>
+        </div>
+        <div class="kpi-label">Em aberto (atrasado)</div>
+        <div class="kpi-value">R$ 3.150</div>
+        <div class="kpi-sub"><span class="alert-val">7 pacientes</span> · 3 acima de 30 dias</div>
+      </a>
+    </div>
+
+    <div class="card kpi-card">
+      <div class="kpi-icon neutral-i">
+        <svg viewBox="0 0 15 15" fill="none">
+          <rect x="1.5" y="2.5" width="12" height="11" rx="1.5" stroke="#6B6456" stroke-width="1.2"/>
+          <path d="M1.5 6h12" stroke="#6B6456" stroke-width="1.2"/>
+          <path d="M4.5 1.5v2M10.5 1.5v2" stroke="#6B6456" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="kpi-label">Previsto 7 dias</div>
+      <div class="kpi-value">R$ 18.400</div>
+      <div class="kpi-sub">58 consultas confirmadas</div>
+    </div>
+
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="fin-layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="fin-left">
+
+      <!-- § 1 — A RECEBER HOJE -->
+      <section class="fin-section" id="a-receber">
+        <span class="eyebrow">Hoje</span>
+        <div class="fin-section-head">
+          <div class="fin-section-title">A receber hoje <span class="count">(4)</span></div>
+        </div>
+        <div class="fin-list">
+
+          <div class="fin-row">
+            <div class="fin-row-avatar gold">AC</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Ana Costa</a>
+              <div class="fin-row-sub">Aparelho fixo metálico · Dr. Marcelo</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value">R$ 320</div>
+              <div class="fin-row-age">saiu há 2h</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar gold">BL</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Bruno Lima</a>
+              <div class="fin-row-sub">Consulta inicial · Dra. Carolina</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value">R$ 180</div>
+              <div class="fin-row-age">saiu há 1h</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar gold">CD</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Carla Dias</a>
+              <div class="fin-row-sub">Manutenção mensal · Dr. Marcelo</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value">R$ 240</div>
+              <div class="fin-row-age">saiu há 35min</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar gold">DS</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Diego Souza</a>
+              <div class="fin-row-sub">Documentação ortodôntica · Dra. Carolina</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value">R$ 440</div>
+              <div class="fin-row-age">na recepção</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- § 2 — EM ABERTO -->
+      <section class="fin-section" id="em-aberto">
+        <span class="eyebrow">Pendência</span>
+        <div class="fin-section-head">
+          <div class="fin-section-title">Em aberto <span class="count">(7)</span></div>
+          <div class="fin-section-sort">
+            <button class="fin-sort-pill active">Mais antigos</button>
+            <button class="fin-sort-pill">Maior valor</button>
+          </div>
+        </div>
+        <div class="fin-list">
+
+          <div class="fin-row">
+            <div class="fin-row-avatar red">RT</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Rafael Torres</a>
+              <div class="fin-row-sub">Aparelho ortodôntico · parcela mar/25</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value red">R$ 850</div>
+              <div class="fin-row-age danger">52 dias em aberto</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar red">FM</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Fernanda Mendes</a>
+              <div class="fin-row-sub">Documentação · saldo restante</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value red">R$ 640</div>
+              <div class="fin-row-age danger">41 dias em aberto</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar red">GN</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Gustavo Nogueira</a>
+              <div class="fin-row-sub">Manutenção · fev/25</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value red">R$ 220</div>
+              <div class="fin-row-age danger">38 dias em aberto</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar red">HP</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Helena Pinto</a>
+              <div class="fin-row-sub">Aparelho · parcela abr/25</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value red">R$ 480</div>
+              <div class="fin-row-age">22 dias em aberto</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar red">IS</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Igor Salvador</a>
+              <div class="fin-row-sub">Consulta inicial</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value red">R$ 180</div>
+              <div class="fin-row-age">15 dias em aberto</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar red">JR</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Joana Ribeiro</a>
+              <div class="fin-row-sub">Contenção</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value red">R$ 380</div>
+              <div class="fin-row-age">9 dias em aberto</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+          <div class="fin-row">
+            <div class="fin-row-avatar red">KV</div>
+            <div class="fin-row-main">
+              <a class="fin-row-name" href="pacientes.html">Karina Vieira</a>
+              <div class="fin-row-sub">Manutenção mensal · abr/25</div>
+            </div>
+            <div class="fin-row-meta">
+              <div class="fin-row-value red">R$ 400</div>
+              <div class="fin-row-age">5 dias em aberto</div>
+            </div>
+            <button class="fin-row-action">Cobrar →</button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- § 3 — RECEBIMENTOS RECENTES -->
+      <section class="fin-section" id="recebimentos">
+        <span class="eyebrow">Histórico</span>
+        <div class="fin-section-head">
+          <div class="fin-section-title">Recebimentos recentes <span class="count">· últimos 7 dias</span></div>
+        </div>
+        <div class="fin-list">
+
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">22 abr · 09:42</div>
+            <a class="fin-hist-name" href="pacientes.html">Lucas Almeida</a>
+            <span class="pay-channel pix">PIX</span>
+            <div class="fin-hist-value">R$ 320</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">22 abr · 09:15</div>
+            <a class="fin-hist-name" href="pacientes.html">Mariana Oliveira</a>
+            <span class="pay-channel credito">Crédito 2x</span>
+            <div class="fin-hist-value">R$ 540</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">22 abr · 08:48</div>
+            <a class="fin-hist-name" href="pacientes.html">Nicolas Pereira</a>
+            <span class="pay-channel pix">PIX</span>
+            <div class="fin-hist-value">R$ 220</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">21 abr · 17:30</div>
+            <a class="fin-hist-name" href="pacientes.html">Olivia Santos</a>
+            <span class="pay-channel boleto">Boleto</span>
+            <div class="fin-hist-value">R$ 380</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">21 abr · 15:12</div>
+            <a class="fin-hist-name" href="pacientes.html">Paulo Henrique</a>
+            <span class="pay-channel convenio">Convênio Amil</span>
+            <div class="fin-hist-value">R$ 240</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">21 abr · 11:05</div>
+            <a class="fin-hist-name" href="pacientes.html">Queila Martins</a>
+            <span class="pay-channel pix">PIX</span>
+            <div class="fin-hist-value">R$ 420</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">20 abr · 16:48</div>
+            <a class="fin-hist-name" href="pacientes.html">Renato Carvalho</a>
+            <span class="pay-channel credito">Crédito 3x</span>
+            <div class="fin-hist-value">R$ 960</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">20 abr · 10:22</div>
+            <a class="fin-hist-name" href="pacientes.html">Sandra Lopes</a>
+            <span class="pay-channel pix">PIX</span>
+            <div class="fin-hist-value">R$ 280</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">19 abr · 14:00</div>
+            <a class="fin-hist-name" href="pacientes.html">Tiago Borges</a>
+            <span class="pay-channel convenio">Convênio Unimed</span>
+            <div class="fin-hist-value">R$ 300</div>
+          </div>
+          <div class="fin-hist-row">
+            <div class="fin-hist-date">19 abr · 09:30</div>
+            <a class="fin-hist-name" href="pacientes.html">Úrsula Freitas</a>
+            <span class="pay-channel boleto">Boleto</span>
+            <div class="fin-hist-value">R$ 440</div>
+          </div>
+
+        </div>
+        <div style="text-align:right; margin-top:10px;">
+          <a class="footer-link" href="#">Ver todos →</a>
+        </div>
+      </section>
+
+      <!-- § 4 — PREVISÃO -->
+      <section class="fin-section" id="previsao">
+        <span class="eyebrow">Projeção</span>
+        <div class="fin-section-head">
+          <div class="fin-section-title">Previsto até 28 abr</div>
+        </div>
+        <div class="fin-forecast">
+
+          <div class="fin-forecast-row today">
+            <div class="fin-forecast-day">Hoje · Ter 22</div>
+            <div class="fin-forecast-count">12 consultas confirmadas</div>
+            <div class="fin-forecast-value">R$ 4.200</div>
+          </div>
+          <div class="fin-forecast-row">
+            <div class="fin-forecast-day">Qua 23 abr</div>
+            <div class="fin-forecast-count">10 consultas confirmadas</div>
+            <div class="fin-forecast-value">R$ 3.400</div>
+          </div>
+          <div class="fin-forecast-row">
+            <div class="fin-forecast-day">Qui 24 abr</div>
+            <div class="fin-forecast-count">14 consultas confirmadas</div>
+            <div class="fin-forecast-value">R$ 4.750</div>
+          </div>
+          <div class="fin-forecast-row">
+            <div class="fin-forecast-day">Sex 25 abr</div>
+            <div class="fin-forecast-count">11 consultas confirmadas</div>
+            <div class="fin-forecast-value">R$ 3.620</div>
+          </div>
+          <div class="fin-forecast-row">
+            <div class="fin-forecast-day">Sáb 26 abr</div>
+            <div class="fin-forecast-count">5 consultas confirmadas</div>
+            <div class="fin-forecast-value">R$ 1.480</div>
+          </div>
+          <div class="fin-forecast-row">
+            <div class="fin-forecast-day">Seg 28 abr</div>
+            <div class="fin-forecast-count">6 consultas confirmadas</div>
+            <div class="fin-forecast-value">R$ 1.950</div>
+          </div>
+
+          <div class="fin-forecast-footer">
+            <div class="fin-forecast-total-label">Total previsto · 7 dias</div>
+            <div class="fin-forecast-total">R$ 18.400</div>
+          </div>
+        </div>
+        <div class="fin-forecast-note">Estimativa baseada em consultas confirmadas × valor de tabela. Cancelamentos ou faltas podem reduzir o total.</div>
+      </section>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="fin-sidebar">
+
+      <!-- FORMA DE PAGAMENTO -->
+      <div class="card fin-sidebar-card">
+        <div class="fin-side-title">Recebido hoje · canais</div>
+
+        <div class="fin-channel-row">
+          <div class="fin-channel-name">PIX</div>
+          <div class="fin-channel-bar-wrap">
+            <div class="fin-channel-bar-fill pix" style="width:60%"></div>
+          </div>
+          <div class="fin-channel-value">R$ 2.520</div>
+        </div>
+        <div class="fin-channel-row">
+          <div class="fin-channel-name">Crédito</div>
+          <div class="fin-channel-bar-wrap">
+            <div class="fin-channel-bar-fill credito" style="width:25%"></div>
+          </div>
+          <div class="fin-channel-value">R$ 1.050</div>
+        </div>
+        <div class="fin-channel-row">
+          <div class="fin-channel-name">Boleto</div>
+          <div class="fin-channel-bar-wrap">
+            <div class="fin-channel-bar-fill boleto" style="width:15%"></div>
+          </div>
+          <div class="fin-channel-value">R$ 630</div>
+        </div>
+
+        <div class="fin-channel-total">
+          <div class="fin-channel-total-label">Total hoje</div>
+          <div class="fin-channel-total-val">R$ 4.200</div>
+        </div>
+      </div>
+
+      <!-- POR PROFISSIONAL -->
+      <div class="card fin-sidebar-card">
+        <div class="fin-side-title">Por profissional · abril</div>
+
+        <div class="fin-prof-row">
+          <div class="fin-prof-avatar">DM</div>
+          <div>
+            <div class="fin-prof-name">Dr. Marcelo</div>
+            <div class="fin-prof-sub">142 atendimentos</div>
+          </div>
+          <div class="fin-prof-value">R$ 48.760</div>
+        </div>
+        <div class="fin-prof-row">
+          <div class="fin-prof-avatar">CR</div>
+          <div>
+            <div class="fin-prof-name">Dra. Carolina</div>
+            <div class="fin-prof-sub">98 atendimentos</div>
+          </div>
+          <div class="fin-prof-value">R$ 33.420</div>
+        </div>
+        <div class="fin-prof-row">
+          <div class="fin-prof-avatar">RM</div>
+          <div>
+            <div class="fin-prof-name">Dr. Rodrigo</div>
+            <div class="fin-prof-sub">61 atendimentos</div>
+          </div>
+          <div class="fin-prof-value">R$ 19.880</div>
+        </div>
+
+        <div class="fin-card-footer">
+          <a class="footer-link" href="#">Ver todos →</a>
+        </div>
+      </div>
+
+      <!-- INDICADORES -->
+      <div class="card fin-sidebar-card">
+        <div class="fin-side-title">Indicadores · abril</div>
+
+        <div class="fin-ind-row">
+          <div class="fin-ind-label">Ticket médio</div>
+          <div class="fin-ind-value">R$ 350</div>
+        </div>
+        <div class="fin-ind-row">
+          <div class="fin-ind-label">Taxa de cobrança</div>
+          <div class="fin-ind-value good">92%</div>
+        </div>
+        <div class="fin-ind-row">
+          <div class="fin-ind-label">% inadimplência</div>
+          <div class="fin-ind-value warn">4,3%</div>
+        </div>
+      </div>
+
+      <!-- AÇÃO -->
+      <a class="fin-side-action" href="comunicacao.html">
+        <svg viewBox="0 0 13 13" fill="none">
+          <path d="M11.5 6.5c0 2.485-2.015 4.5-4.5 4.5-.91 0-1.764-.243-2.493-.664L2.5 11l.664-2.007A4.46 4.46 0 012.5 6.5c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+        </svg>
+        Disparar cobranças em lote
+      </a>
+
+    </aside>
+
+  </div>
+
+</main>
+
+</body>
+</html>

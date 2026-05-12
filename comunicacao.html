@@ -262,6 +262,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .template-btn.use:hover { opacity: 0.88; }
 .template-btn.edit { background: transparent; color: var(--ink-3); border: 1px solid var(--line-2); }
 .template-btn.edit:hover { background: var(--paper-2); border-color: var(--line); color: var(--ink); }
+.template-card.active { border-left: 3px solid var(--accent); background: var(--accent-50); padding-left: 13px; }
+.template-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+.template-clinic-tag { font-family: var(--font-sans); font-size: 10px; color: var(--ink-4); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; }
+.template-channels { display: flex; gap: 4px; flex-shrink: 0; }
+.template-vars { display: flex; flex-wrap: wrap; gap: 4px; }
+.template-var { font-family: var(--font-mono); font-size: 10px; color: var(--accent-ink); background: var(--accent-50); padding: 2px 7px; border-radius: 5px; letter-spacing: 0.02em; border: 1px solid rgba(193,95,60,0.18); }
+.template-card.active .template-var { background: rgba(255,255,255,0.55); border-color: rgba(193,95,60,0.25); }
+.templates-intro { font-family: var(--font-sans); font-size: 12px; color: var(--ink-4); margin-bottom: 16px; max-width: 580px; line-height: 1.55; }
+.templates-request-link { font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 500; cursor: pointer; background: none; border: none; padding: 0; display: inline-flex; align-items: center; gap: 4px; }
+.templates-request-link:hover { text-decoration: underline; }
 
 /* ── COMM DRAWER ── */
 .comm-backdrop { position: fixed; inset: 0; background: rgba(26,20,14,0.25); opacity: 0; pointer-events: none; transition: opacity 200ms ease; z-index: 200; backdrop-filter: blur(2px); }
@@ -433,7 +443,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     <svg viewBox="0 0 14 14" fill="none"><path d="M12.5 7c0 2.761-2.462 5-5.5 5-1.012 0-1.96-.27-2.77-.738L1.5 12.5l.788-2.73A4.96 4.96 0 011.5 7c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
     Comunicação
   </a>
-  <a class="nav-tab" href="#">
+  <a class="nav-tab" href="financeiro.html">
     <svg viewBox="0 0 14 14" fill="none"><path d="M1.5 12.5h11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="2" y="7.5" width="2.5" height="5" rx="0.6" stroke="currentColor" stroke-width="1.1"/><rect x="5.75" y="4.5" width="2.5" height="8" rx="0.6" stroke="currentColor" stroke-width="1.1"/><rect x="9.5" y="1.5" width="2.5" height="11" rx="0.6" stroke="currentColor" stroke-width="1.1"/></svg>
     Financeiro
   </a>
@@ -942,112 +952,160 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   <!-- ── TAB: MODELOS ── -->
   <div class="comm-tab-panel" data-tab="modelos">
     <div class="templates-header">
-      <div style="font-family:var(--font-serif);font-size:17px;letter-spacing:-0.02em;">Biblioteca de modelos</div>
-      <button class="btn-ghost">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-        Novo modelo
-      </button>
+      <div style="font-family:var(--font-serif);font-size:17px;letter-spacing:-0.02em;">Biblioteca da Plural Orto</div>
+      <button class="templates-request-link">Solicitar novo modelo →</button>
+    </div>
+    <div class="templates-intro">
+      Todos os modelos abaixo já foram aprovados pela Meta e podem ser usados pela clínica. Ative os que fizer sentido para seu fluxo. Para um modelo personalizado, solicite ao nosso time — o prazo da Meta varia de 1 a 7 dias.
     </div>
     <div class="templates-grid">
 
-      <div class="template-card">
+      <div class="template-card active">
         <div class="template-card-top">
-          <span class="template-cat">Lembrete</span>
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          <div class="template-meta-row">
+            <span class="template-status-pill utility">Utility</span>
+            <span class="template-clinic-tag">Lembrete</span>
+          </div>
+          <div class="template-channels">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          </div>
         </div>
         <div class="template-name">Lembrete padrão 24h</div>
         <div class="template-preview">Olá [nome], lembrando que você tem consulta amanhã às [hora] com [médico]. Confirme com SIM ou avise se precisar remarcar. Até amanhã!</div>
+        <div class="template-vars">
+          <span class="template-var">[nome]</span>
+          <span class="template-var">[hora]</span>
+          <span class="template-var">[médico]</span>
+        </div>
         <div class="template-footer">
-          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 47×</span>
+          <span class="template-usage">Usado 47× · últ. 30d</span>
           <div class="template-actions">
-            <button class="template-btn edit">Editar</button>
-            <button class="template-btn use">Usar</button>
+            <button class="template-btn edit">Desativar</button>
           </div>
         </div>
       </div>
 
-      <div class="template-card">
+      <div class="template-card active">
         <div class="template-card-top">
-          <span class="template-cat">Confirmação</span>
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          <div class="template-meta-row">
+            <span class="template-status-pill utility">Utility</span>
+            <span class="template-clinic-tag">Confirmação</span>
+          </div>
+          <div class="template-channels">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          </div>
         </div>
         <div class="template-name">Confirmação interativa</div>
         <div class="template-preview">Olá [nome]! Você tem consulta na [dia] às [hora]. Responda SIM para confirmar ou NÃO se precisar remarcar. Aguardamos você!</div>
+        <div class="template-vars">
+          <span class="template-var">[nome]</span>
+          <span class="template-var">[dia]</span>
+          <span class="template-var">[hora]</span>
+        </div>
         <div class="template-footer">
-          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 38×</span>
+          <span class="template-usage">Usado 38× · últ. 30d</span>
           <div class="template-actions">
-            <button class="template-btn edit">Editar</button>
-            <button class="template-btn use">Usar</button>
+            <button class="template-btn edit">Desativar</button>
           </div>
         </div>
       </div>
 
-      <div class="template-card">
+      <div class="template-card active">
         <div class="template-card-top">
-          <span class="template-cat">Onboarding</span>
-          <div style="display:flex;gap:4px;">
+          <div class="template-meta-row">
+            <span class="template-status-pill utility">Utility</span>
+            <span class="template-clinic-tag">Onboarding</span>
+          </div>
+          <div class="template-channels">
             <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
             <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
           </div>
         </div>
         <div class="template-name">Boas-vindas paciente novo</div>
         <div class="template-preview">Bem-vindo à Plural Orto, [nome]! É um prazer ter você conosco. Sua primeira consulta está marcada para [data] às [hora]. Qualquer dúvida, estamos aqui!</div>
+        <div class="template-vars">
+          <span class="template-var">[nome]</span>
+          <span class="template-var">[data]</span>
+          <span class="template-var">[hora]</span>
+        </div>
         <div class="template-footer">
-          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 23×</span>
+          <span class="template-usage">Usado 23× · últ. 30d</span>
           <div class="template-actions">
-            <button class="template-btn edit">Editar</button>
-            <button class="template-btn use">Usar</button>
+            <button class="template-btn edit">Desativar</button>
           </div>
         </div>
       </div>
 
-      <div class="template-card">
+      <div class="template-card active">
         <div class="template-card-top">
-          <span class="template-cat">NPS</span>
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          <div class="template-meta-row">
+            <span class="template-status-pill utility">Utility</span>
+            <span class="template-clinic-tag">NPS</span>
+          </div>
+          <div class="template-channels">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          </div>
         </div>
         <div class="template-name">Pesquisa de satisfação</div>
         <div class="template-preview">Como foi sua consulta hoje com o [médico]? ⭐⭐⭐⭐⭐ Sua avaliação é muito importante para nós! Clique aqui para avaliar: [link]</div>
+        <div class="template-vars">
+          <span class="template-var">[médico]</span>
+          <span class="template-var">[link]</span>
+        </div>
         <div class="template-footer">
-          <span class="template-usage"><span class="template-status-pill utility" style="margin-right:6px;">✓ Aprovado</span>Usado 41×</span>
+          <span class="template-usage">Usado 41× · últ. 30d</span>
           <div class="template-actions">
-            <button class="template-btn edit">Editar</button>
-            <button class="template-btn use">Usar</button>
+            <button class="template-btn edit">Desativar</button>
           </div>
         </div>
       </div>
 
       <div class="template-card">
         <div class="template-card-top">
-          <span class="template-cat">Reativação</span>
-          <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          <div class="template-meta-row">
+            <span class="template-status-pill marketing">Marketing</span>
+            <span class="template-clinic-tag">Reativação</span>
+          </div>
+          <div class="template-channels">
+            <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
+          </div>
         </div>
         <div class="template-name">Reativação gentil</div>
         <div class="template-preview">Sentimos sua falta, [nome]! Faz tempo que não te vemos por aqui. Que tal marcar uma consulta de manutenção? Clique aqui para agendar online.</div>
+        <div class="template-vars">
+          <span class="template-var">[nome]</span>
+        </div>
         <div class="template-footer">
-          <span class="template-usage"><span class="template-status-pill marketing" style="margin-right:6px;">✓ Aprovado</span>Usado 15×</span>
+          <span class="template-usage">Disponível para ativar</span>
           <div class="template-actions">
-            <button class="template-btn edit">Editar</button>
-            <button class="template-btn use">Usar</button>
+            <button class="template-btn use">Ativar</button>
           </div>
         </div>
       </div>
 
       <div class="template-card">
         <div class="template-card-top">
-          <span class="template-cat">Campanha</span>
-          <div style="display:flex;gap:4px;">
+          <div class="template-meta-row">
+            <span class="template-status-pill marketing">Marketing</span>
+            <span class="template-clinic-tag">Campanha</span>
+          </div>
+          <div class="template-channels">
             <span class="whatsapp-pill"><svg viewBox="0 0 10 10" fill="none"><path d="M5 1C2.79 1 1 2.79 1 5c0 .71.19 1.38.52 1.96L1 9l2.13-.5A4 4 0 105 1z" fill="#25D366"/></svg>WA</span>
             <span class="email-pill"><svg viewBox="0 0 10 10" fill="none"><rect x="1" y="2.5" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="1"/><path d="M1 3.5l4 2.5 4-2.5" stroke="currentColor" stroke-width="1"/></svg>Email</span>
           </div>
         </div>
         <div class="template-name">Promoção genérica</div>
         <div class="template-preview">Olá [nome]! Temos uma novidade especial para você: [oferta]. Aproveite até [data]. Clique aqui para saber mais e agendar: [link]</div>
+        <div class="template-vars">
+          <span class="template-var">[nome]</span>
+          <span class="template-var">[oferta]</span>
+          <span class="template-var">[data]</span>
+          <span class="template-var">[link]</span>
+        </div>
         <div class="template-footer">
-          <span class="template-usage"><span class="template-status-pill marketing" style="margin-right:6px;">✓ Aprovado</span>Usado 8×</span>
+          <span class="template-usage">Disponível para ativar</span>
           <div class="template-actions">
-            <button class="template-btn edit">Editar</button>
-            <button class="template-btn use">Usar</button>
+            <button class="template-btn use">Ativar</button>
           </div>
         </div>
       </div>
