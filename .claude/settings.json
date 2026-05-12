@@ -5,7 +5,8 @@
       "Bash(git push *)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git -C /home/pedrodioliveira/Desktop/repocenter/pulse-prototipo status)"
+      "Bash(git -C /home/pedrodioliveira/Desktop/repocenter/pulse-prototipo status)",
+      "Bash(awk '/<nav/,/<\\\\/nav>/' /home/pedrodioliveira/Desktop/repocenter/pulse-prototipo/__TRACKED_VAR__)"
     ]
   }
 }
